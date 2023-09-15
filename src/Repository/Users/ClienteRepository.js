@@ -24,3 +24,17 @@ export async function InserirCliente (cliente) {
 
     return cliente;
 }
+
+export async function login(email, senha){
+    
+    const comando = 
+    `   SELECT  NM_USUARIO,    
+                DS_EMAIL,      
+                DS_SENHA   
+        FROM TB_CADASTRO_CLIENTE 
+        WHERE  DS_EMAIL = ? 
+        AND    DS_SENHA = ?`
+    
+    const [resposta] = await con.query(comando,[email, senha])
+    return resposta[0]
+}
