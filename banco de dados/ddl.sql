@@ -95,3 +95,8 @@ CREATE TABLE TB_INGRESSO (
   "Senha": "1234",
   "Endereco": "av. para"
 }
+
+
+{
+  "Categoria" : "Museu"
+}

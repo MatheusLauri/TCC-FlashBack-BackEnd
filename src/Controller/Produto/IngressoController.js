@@ -10,9 +10,9 @@ endpoints.post('/TipoIngresso', async (req, resp) => {
 
     try {
 
-        const resp = req.body
+        const inserirTipo = req.body
 
-        const tipoinserido = await inserirTipoIngresso(resp)
+        const tipoinserido = await inserirTipoIngresso(inserirTipo)
 
         resp.send(tipoinserido)
         
@@ -28,9 +28,9 @@ endpoints.post('/inserirCategoria', async (req, resp) => {
 
     try {
 
-        const resp = req.body
+        const inserirCategoria = req.body
 
-        const categoriainserido = await inserirCategoriaIngresso(resp)
+        const categoriainserido = await inserirCategoriaIngresso(inserirCategoria)
 
         resp.send(categoriainserido)
         
@@ -47,9 +47,9 @@ endpoints.post('/inserirIngresso', async (req, resp) => {
 
     try {
 
-        const resp = req.body
+        const inserirIngress = req.body
 
-        const ingressoInserido = await inserirIngresso(resp)
+        const ingressoInserido = await inserirIngresso(inserirIngress)
 
         resp.send(ingressoInserido)
         
@@ -64,8 +64,8 @@ endpoints.post('/inserirIngresso', async (req, resp) => {
 endpoints.get('/listarIngressos',async (req,resp) => {
     try{
 
-        const resposta = await ListarIngresso()
-        resp.send(resposta)
+        const listagem = await ListarIngresso()
+        resp.send(listagem)
 
     } catch(err) {
         resp.status(400).send({
