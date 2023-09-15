@@ -76,4 +76,23 @@ endpoints.get('/listarIngressos',async (req,resp) => {
 })
 
 
+endpoints.delete('/ingresso', async (req, resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await removerIngresso(id)
+        
+        if (resposta != 1)
+            throw new Error('Ingresso não pode ser removido.');
+
+            resp.status(204).send()
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
+
 export default endpoints;

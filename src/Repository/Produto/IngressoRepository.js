@@ -95,6 +95,13 @@ export async function alterarIngresso(){
 
 }
 
-export async function removerIngresso(){
-    
+
+
+export async function removerIngresso(id){
+
+    const comando = 
+    ` DELETE FROM TB_INGRESSO WHERE ID_INGRESSO = ?`
+
+    const [resposta] = await con.query(comando, [id])
+    return resposta.affectedRows
 }
