@@ -96,5 +96,5 @@ export async function alterarIngresso(){
 }
 
 export async function removerIngresso(){
-
+    
 }

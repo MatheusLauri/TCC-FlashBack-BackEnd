@@ -100,3 +100,12 @@ CREATE TABLE TB_INGRESSO (
 {
   "Categoria" : "Museu"
 }
+
+
+{
+  "Ingresso": "9",
+  "Tipo_ingresso": "pista",
+  "Quatidade": 800,
+  "Preco": 40
+}
+
