@@ -77,7 +77,7 @@ CREATE TABLE TB_INGRESSO (
    
 );
 
-
+-- Cliente
 {
   "Nome": "Eric",
   "Sobrenome": "Tasa",
@@ -88,6 +88,8 @@ CREATE TABLE TB_INGRESSO (
   "Senha": "123456"
 }
 
+--Empresa
+
 {
   "CNPJ": "33344983983",
   "RazaoSocial": "MC donalds",
@@ -96,11 +98,13 @@ CREATE TABLE TB_INGRESSO (
   "Endereco": "av. para"
 }
 
+--Categoria
 
 {
   "Categoria" : "Museu"
 }
 
+--Tipo
 
 {
   "Ingresso": "9",

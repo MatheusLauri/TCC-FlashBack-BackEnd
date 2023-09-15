@@ -24,7 +24,7 @@ endpoints.post('/TipoIngresso', async (req, resp) => {
 })
 
 
-endpoints.post('/inserirCategoria', async (req, resp) => {
+endpoints.post('/Categoria', async (req, resp) => {
 
     try {
 
@@ -43,7 +43,7 @@ endpoints.post('/inserirCategoria', async (req, resp) => {
 
 
 
-endpoints.post('/inserirIngresso', async (req, resp) => {
+endpoints.post('/Ingresso', async (req, resp) => {
 
     try {
 
@@ -61,7 +61,7 @@ endpoints.post('/inserirIngresso', async (req, resp) => {
 })
 
 
-endpoints.get('/listarIngressos',async (req,resp) => {
+endpoints.get('/Ingressos',async (req,resp) => {
     try{
 
         const listagem = await ListarIngresso()
