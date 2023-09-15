@@ -1,5 +1,5 @@
 
-import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, ListarIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, ListarIngresso, removerIngresso} from "../../Repository/Produto/IngressoRepository.js"
 
 
 import { Router } from "express";
@@ -76,15 +76,13 @@ endpoints.get('/Ingressos',async (req,resp) => {
 })
 
 
-endpoints.delete('/ingresso', async (req, resp) => {
+endpoints.delete('/ingresso/:id', async (req, resp) => {
     try {
         
         const {id} = req.params
 
         const deletar = await removerIngresso(id)
         
-        if (resposta != 1)
-            throw new Error('Ingresso não pode ser removido.');
 
             resp.status(204).send()
 
