@@ -3,7 +3,8 @@ import 'dotenv/config'
 
 import ClienteController from './Controller/Users/ClienteController.js'
 import EmpresaController from './Controller/Users/EmpresaController.js'
-import IngressoController from './Controller/Users/IngressoController.js'
+import IngressoController from './Controller/Produto/IngressoController.js'
+
 
 import cors from 'cors'
 import express from 'express'

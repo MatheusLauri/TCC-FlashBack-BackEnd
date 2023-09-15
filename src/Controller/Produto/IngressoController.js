@@ -1,5 +1,5 @@
 
-import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, ListarIngresso} from "../../Repository/Users/IngressoRepository.js"
+import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, ListarIngresso} from "../../Repository/Produto/IngressoRepository.js"
 
 
 import { Router } from "express";
