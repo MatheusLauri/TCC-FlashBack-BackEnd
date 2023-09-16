@@ -1,45 +1,6 @@
+
 import { con } from "../connection.js";
 
-
-export async function inserirTipoIngresso(ingresso){
-    const comando = 
-    `INSERT INTO TB_TIPOS_INGRESSO (ID_INGRESSO, NM_TIPO_INGRESSO, QTD_TIPO_INGRESSO, NR_PRECO_TIPO) 
-            VALUES (?, ?, ?, ?)`
-
-    const [resposta] = await con.query (comando,
-            
-            [
-                ingresso.Ingresso,
-                ingresso.Tipo_ingresso,
-                ingresso.Quantidade,
-                ingresso.Preco
-            ]
-
-        )
-
-        ingresso.ID = resposta.insertId;
-
-    return ingresso;
-
-}
-
-
-export async function inserirCategoriaIngresso(categoria){
-    const comando = 
-    `INSERT INTO TB_CATEGORIA_INGRESSO(NM_CATEGORIA_INGRESSO)
-            VALUES (?)`
-    
-    const [resposta] = await con.query (comando, 
-        [
-            categoria.Categoria
-        ]
-    )
-    categoria.ID = resposta.insertId;
-
-    return categoria;
-
-    //talvez esse n use, pois ele escolhe a catergoria quando ele clicar nas fotinhas do adm
-}
 
 
 export async function inserirIngresso(ingresso){
@@ -50,7 +11,7 @@ export async function inserirIngresso(ingresso){
 	       VALUES (?, ?, ?, ?, ?, ?)
     `
 
-    const [resposta] = con.query (comando, 
+    const [resposta] = await con.query (comando, 
         
         [
             ingresso.Categoria,
@@ -66,6 +27,7 @@ export async function inserirIngresso(ingresso){
 
     return ingresso;
 }
+
 
 
 export async function ListarIngressos(){
@@ -86,12 +48,13 @@ export async function ListarIngressos(){
         ORDER BY  	    NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO`
 
     const [resposta] = await con.query(comando)
+
     return resposta
 }
 
 
 
-export async function alterarIngresso(ingresso, id){
+export async function alterarIngresso(id, ingresso){
 
     const comando = 
         `UPDATE TB_INGRESSO
@@ -101,7 +64,7 @@ export async function alterarIngresso(ingresso, id){
                         DT_INGRESSO             = ?, 
                         DS_LOCAL                = ?, 
                         DS_EVENTO               = ?
-                WHERE ID_INGRESSO = ?`
+                WHERE   ID_INGRESSO = ?`
 
     const [resposta] = await con.query(comando, 
         
@@ -114,6 +77,7 @@ export async function alterarIngresso(ingresso, id){
             ingresso.Descricao, 
             id
         ]
+
     )
     
     return resposta.affectedRows
@@ -130,7 +94,7 @@ export async function removerIngresso(id){
 
     const comando2 = 
     ` DELETE FROM   TB_INGRESSO
-    WHERE  ID_INGRESSO = ?`
+            WHERE  ID_INGRESSO = ?`
 
     const [resposta] = await con.query(comando, [id])
     const [resposta2] = await con.query(comando2, [id])

@@ -1,7 +1,9 @@
 
 
+import { alterarTipoIngresso, inserirTipoIngresso, listarTipos, removerTipoIngresso } from "../../Repository/Produto/TipoIngressoRepository.js";
+
 import { Router } from "express";
-import { inserirCategoriaIngresso } from "../../Repository/Produto/IngressoRepository.js";
+
 const endpoints  = Router()
 
 
@@ -12,7 +14,7 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
 
         const inserirTipo = req.body
 
-        const tipoinserido = await inserirCategoriaIngresso(inserirTipo)
+        const tipoinserido = await inserirTipoIngresso(inserirTipo)
 
         resp.send(tipoinserido)
         
@@ -22,3 +24,64 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
         })     
     }
 })
+
+
+
+endpoints.get('/tipoIngresso', async (req, resp) => {
+
+    try {
+
+        const tipos = await listarTipos()
+
+        resp.send(tipos)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
+
+endpoints.put('/tipoIngresso/:id', async (req, resp) => {
+
+    try {
+
+        const {id} = req.params
+
+        const tipo = req.body
+
+        const tipoAlterado = await alterarTipoIngresso(id, tipo)
+
+        resp.status(204).send()
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
+
+endpoints.delete('/tipoIngresso/:id', async (req, resp) => {
+
+    try {
+
+        const {id} = req.params
+
+        const tipoDeletado = await removerTipoIngresso(id)
+
+        resp.status(204).send()
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
+
+export default endpoints;

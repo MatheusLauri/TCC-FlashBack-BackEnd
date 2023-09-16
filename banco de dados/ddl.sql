@@ -104,12 +104,24 @@ CREATE TABLE TB_INGRESSO (
   "Categoria" : "Museu"
 }
 
+
+-- Ingresso 
+
+{
+	"Categoria": 1,
+	"Empresa": 1,
+	"NomeEvento": "Nuce",
+	"Data": "2023-11-12 10:00:00",
+	"Local": "Av. Mariia",
+	"Descricao": "alha bays biuu"
+}
+
 --Tipo
 
 {
-  "Ingresso": "9",
-  "Tipo_ingresso": "pista",
-  "Quatidade": 800,
+  "Ingresso": 1,
+  "Tipo": "Vip",
+  "Quantidade": 800,
   "Preco": 40
 }
 

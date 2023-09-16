@@ -1,5 +1,5 @@
 
-import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso} from "../../Repository/Produto/IngressoRepository.js"
 
 
 import { Router } from "express";
@@ -69,8 +69,7 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
 
         const deletar = await removerIngresso(id)
         
-
-            resp.status(204).send()
+        resp.status(204).send()
 
     } catch (err) {
         resp.status(400).send({
