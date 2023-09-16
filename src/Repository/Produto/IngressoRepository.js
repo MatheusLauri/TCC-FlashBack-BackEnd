@@ -57,9 +57,8 @@ export async function inserirIngresso(ingresso){
             ingresso.Empresa,
             ingresso.NomeEvento,
             ingresso.Data,
-            ingresso.Ingresso,
             ingresso.Local,
-            ingresso.Evento
+            ingresso.Descricao
         ] 
     )
 
@@ -69,7 +68,7 @@ export async function inserirIngresso(ingresso){
 }
 
 
-export async function ListarIngresso(){
+export async function ListarIngressos(){
 
     const comando = `
         SELECT  NM_CATEGORIA_INGRESSO,
@@ -80,19 +79,44 @@ export async function ListarIngresso(){
                 DT_INGRESSO, 
                 DS_LOCAL, 
                 DS_EVENTO
-        FROM 	TB_INGRESSO		 INGRESSO
+
+        FROM 	        TB_INGRESSO		                INGRESSO
         INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA	ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
         INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 		ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
         ORDER BY  	    NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO`
 
-        const [linhas] = await con.query(comando)
-        return linhas
+    const [resposta] = await con.query(comando)
+    return resposta
 }
 
 
 
-export async function alterarIngresso(){
+export async function alterarIngresso(ingresso, id){
 
+    const comando = 
+        `UPDATE TB_INGRESSO
+                SET     ID_CATEGORIA_INGRESSO   = ?, 
+                        ID_EMPRESA              = ?, 
+                        NM_EVENTO               = ?, 
+                        DT_INGRESSO             = ?, 
+                        DS_LOCAL                = ?, 
+                        DS_EVENTO               = ?
+                WHERE ID_INGRESSO = ?`
+
+    const [resposta] = await con.query(comando, 
+        
+        [
+            ingresso.Categoria,
+            ingresso.Empresa,
+            ingresso.NomeEvento,
+            ingresso.Data,
+            ingresso.Local,
+            ingresso.Descricao, 
+            id
+        ]
+    )
+    
+    return resposta.affectedRows
 }
 
 
@@ -100,8 +124,19 @@ export async function alterarIngresso(){
 export async function removerIngresso(id){
 
     const comando = 
-    ` DELETE FROM TB_INGRESSO WHERE ID_INGRESSO = ?`
+    ` DELETE FROM   TB_TIPOS_INGRESSO 
+             WHERE  ID_INGRESSO = ?
+    `
+
+    const comando2 = 
+    ` DELETE FROM   TB_INGRESSO
+    WHERE  ID_INGRESSO = ?`
 
     const [resposta] = await con.query(comando, [id])
-    return resposta.affectedRows
+    const [resposta2] = await con.query(comando2, [id])
+
+    return resposta2.affectedRows
+
 }
+
+

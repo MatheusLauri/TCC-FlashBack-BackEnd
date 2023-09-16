@@ -1,55 +1,19 @@
 
-import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, ListarIngresso, removerIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirTipoIngresso, inserirCategoriaIngresso, inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso} from "../../Repository/Produto/IngressoRepository.js"
 
 
 import { Router } from "express";
-const endpoints  = Router()
+const endpoints  = Router();
 
 
-endpoints.post('/TipoIngresso', async (req, resp) => {
 
-    try {
-
-        const inserirTipo = req.body
-
-        const tipoinserido = await inserirTipoIngresso(inserirTipo)
-
-        resp.send(tipoinserido)
-        
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })     
-    }
-})
-
-
-endpoints.post('/Categoria', async (req, resp) => {
+endpoints.post('/ingresso', async (req, resp) => {
 
     try {
 
-        const inserirCategoria = req.body
+        const inserir = req.body
 
-        const categoriainserido = await inserirCategoriaIngresso(inserirCategoria)
-
-        resp.send(categoriainserido)
-        
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })     
-    }
-})
-
-
-
-endpoints.post('/Ingresso', async (req, resp) => {
-
-    try {
-
-        const inserirIngress = req.body
-
-        const ingressoInserido = await inserirIngresso(inserirIngress)
+        const ingressoInserido = await inserirIngresso(inserir)
 
         resp.send(ingressoInserido)
         
@@ -61,10 +25,10 @@ endpoints.post('/Ingresso', async (req, resp) => {
 })
 
 
-endpoints.get('/Ingressos',async (req,resp) => {
+endpoints.get('/ingresso',async (req, resp) => {
     try{
 
-        const listagem = await ListarIngresso()
+        const listagem = await ListarIngressos()
         resp.send(listagem)
 
     } catch(err) {
@@ -73,6 +37,28 @@ endpoints.get('/Ingressos',async (req,resp) => {
         })
     }
     
+})
+
+
+endpoints.put('/ingresso/:id', async (req, resp) => {
+
+    try {
+        
+        const {id} = req.params
+
+        const ingresso = req.body
+
+        const alterar = await alterarIngresso(id, ingresso)
+
+        resp.status(204).send()
+
+    } catch (err) {
+
+        resp.status(400).send({
+            erro: err.message
+        })
+        
+    }
 })
 
 
