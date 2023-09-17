@@ -6,7 +6,7 @@ import { Router } from "express";
 
 const endpoints  = Router()
 
-// fazer 
+
 
 endpoints.get('/tipoIngresso', async (req, resp) => {
 
@@ -29,6 +29,19 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
 
         const inserirTipo = req.body
 
+
+        if(!inserirTipo.Ingresso)
+            throw new Error('Id ingresso Obrigatorio')
+        
+        if(!inserirTipo.Tipo)
+            throw new Error('Tipo Ingresso Obrigatorio')
+
+        if(!inserirTipo.Quantidade)
+            throw new Error('Quantidade tipo ingresso Obrigatorio');
+
+        if(!inserirTipo.Preco)
+            throw new Error('Preco tipo ingresso Obrigatorio')
+
         const tipoinserido = await inserirTipoIngresso(inserirTipo)
 
         resp.send(tipoinserido)
@@ -50,6 +63,21 @@ endpoints.put('/tipoIngresso/:id', async (req, resp) => {
 
         const tipo = req.body
 
+        if(!tipo.Ingresso)
+            throw new Error('Id ingresso Obrigatorio')
+        
+        if(!tipo.Tipo)
+            throw new Error('Tipo Ingresso Obrigatorio')
+
+        if(!tipo.Quantidade)
+            throw new Error('Quantidade tipo ingresso Obrigatorio');
+
+        if(!tipo.Preco)
+            throw new Error('Preco tipo ingresso Obrigatorio')
+
+        if(isNaN(id))
+            throw new Error('Erro no id')
+        
         const tipoAlterado = await alterarTipoIngresso(id, tipo)
 
         resp.status(204).send()
