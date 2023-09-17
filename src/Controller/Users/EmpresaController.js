@@ -5,7 +5,7 @@ import { InserirEmpresa, login } from "../../Repository/Users/EmpresaRepository.
 
 const endpoints  = Router()
 
-
+// quando arrumar as validações dos clientes faço essa!
 
 endpoints.post('/empresa', async (req, resp) => {
 
@@ -13,7 +13,28 @@ endpoints.post('/empresa', async (req, resp) => {
 
         const InserirNovaEmpresa = req.body
 
+        if(!InserirNovaEmpresa.CNPJ)
+            throw new Error('CNPJ Obrigatorio!')
+
+        if(!InserirNovaEmpresa.RazaoSocial)
+            throw new Error('Razão Social Obrigatorio!')
+
+        if(!InserirNovaEmpresa.Email)
+            throw new Error('Email Obrigatorio!')
+
+        if(!InserirNovaEmpresa.Senha)
+            throw new Error('Senha Obrigatorio!')
+
+        if(!InserirNovaEmpresa.Endereco)
+            throw new Error('Endereco Obrigatorio!')
+
+
+
         const empresaInserida = await InserirEmpresa(InserirNovaEmpresa)
+
+        if(empresaInserida.length > 0)
+            throw new Error('empresa já inserida');
+
 
         resp.send(empresaInserida)
         
@@ -27,6 +48,7 @@ endpoints.post('/empresa', async (req, resp) => {
 
 endpoints.post('/empresa/login', async (req, resp) => {
 
+// n consegui fazer que nem o login cliente, falta esses dois 
     try {
         
         const { cnpj, email, senha,} = req.body

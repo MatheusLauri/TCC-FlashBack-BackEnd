@@ -5,30 +5,12 @@ import { alterarCategoria, inserirCategoriaIngresso, listarCategorias, removerCa
 import { Router } from "express";
 const endpoints  = Router()
 
-
-endpoints.post('/categoria', async (req, resp) => {
-
-    try {
-
-        const inserirCategoria = req.body
-
-        const categoriainserido = await inserirCategoriaIngresso(inserirCategoria)
-
-        resp.send(categoriainserido)
-        
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })     
-    }
-})
-
-
+// todas validações feita 
 
 endpoints.get('/categoria', async (req, resp) => {
 
     try {
-
+        // n tem validação
         const categorias = await listarCategorias()
 
         resp.send(categorias)
@@ -41,6 +23,29 @@ endpoints.get('/categoria', async (req, resp) => {
 })
 
 
+endpoints.post('/categoria', async (req, resp) => {
+
+    try {
+
+        const inserirCategoria = req.body
+
+        if (!inserirCategoria.Categoria)
+            throw new Error('Categoria obrigatoria!');  
+        
+        const categoriainserido = await inserirCategoriaIngresso(inserirCategoria)
+
+        if(categoriainserido.length > 0)
+            throw new Error('Categoria já cadastrada')
+        
+            resp.send(categoriainserido)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
 
 endpoints.put('/categoria/:id', async (req, resp) => {
 
@@ -49,6 +54,15 @@ endpoints.put('/categoria/:id', async (req, resp) => {
         const {id} = req.params
 
         const categoria = req.body
+
+
+        if(!categoria.Categoria)
+            throw new Error('Nome categoria obrigatoria!');
+
+
+        if(isNaN(id))   
+            throw new Error('Id tem que ser numero'); 
+
 
         const categoriaAlterada = await alterarCategoria(id, categoria)
 
@@ -70,6 +84,10 @@ endpoints.delete('/categoria/:id', async (req, resp) => {
         const {id} = req.params
 
         const categoriaDeletada = await removerCategoria(id)
+                
+         if(categoriaDeletada == 0 )
+            throw new Error('categoria  não pode ser deletada');
+
 
         resp.status(204).send()
         
@@ -79,5 +97,6 @@ endpoints.delete('/categoria/:id', async (req, resp) => {
         })     
     }
 })
+
 
 export default endpoints;

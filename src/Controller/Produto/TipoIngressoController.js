@@ -6,7 +6,22 @@ import { Router } from "express";
 
 const endpoints  = Router()
 
+// fazer 
 
+endpoints.get('/tipoIngresso', async (req, resp) => {
+
+    try {
+        // n tem validação
+        const tipos = await listarTipos()
+
+        resp.send(tipos)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
 
 endpoints.post('/tipoIngresso', async (req, resp) => {
 
@@ -17,23 +32,6 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
         const tipoinserido = await inserirTipoIngresso(inserirTipo)
 
         resp.send(tipoinserido)
-        
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })     
-    }
-})
-
-
-
-endpoints.get('/tipoIngresso', async (req, resp) => {
-
-    try {
-
-        const tipos = await listarTipos()
-
-        resp.send(tipos)
         
     } catch (err) {
         resp.status(404).send({
@@ -72,6 +70,9 @@ endpoints.delete('/tipoIngresso/:id', async (req, resp) => {
         const {id} = req.params
 
         const tipoDeletado = await removerTipoIngresso(id)
+
+        if(tipoDeletado == 0)
+            throw new Error('Tipo não pode ser deletado');
 
         resp.status(204).send()
         
