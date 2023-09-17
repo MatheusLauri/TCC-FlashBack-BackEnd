@@ -89,6 +89,9 @@ endpoints.put('/ingresso/:id', async (req, resp) => {
         if(!ingresso.Data)
            throw new Error('Data obrigatorio!')
 
+        if(isNaN(id))
+            throw new Error('Id obrigatorio')
+
         const alterar = await alterarIngresso(id, ingresso)
 
         resp.status(204).send()
