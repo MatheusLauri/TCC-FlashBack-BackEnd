@@ -11,7 +11,6 @@ const endpoints  = Router()
 endpoints.get('/tipoIngresso', async (req, resp) => {
 
     try {
-        // n tem validação
         const tipos = await listarTipos()
 
         resp.send(tipos)
