@@ -13,7 +13,29 @@ endpoints.post('/ingresso', async (req, resp) => {
 
         const inserir = req.body
 
+
+        if(!inserir.Categoria)
+            throw new Error('Nome categoria obrigatoria!')
+
+        if(!inserir.Empresa)
+            throw new Error('Nome Empresa obrigatoria!')
+        
+        if(!inserir.NomeEvento)
+            throw new Error('Nome evento obrigatorio!')
+
+        if(!inserir.Local)
+            throw new Error('Local obrigatorio!')
+     
+        if(!inserir.Descricao)
+           throw new Error('Descrição obrigatorio!')
+
+        if(!inserir.Data)
+           throw new Error('Data obrigatorio!')
+
         const ingressoInserido = await inserirIngresso(inserir)
+
+        if(ingressoInserido.length > 0)
+            throw new Error('Ingresso já cadastrado')
 
         resp.send(ingressoInserido)
         
@@ -27,7 +49,7 @@ endpoints.post('/ingresso', async (req, resp) => {
 
 endpoints.get('/ingresso',async (req, resp) => {
     try{
-
+        // n tem validação 
         const listagem = await ListarIngressos()
         resp.send(listagem)
 
@@ -47,6 +69,28 @@ endpoints.put('/ingresso/:id', async (req, resp) => {
         const {id} = req.params
 
         const ingresso = req.body
+
+        
+        if(!ingresso.Categoria)
+            throw new Error('Nome categoria obrigatoria!')
+
+        if(!ingresso.Empresa)
+            throw new Error('Nome Empresa obrigatoria!')
+        
+        if(!ingresso.NomeEvento)
+            throw new Error('Nome evento obrigatorio!')
+
+        if(!ingresso.Local)
+            throw new Error('Local obrigatorio!')
+     
+        if(!ingresso.Descricao)
+           throw new Error('Descrição obrigatorio!')
+
+        if(!ingresso.Data)
+           throw new Error('Data obrigatorio!')
+
+        if(isNaN(id))
+            throw new Error('Id obrigatorio')
 
         const alterar = await alterarIngresso(id, ingresso)
 
@@ -68,6 +112,9 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
         const {id} = req.params
 
         const deletar = await removerIngresso(id)
+
+        if(deletar == 0)
+            throw new Error('ingresso  não pode ser deletada');
         
         resp.status(204).send()
 
