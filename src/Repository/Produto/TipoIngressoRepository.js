@@ -4,7 +4,7 @@ import { con } from "../connection.js";
 
 export async function inserirTipoIngresso(tipo){
     const comando = 
-    `   INSERT INTO TB_TIPOS_INGRESSO (ID_INGRESSO, NM_TIPO_INGRESSO, QTD_TIPO_INGRESSO, NR_PRECO_TIPO) 
+    `   INSERT INTO TB_TIPOS_INGRESSO (ID_INGRESSO, NM_TIPO_INGRESSO, QTD_TIPO_INGRESSO, VL_PRECO_TIPO) 
                 VALUES (?, ?, ?, ?)`
 
     const [resposta] = await con.query (comando,
@@ -46,7 +46,7 @@ export async function alterarTipoIngresso (id, tipo) {
                 SET     ID_INGRESSO             = ?, 
                         NM_TIPO_INGRESSO        = ?, 
                         QTD_TIPO_INGRESSO       = ?, 
-                        NR_PRECO_TIPO           = ?
+                        VL_PRECO_TIPO           = ?
                 WHERE ID_TIPO_INGRESSO          = ? `
 
     const [resposta] = await con.query(comando, 

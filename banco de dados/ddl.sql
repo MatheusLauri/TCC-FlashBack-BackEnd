@@ -84,6 +84,7 @@ CREATE TABLE TB_INGRESSO (
 	DT_FIM 								DATETIME,
     IMAGEM_INGRESSO 					VARCHAR(1000),
     DT_CADASTRO							DATETIME,
+    BT_DESTAQUE							BOOL,
     
    FOREIGN KEY (ID_CATEGORIA_INGRESSO) REFERENCES TB_CATEGORIA_INGRESSO (ID_CATEGORIA_INGRESSO),
    FOREIGN KEY (ID_EMPRESA) REFERENCES TB_CADASTRO_EMPRESA (ID_EMPRESA),
@@ -145,7 +146,7 @@ DROP TABLE TB_INGRESSO;
 DROP TABLE TB_PEDIDO_INGRESSO;
 DROP TABLE TB_PEDIDO;
 DROP TABLE TB_CATEGORIA_INGRESSO;
-DROP TABLE TB_DATA_INGRESSO;
+
 
 
 -- Cliente
@@ -179,12 +180,13 @@ DROP TABLE TB_DATA_INGRESSO;
 -- Ingresso 
 
 {
-	"Categoria": 1,
-	"Empresa": 1,
-	"NomeEvento": "Nuce",
-	"Data": "2023-11-12 10:00:00",
-	"Local": "Av. Mariia",
-	"Descricao": "alha bays biuu"
+  "Categoria": 1,
+  "Empresa": 1,
+  "NomeEvento": "Siu",
+  "Descricao": "ssdsd",
+  "DataComeco": "2023-11-12 20:00:00",
+  "DataFim": "2024-11-12 21:00:00",
+  "Destaque": true
 }
 
 --Tipo

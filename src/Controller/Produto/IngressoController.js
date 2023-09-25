@@ -1,6 +1,9 @@
 
-import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso} from "../../Repository/Produto/IngressoRepository.js"
 
+import multer from "multer";
+
+const upload = multer ({dest: 'Storage/capasIngressos'})
 
 import { Router } from "express";
 const endpoints  = Router();
@@ -13,24 +16,24 @@ endpoints.post('/ingresso', async (req, resp) => {
 
         const inserir = req.body
 
-
         if(!inserir.Categoria)
-            throw new Error('Nome categoria obrigatoria!')
+            throw new Error('Nome categoria obrigatória!')
 
         if(!inserir.Empresa)
-            throw new Error('Nome Empresa obrigatoria!')
+            throw new Error('Nome Empresa obrigatória!')
         
         if(!inserir.NomeEvento)
-            throw new Error('Nome evento obrigatorio!')
+            throw new Error('Nome evento obrigatório!')
 
-        if(!inserir.Local)
-            throw new Error('Local obrigatorio!')
-     
         if(!inserir.Descricao)
-           throw new Error('Descrição obrigatorio!')
+            throw new Error('Descrição obrigatória!')
+     
+        if(!inserir.DataComeco)
+           throw new Error('Data de início obrigatória!')
 
-        if(!inserir.Data)
-           throw new Error('Data obrigatorio!')
+        if(!inserir.DataFim)
+           throw new Error('Data de fim obrigatória!')
+
 
         const ingressoInserido = await inserirIngresso(inserir)
 
@@ -62,6 +65,30 @@ endpoints.get('/ingresso',async (req, resp) => {
 })
 
 
+endpoints.put('/ingresso/:id/capa', upload.single('capa'), async (req, resp) => {
+
+    try {
+
+        const {id} = req.params
+
+        const imagem = req.file.path
+        
+        const resposta = await AlterarCapaIngresso(imagem, id)
+
+        if (resposta != 1)
+            throw new Error ('A imagem não pode ser salva')  
+
+        resp.status(204).send()
+        
+    } catch (err) {
+        resp.status(401).send({
+            erro: err.message
+        })
+    }
+
+})
+
+
 endpoints.put('/ingresso/:id', async (req, resp) => {
 
     try {
@@ -72,25 +99,26 @@ endpoints.put('/ingresso/:id', async (req, resp) => {
 
         
         if(!ingresso.Categoria)
-            throw new Error('Nome categoria obrigatoria!')
+            throw new Error('Nome categoria obrigatória!')
 
         if(!ingresso.Empresa)
-            throw new Error('Nome Empresa obrigatoria!')
+            throw new Error('Nome Empresa obrigatória!')
         
         if(!ingresso.NomeEvento)
-            throw new Error('Nome evento obrigatorio!')
+            throw new Error('Nome evento obrigatório!')
 
-        if(!ingresso.Local)
-            throw new Error('Local obrigatorio!')
-     
         if(!ingresso.Descricao)
-           throw new Error('Descrição obrigatorio!')
+            throw new Error('Descrição obrigatória!')
+     
+        if(!ingresso.DataComeco)
+           throw new Error('Data de início obrigatória!')
 
-        if(!ingresso.Data)
-           throw new Error('Data obrigatorio!')
+        if(!ingresso.DataFim)
+           throw new Error('Data de fim obrigatória!')
 
         if(isNaN(id))
-            throw new Error('Id obrigatorio')
+            throw new Error('Id obrigatório')
+        
 
         const alterar = await alterarIngresso(id, ingresso)
 
