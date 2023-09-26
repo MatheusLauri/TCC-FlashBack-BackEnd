@@ -186,7 +186,7 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "Descricao": "ssdsd",
   "DataComeco": "2023-11-12 20:00:00",
   "DataFim": "2024-11-12 21:00:00",
-  "Destaque": true
+  "Destaque": false
 }
 
 --Tipo
