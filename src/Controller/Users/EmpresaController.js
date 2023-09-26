@@ -52,7 +52,7 @@ endpoints.post('/empresa/login', async (req, resp) => {
     try {
         
         const { cnpj, email, senha,} = req.body
-        const resposta = await login( cnpj, email, senha)
+        const resposta = await login(cnpj, email, senha)
 
         if(!resposta)   
             throw new Error("Crendencias invalidas")
