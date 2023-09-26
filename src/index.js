@@ -22,7 +22,7 @@ const server = express()
 server.use(cors())
 server.use(express.json())
 
-server.use('/Storage/capaIngressos', express.static('/Storage/capasIngressos'))
+server.use('/Storage/capasIngressos', express.static('Storage/capasIngressos'))
 
 server.use(ClienteController)
 server.use(EmpresaController)

@@ -25,16 +25,16 @@ export async function InserirCliente (cliente) {
     return cliente;
 }
 
-export async function login(email, senha){
+export async function login(NomeUsuario, cpf, email, senha){
     
     const comando = 
     `   SELECT  NM_USUARIO,    
                 DS_EMAIL,      
                 DS_SENHA   
         FROM TB_CADASTRO_CLIENTE 
-        WHERE  DS_EMAIL = ? 
+        WHERE  (NM_USUARIO = ? OR DS_CPF = ? OR DS_EMAIL = ?) 
         AND    DS_SENHA = ?`
     
-    const [resposta] = await con.query(comando,[email, senha])
+    const [resposta] = await con.query(comando,[NomeUsuario, cpf, email, senha])
     return resposta[0]
 }

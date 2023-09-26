@@ -52,7 +52,7 @@ endpoints.post('/cliente/login', async (req, resp) => {
     try {
         
         // arrumar 
-        const {email, senha} = req.body
+        const {NomeUsuario, cpf, email, senha} = req.body
 
 
                 
@@ -60,7 +60,7 @@ endpoints.post('/cliente/login', async (req, resp) => {
       //      throw new Error('Nome ou senha inval')       validação entrando direto
 
 
-        const resposta = await login(email, senha)
+        const resposta = await login(NomeUsuario, cpf, email, senha)
 
         if(!resposta)   
         throw new Error("Crendencias invalidas")            //validação entrando direto (arrumar umas das duas)
