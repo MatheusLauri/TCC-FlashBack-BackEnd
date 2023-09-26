@@ -3,7 +3,6 @@ import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, Alte
 
 import multer from "multer";
 
-
 const upload = multer ({dest: 'Storage/capasIngressos'})
 
 import { Router } from "express";
