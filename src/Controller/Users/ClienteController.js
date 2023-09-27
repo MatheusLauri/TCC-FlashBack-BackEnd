@@ -56,10 +56,10 @@ endpoints.post('/cliente/login', async (req, resp) => {
         const resposta = await login(NomeUsuario, cpf, email, senha)
 
         if(!NomeUsuario && !cpf && !email)   
-            throw new Error("É necessário inserir um cpf, email ou nome de usuário")
+            throw new Error("É necessário inserir um CPF, email ou nome de usuário.")
 
         if(!senha)   
-            throw new Error("É necessário inserir uma senha")
+            throw new Error("É necessário inserir uma senha.")
 
         if(!resposta)   
         throw new Error("Crendenciais inválidas")           
