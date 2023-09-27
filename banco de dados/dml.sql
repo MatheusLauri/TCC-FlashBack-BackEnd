@@ -7,8 +7,8 @@ INSERT INTO TB_CADASTRO_CLIENTE (NM_CLIENTE, NM_SOBRENOME, DS_CPF, DS_TELEFONE, 
 	VALUE (?, ?, ?, ?, ?, ?, ?);
     
 
-INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_SENHA_EMPRESA, DS_ENDERECO_EMPRESA)
-	VALUE (?, ?, ?, ?, ?);
+INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_SENHA_EMPRESA)
+	VALUE (?, ?, ?, ?);
     
 -- -----------------------------------------------------------------------------------------------------------------
     
@@ -45,6 +45,7 @@ SELECT  NM_CATEGORIA_INGRESSO,
         DT_COMECO,
         DT_FIM,
         DS_EVENTO,
+        IMAGEM_INGRESSO,
         DT_CADASTRO,
         BT_DESTAQUE
         

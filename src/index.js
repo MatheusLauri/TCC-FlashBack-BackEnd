@@ -5,6 +5,7 @@ import 'dotenv/config'
 
 import ClienteController from './Controller/Users/ClienteController.js'
 import EmpresaController from './Controller/Users/EmpresaController.js'
+import AdmController from './Controller/Users/AdmController.js'
 
 // Controllers Produto -----------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ server.use('/Storage/capasIngressos', express.static('Storage/capasIngressos'))
 
 server.use(ClienteController)
 server.use(EmpresaController)
+server.use(AdmController)
 
 
 server.use(CategoriaController)

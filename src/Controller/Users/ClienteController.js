@@ -36,7 +36,7 @@ endpoints.post('/cliente', async (req, resp) => {
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 
         if(clienteInserido.length > 0 )
-            throw new Error('cliente já inserido');
+            throw new Error('Cliente já inserido');
 
         resp.send(clienteInserido)
 
@@ -51,19 +51,18 @@ endpoints.post('/cliente/login', async (req, resp) => {
 
     try {
         
-        // arrumar 
         const {NomeUsuario, cpf, email, senha} = req.body
-
-
-                
-      //  if(!email || !senha)
-      //      throw new Error('Nome ou senha inval')       validação entrando direto
-
 
         const resposta = await login(NomeUsuario, cpf, email, senha)
 
+        if(!NomeUsuario && !cpf && !email)   
+            throw new Error("É necessário inserir um cpf, email ou nome de usuário")
+
+        if(!senha)   
+            throw new Error("É necessário inserir uma senha")
+
         if(!resposta)   
-        throw new Error("Crendencias invalidas")            //validação entrando direto (arrumar umas das duas)
+        throw new Error("Crendenciais inválidas")           
 
         resp.send(resposta)
         

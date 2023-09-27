@@ -57,6 +57,26 @@ export async function ListarIngressos(){
 }
 
 
+export async function buscarIngressosCategoria (categoria) {
+
+    const comando = `
+    SELECT  NM_CATEGORIA_INGRESSO, 
+            NM_EVENTO, 
+            DT_COMECO,
+            DS_EVENTO,
+            IMAGEM_INGRESSO
+    
+        FROM 			TB_INGRESSO						INGRESSO
+        INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        WHERE NM_CATEGORIA_INGRESSO = ?
+    `
+
+    const [resposta] = await con.query(comando, [categoria])
+
+    return resposta
+}
+
+
 
 export async function AlterarCapaIngresso (imagem, id) {
 
@@ -107,18 +127,28 @@ export async function alterarIngresso(id, ingresso){
 export async function removerIngresso(id){
 
     const comando = 
+    ` DELETE FROM   TB_PEDIDO
+            WHERE   ID_PEDIDO_INGRESSO = ?`
+
+    const comando2 = 
+    ` DELETE FROM   TB_PEDIDO_INGRESSO
+            WHERE   ID_TIPO_INGRESSO = ?`
+
+    const comando3 = 
     ` DELETE FROM   TB_TIPOS_INGRESSO 
              WHERE  ID_INGRESSO = ?
     `
 
-    const comando2 = 
+    const comando4 = 
     ` DELETE FROM   TB_INGRESSO
-            WHERE  ID_INGRESSO = ?`
+            WHERE   ID_INGRESSO = ?`
 
     const [resposta] = await con.query(comando, [id])
     const [resposta2] = await con.query(comando2, [id])
+    const [resposta3] = await con.query(comando3, [id])
+    const [resposta4] = await con.query(comando4, [id])
 
-    return resposta2.affectedRows
+    return resposta4.affectedRows
 
 }
 

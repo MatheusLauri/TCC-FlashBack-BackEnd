@@ -21,8 +21,7 @@ CREATE TABLE TB_CADASTRO_EMPRESA (
 	DS_CNPJ 					VARCHAR(18),
 	NM_RAZAO_SOCIAL 			VARCHAR(200),
 	DS_EMAIL_EMPRESA 			VARCHAR(200),
-	DS_SENHA_EMPRESA 			VARCHAR(200),
-	DS_ENDERECO_EMPRESA 		VARCHAR(200)
+	DS_SENHA_EMPRESA 			VARCHAR(200)
 
 );
 
@@ -148,6 +147,8 @@ DROP TABLE TB_PEDIDO;
 DROP TABLE TB_CATEGORIA_INGRESSO;
 
 
+-- CADASTROS E ALTERAÇÕES ----------------------------------------------------------------------------------------------
+
 
 -- Cliente
 {
@@ -198,3 +199,43 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "Preco": 40
 }
 
+
+
+-- LOGINS ----------------------------------------------------------------------------------------------
+
+
+--Adm
+
+{
+  "email": "OIII",
+  "senha": 1234
+}
+
+-- Empresa
+
+{
+  "cnpj": "33344983983",
+  "senha": "1234"
+}
+
+{
+  "email": "mc@gmail.com",
+  "senha": "1234"
+}
+
+-- Cliente
+
+{
+  "email": "epp@gmail.com",
+  "senha": "123456"
+}
+
+{
+  "NomeUsuario": "Tuu",
+  "senha": "123456"
+}
+
+{
+  "cpf": "499.333.100-90",
+  "senha": "123456"
+}

@@ -25,10 +25,6 @@ endpoints.post('/empresa', async (req, resp) => {
         if(!InserirNovaEmpresa.Senha)
             throw new Error('Senha Obrigatorio!')
 
-        if(!InserirNovaEmpresa.Endereco)
-            throw new Error('Endereco Obrigatorio!')
-
-
 
         const empresaInserida = await InserirEmpresa(InserirNovaEmpresa)
 
@@ -52,15 +48,17 @@ endpoints.post('/empresa/login', async (req, resp) => {
     try {
         
         const { cnpj, email, senha,} = req.body
+        
         const resposta = await login(cnpj, email, senha)
-        if(!cnpj)   
-            throw new Error("É necessário inserir um cnpj")
-        if(!email)   
-            throw new Error("É necessário inserir um email")
+
+        if(!cnpj && !email)   
+            throw new Error("É necessário inserir um cnpj ou email")
+
         if(!senha)   
             throw new Error("É necessário inserir uma senha")
+
         if(!resposta)   
-            throw new Error("Crendencias invalidas")
+            throw new Error("Crendenciais inválidas")
 
         resp.send(resposta)
         

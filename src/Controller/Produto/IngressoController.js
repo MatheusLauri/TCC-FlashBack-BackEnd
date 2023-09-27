@@ -1,5 +1,5 @@
 
-import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso, buscarIngressosCategoria} from "../../Repository/Produto/IngressoRepository.js"
 
 import multer from "multer";
 
@@ -50,18 +50,38 @@ endpoints.post('/ingresso', async (req, resp) => {
 })
 
 
-endpoints.get('/ingresso',async (req, resp) => {
+endpoints.get('/ingresso', async (req, resp) => {
+
     try{
-        // n tem validação 
+
         const listagem = await ListarIngressos()
         resp.send(listagem)
 
     } catch(err) {
-        resp.status(400).send({
+        resp.status(404).send({
             erro: err.message
         })
     }
     
+})
+
+
+endpoints.get('/ingresso/categoria', async(req, resp) => {
+
+    try{
+
+        const {categoria} = req.query
+
+        const listarCategoria = await buscarIngressosCategoria(categoria)
+
+        resp.send(listarCategoria)
+
+    } catch(err) {
+        resp.status(404).send({
+            erro: err.message
+        })
+    }
+
 })
 
 
@@ -142,7 +162,7 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
         const deletar = await removerIngresso(id)
 
         if(deletar == 0)
-            throw new Error('ingresso  não pode ser deletada');
+            throw new Error('ingresso não pode ser deletado');
         
         resp.status(204).send()
 
