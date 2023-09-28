@@ -28,9 +28,13 @@ export async function InserirCliente (cliente) {
 export async function login(NomeUsuario, cpf, email, senha){
     
     const comando = 
-    `   SELECT  NM_USUARIO,    
-                DS_EMAIL,      
-                DS_SENHA   
+    `   SELECT  NM_CLIENTE,
+                NM_SOBRENOME,
+                DS_CPF,
+                DS_TELEFONE,
+                NM_USUARIO,
+                DS_EMAIL,
+                DS_SENHA 
         FROM TB_CADASTRO_CLIENTE 
         WHERE  (NM_USUARIO = ? OR DS_CPF = ? OR DS_EMAIL = ?) 
         AND    DS_SENHA = ?`
