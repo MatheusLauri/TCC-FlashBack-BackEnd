@@ -40,3 +40,11 @@ export async function login(cnpj, email, senha){
 }
 
 
+export async function alterarDadosEmpresa () {
+
+}
+
+
+export async function removerEmpresa () {
+    
+}

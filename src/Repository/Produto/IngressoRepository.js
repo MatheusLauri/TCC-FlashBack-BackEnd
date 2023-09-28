@@ -153,3 +153,28 @@ export async function removerIngresso(id){
 }
 
 
+export async function inserirIngressocomImagem(ingresso){
+    
+    const comando = 
+    `
+    INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, NM_EVENTO, DS_EVENTO, DT_COMECO, DT_FIM, DT_CADASTRO, BT_DESTAQUE)
+	        VALUES (?, ?, ?, ?, ?, ?, now(), ?)
+    `
+
+    const [resposta] = await con.query (comando, 
+        
+        [
+            ingresso.Categoria,
+            ingresso.Empresa,
+            ingresso.NomeEvento,
+            ingresso.Descricao,
+            ingresso.DataComeco,
+            ingresso.DataFim,
+            ingresso.Destaque
+        ] 
+    )
+
+    ingresso.ID = resposta.insertId;
+
+    return ingresso;
+}

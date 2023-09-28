@@ -11,6 +11,7 @@ endpoints.post('/adm/login', async (req, resp) => {
         
         const { email, senha,} = req.body
         const resposta = await login(email, senha)
+        
         if(!email)   
             throw new Error("É necessário inserir o e-mail.")
 

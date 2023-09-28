@@ -12,26 +12,26 @@ endpoints.post('/cliente', async (req, resp) => {
         
         const InserirNovoCliente = req.body
 
-        if(!InserirNovoCliente.Nome)
-            throw new Error('Nome Obrigatorio!')
+        //if(!InserirNovoCliente.Nome)
+            //throw new Error('Nome Obrigatorio!')
 
-        if(!InserirNovoCliente.Sobrenome)
-            throw new Error('Sobrenome Obrigatorio!')
+        //if(!InserirNovoCliente.Sobrenome)
+            //throw new Error('Sobrenome Obrigatorio!')
             
         if(!InserirNovoCliente.CPF)
             throw new Error('CPF Obrigatorio!')
 
-        if(!InserirNovoCliente.Telefone)
-            throw new Error('Tel Obrigatorio!')
+        //if(!InserirNovoCliente.Telefone)
+            //throw new Error('Telefone Obrigatório!')
 
         if(!InserirNovoCliente.NomeUsuario)
-            throw new Error('Usuario Obrigatorio!')
+            throw new Error('Usuario Obrigatório!')
 
         if(!InserirNovoCliente.Email)
-            throw new Error('Email Obrigatorio!')
+            throw new Error('E-mail Obrigatório!')
 
         if(!InserirNovoCliente.Senha)
-            throw new Error('Senha Obrigatorio!')
+            throw new Error('Senha Obrigatória!')
 
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 

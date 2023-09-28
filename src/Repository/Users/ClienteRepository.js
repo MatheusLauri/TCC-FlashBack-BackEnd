@@ -38,3 +38,13 @@ export async function login(NomeUsuario, cpf, email, senha){
     const [resposta] = await con.query(comando,[NomeUsuario, cpf, email, senha])
     return resposta[0]
 }
+
+
+export async function alterarDadosCliente () {
+
+}
+
+
+export async function removerCliente () {
+
+}
