@@ -28,7 +28,8 @@ export async function InserirCliente (cliente) {
 export async function login(NomeUsuario, cpf, email, senha){
     
     const comando = 
-    `   SELECT  NM_CLIENTE,
+    `   SELECT  ID_CLIENTE,
+                NM_CLIENTE,
                 NM_SOBRENOME,
                 DS_CPF,
                 DS_TELEFONE,
