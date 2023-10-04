@@ -1,6 +1,6 @@
 
 
-import { alterarCategoria, inserirCategoriaIngresso, listarCategorias, removerCategoria } from "../../Repository/Produto/CategoriaRepository.js";
+import { alterarCategoria, inserirCategoriaIngresso, listarCategorias, BuscarNomeTipo, removerCategoria } from "../../Repository/Produto/CategoriaRepository.js";
 
 import { Router } from "express";
 const endpoints  = Router()
@@ -95,6 +95,26 @@ endpoints.delete('/categoria/:id', async (req, resp) => {
         resp.status(404).send({
             erro: err.message
         })     
+    }
+})
+
+endpoints.get('/tipo/busca', async (req,resp) => {
+    try {
+        
+        const { Categoria } = req.query
+
+        const resposta = await BuscarNomeTipo(Categoria)
+
+        if (resposta.length == 0)
+            resp.status(404).send([])
+        else
+            resp.send(resposta)
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
     }
 })
 

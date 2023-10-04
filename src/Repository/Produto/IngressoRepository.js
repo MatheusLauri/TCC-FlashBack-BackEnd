@@ -178,3 +178,41 @@ export async function inserirIngressocomImagem(ingresso){
 
     return ingresso;
 }
+
+
+export async function BuscarNomeIngresso(nome){
+
+    const comando = 
+        `
+            SELECT 
+                ID_CATEGORIA_INGRESSO  CATEGORIA,
+                ID_EMPRESA             EMPRESA,
+                ID_LOCAL_EVENTO        LOCAL,
+                NM_EVENTO              Nome,
+                DS_EVENTO              DESCRICAO,
+                DT_COMECO              COMECO,
+                DT_FIM                 FIM,
+                IMAGEM_INGRESSO        IMAGEM,
+                DT_CADASTRO            CADASTRO,
+                BT_DESTAQUE               DESTAQUE
+            FROM TB_INGRESSO 
+                WHERE NM_EVENTO LIKE ?
+        `
+
+    /*
+        const comando2 = 
+        `
+            SELECT 
+                NM_CATEGORIA_INGRESSO  Categoria
+            FROM TB_CATEGORIA_INGRESSO 
+                WHERE NM_CATEGORIA_INGRESSO LIKE ?
+        `
+    */
+
+    const [linhas] = await con.query(comando, [ `%${nome}%` ])
+
+    //const [linhas2] = await con.query(comando, [ `%${nome}%` ])
+    
+    // ARRUMAR PARA PESQUISAR JUNTO
+    return linhas
+}

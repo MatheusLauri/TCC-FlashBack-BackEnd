@@ -62,3 +62,21 @@ export async function removerCategoria (id) {
 
     return resposta.affectedRows;
 }
+
+
+export async function BuscarNomeTipo(nome){
+
+        const comando = 
+        `
+            SELECT 
+                NM_CATEGORIA_INGRESSO  Categoria
+            FROM TB_CATEGORIA_INGRESSO 
+                WHERE NM_CATEGORIA_INGRESSO LIKE ?
+        `
+      
+        
+    const [linhas] = await con.query(comando, [ `%${nome}%` ])
+
+
+    return linhas
+}
