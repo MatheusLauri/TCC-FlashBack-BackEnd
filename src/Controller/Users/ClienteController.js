@@ -11,18 +11,19 @@ endpoints.post('/cliente', async (req, resp) => {
     try {
         
         const InserirNovoCliente = req.body
+        
 
-        //if(!InserirNovoCliente.Nome)
-            //throw new Error('Nome Obrigatorio!')
+        if(!InserirNovoCliente.Nome)
+            throw new Error('Nome Obrigatorio!')
 
-        //if(!InserirNovoCliente.Sobrenome)
-            //throw new Error('Sobrenome Obrigatorio!')
+        if(!InserirNovoCliente.Sobrenome)
+            throw new Error('Sobrenome Obrigatorio!')
             
         if(!InserirNovoCliente.CPF)
             throw new Error('CPF Obrigatorio!')
 
-        //if(!InserirNovoCliente.Telefone)
-            //throw new Error('Telefone Obrigatório!')
+        if(!InserirNovoCliente.Telefone)
+            throw new Error('Telefone Obrigatório!')
 
         if(!InserirNovoCliente.NomeUsuario)
             throw new Error('Usuario Obrigatório!')
@@ -35,8 +36,6 @@ endpoints.post('/cliente', async (req, resp) => {
 
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 
-        if(clienteInserido.length > 0 )
-            throw new Error('Cliente já inserido');
 
         resp.send(clienteInserido)
 
