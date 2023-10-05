@@ -230,8 +230,11 @@ export async function BuscarNomeIngresso(nome){
 
     const [linhas] = await con.query(comando, [ `%${nome}%` ])
 
+    
+
     //const [linhas2] = await con.query(comando, [ `%${nome}%` ])
     
+    //DATA HORARIO NOME LOC 
     // ARRUMAR PARA PESQUISAR JUNTO FAZER INNER JOING 
     return linhas
 }
