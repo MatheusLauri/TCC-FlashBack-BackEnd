@@ -209,10 +209,29 @@ export async function BuscarNomeIngresso(nome){
         `
     */
 
+    /*
+        SELECT  NM_CATEGORIA_INGRESSO,
+		NM_TIPO_INGRESSO, 
+        QTD_TIPO_INGRESSO, 
+        VL_PRECO_TIPO, 
+        NM_EVENTO, 
+        DT_COMECO,
+        DT_FIM,
+        DS_EVENTO,
+        IMAGEM_INGRESSO,
+        DT_CADASTRO,
+        BT_DESTAQUE
+        
+	    FROM 			TB_INGRESSO						INGRESSO
+	    INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 			ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
+	    ORDER BY  	NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO
+    */
+
     const [linhas] = await con.query(comando, [ `%${nome}%` ])
 
     //const [linhas2] = await con.query(comando, [ `%${nome}%` ])
     
-    // ARRUMAR PARA PESQUISAR JUNTO
+    // ARRUMAR PARA PESQUISAR JUNTO FAZER INNER JOING 
     return linhas
 }
