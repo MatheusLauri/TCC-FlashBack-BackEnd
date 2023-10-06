@@ -169,7 +169,6 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "RazaoSocial": "MC donalds",
   "Email": "mc@gmail.com",
   "Senha": "1234",
-  "Endereco": "av. para"
 }
 
 --Categoria

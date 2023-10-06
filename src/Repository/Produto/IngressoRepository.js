@@ -184,57 +184,22 @@ export async function BuscarNomeIngresso(nome){
 
     const comando = 
         `
-            SELECT 
-                ID_CATEGORIA_INGRESSO  CATEGORIA,
-                ID_EMPRESA             EMPRESA,
-                ID_LOCAL_EVENTO        LOCAL,
-                NM_EVENTO              Nome,
-                DS_EVENTO              DESCRICAO,
-                DT_COMECO              COMECO,
-                DT_FIM                 FIM,
-                IMAGEM_INGRESSO        IMAGEM,
-                DT_CADASTRO            CADASTRO,
-                BT_DESTAQUE               DESTAQUE
-            FROM TB_INGRESSO 
-                WHERE NM_EVENTO LIKE ?
-        `
-
-    /*
-        const comando2 = 
-        `
-            SELECT 
-                NM_CATEGORIA_INGRESSO  Categoria
-            FROM TB_CATEGORIA_INGRESSO 
-                WHERE NM_CATEGORIA_INGRESSO LIKE ?
-        `
-    */
-
-    /*
-        SELECT  NM_CATEGORIA_INGRESSO,
-		NM_TIPO_INGRESSO, 
-        QTD_TIPO_INGRESSO, 
-        VL_PRECO_TIPO, 
-        NM_EVENTO, 
-        DT_COMECO,
-        DT_FIM,
-        DS_EVENTO,
-        IMAGEM_INGRESSO,
-        DT_CADASTRO,
-        BT_DESTAQUE
-        
-	    FROM 			TB_INGRESSO						INGRESSO
-	    INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        SELECT  
+                NM_EVENTO, 
+                DT_COMECO,
+                DS_EVENTO,
+                IMAGEM_INGRESSO
+                
+                
+        FROM 			TB_INGRESSO						INGRESSO
+        INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
         INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 			ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
-	    ORDER BY  	NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO
-    */
+        WHERE   NM_EVENTO LIKE ? OR  NM_CATEGORIA_INGRESSO LIKE ? OR NM_TIPO_INGRESSO LIKE ?
+
+        `
+
 
     const [linhas] = await con.query(comando, [ `%${nome}%` ])
 
-    
-
-    //const [linhas2] = await con.query(comando, [ `%${nome}%` ])
-    
-    //DATA HORARIO NOME LOC 
-    // ARRUMAR PARA PESQUISAR JUNTO FAZER INNER JOING 
     return linhas
 }

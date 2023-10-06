@@ -177,9 +177,9 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
 endpoints.get('/ingresso/busca', async (req,resp) => {
     try {
         
-        const { Nome } = req.query
+        const { nome } = req.query
 
-        const resposta = await BuscarNomeIngresso(Nome)
+        const resposta = await BuscarNomeIngresso(nome)
 
         if (resposta.length == 0)
             resp.status(404).send([])
