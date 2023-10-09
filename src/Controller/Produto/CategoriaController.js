@@ -7,6 +7,32 @@ const endpoints  = Router()
 
 // todas validações feita 
 
+
+endpoints.post('/categoria', async (req, resp) => {
+
+    try {
+
+        const inserirCategoria = req.body
+
+        if (!inserirCategoria.Categoria)
+            throw new Error('Categoria obrigatoria!');  
+        
+        const categoriainserida = await inserirCategoriaIngresso(inserirCategoria)
+
+        if(categoriainserida.length > 0)
+            throw new Error('Categoria já cadastrada')
+        
+            resp.send(categoriainserido)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
+
 endpoints.get('/categoria', async (req, resp) => {
 
     try {
@@ -22,29 +48,6 @@ endpoints.get('/categoria', async (req, resp) => {
     }
 })
 
-
-endpoints.post('/categoria', async (req, resp) => {
-
-    try {
-
-        const inserirCategoria = req.body
-
-        if (!inserirCategoria.Categoria)
-            throw new Error('Categoria obrigatoria!');  
-        
-        const categoriainserido = await inserirCategoriaIngresso(inserirCategoria)
-
-        if(categoriainserido.length > 0)
-            throw new Error('Categoria já cadastrada')
-        
-            resp.send(categoriainserido)
-        
-    } catch (err) {
-        resp.status(404).send({
-            erro: err.message
-        })     
-    }
-})
 
 
 endpoints.put('/categoria/:id', async (req, resp) => {

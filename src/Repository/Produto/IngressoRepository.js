@@ -68,10 +68,10 @@ export async function buscarIngressosCategoria (categoria) {
     
         FROM 			TB_INGRESSO						INGRESSO
         INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
-        WHERE NM_CATEGORIA_INGRESSO = ?
+        WHERE NM_CATEGORIA_INGRESSO LIKE ?
     `
 
-    const [resposta] = await con.query(comando, [categoria])
+    const [resposta] = await con.query(comando, [`${categoria}`])
 
     return resposta
 }
@@ -199,7 +199,7 @@ export async function BuscarNomeIngresso(nome){
         `
 
 
-    const [linhas] = await con.query(comando, [ `%${nome}%` ])
+    const [linhas] = await con.query(comando, [ `%${nome}%`,  ])
 
     return linhas
 }
