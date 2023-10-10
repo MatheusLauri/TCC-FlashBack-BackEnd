@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 
-import { InserirCliente, login } from "../../Repository/Users/ClienteRepository.js";
+import { InserirCliente, alterarDadosCliente, login } from "../../Repository/Users/ClienteRepository.js";
 
 const endpoints = Router()
 
@@ -12,7 +12,7 @@ endpoints.post('/cliente', async (req, resp) => {
         
         const InserirNovoCliente = req.body
         
-        if(!InserirNovoCliente.NomeUsuario)
+       /* if(!InserirNovoCliente.NomeUsuario)
             throw new Error('Usuario Obrigatório!')
 
         if(!InserirNovoCliente.Email)
@@ -20,7 +20,7 @@ endpoints.post('/cliente', async (req, resp) => {
 
         if(!InserirNovoCliente.Senha)
             throw new Error('Senha Obrigatória!')
-
+*/
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 
 
@@ -59,6 +59,27 @@ endpoints.post('/cliente/login', async (req, resp) => {
         })
     }
 
+})
+
+
+endpoints.put('/cliente/alterarInfos/:id', async (req, resp) => {
+
+    
+
+        const {id} = req.params
+
+        const cliente = req.body
+
+        if(isNaN(id))
+            throw new Error('Id obrigatório')
+        
+
+        const alterar = await alterarDadosCliente(id, cliente)
+
+        resp.status(204).send()
+
+  
+    
 })
 
 

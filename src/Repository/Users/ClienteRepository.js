@@ -25,6 +25,8 @@ export async function InserirCliente (cliente) {
     return cliente;
 }
 
+
+
 export async function login(NomeUsuario, cpf, email, senha){
     
     const comando = 
@@ -46,8 +48,34 @@ export async function login(NomeUsuario, cpf, email, senha){
 
 
 
-export async function alterarDadosCliente () {
- 
+export async function alterarDadosCliente (id, cliente) {
+
+    const comando = 
+    ` UPDATE TB_CADASTRO_CLIENTE
+            SET  NM_CLIENTE     = ?, 
+            NM_SOBRENOME        = ?, 
+            DS_CPF              = ?, 
+            DS_TELEFONE         = ?, 
+            NM_USUARIO          = ?, 
+            DS_EMAIL            = ?,
+            DS_SENHA            = ?
+            WHERE   ID_CLIENTE = ?`
+
+    const [resposta] = await con.query(comando, 
+    
+    [
+        cliente.Nome,
+        cliente.Sobrenome,
+        cliente.CPF,
+        cliente.Telefone,
+        cliente.NomeUsuario,
+        cliente.Email,
+        cliente.Senha,
+        id
+    ])
+
+    return resposta.affectedRows
+
 }
 
 
