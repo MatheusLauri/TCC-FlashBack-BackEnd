@@ -71,7 +71,7 @@ export async function buscarIngressosCategoria (categoria) {
         WHERE NM_CATEGORIA_INGRESSO LIKE ?
     `
 
-    const [resposta] = await con.query(comando, [`${categoria}`])
+    const [resposta] = await con.query(comando, [`%${categoria}%`])
 
     return resposta
 }

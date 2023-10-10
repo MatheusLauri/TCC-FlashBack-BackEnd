@@ -74,6 +74,9 @@ endpoints.get('/ingresso/categoria', async(req, resp) => {
 
         const listarCategoria = await buscarIngressosCategoria(categoria)
 
+        if (listarCategoria.length < 1) 
+        throw new Error ('Nenhum foi ingresso encontrado')
+
         resp.send(listarCategoria)
 
     } catch(err) {
