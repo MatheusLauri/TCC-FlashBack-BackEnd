@@ -92,6 +92,9 @@ endpoints.put('/ingresso/:id/capa', upload.single('capa'), async (req, resp) => 
 
     try {
 
+        if (!req.file) 
+            throw new Error ('Insira uma imagem!')  
+
         const {id} = req.params
 
         const imagem = req.file.path
