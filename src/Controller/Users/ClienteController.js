@@ -23,7 +23,6 @@ endpoints.post('/cliente', async (req, resp) => {
 */
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 
-
         resp.send(clienteInserido)
 
     } catch (err) {
