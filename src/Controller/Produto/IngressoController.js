@@ -185,6 +185,7 @@ endpoints.get('/ingresso/busca', async (req,resp) => {
         
         const { nome } = req.query
 
+        
         const resposta = await BuscarNomeIngresso(nome)
 
         if (resposta.length == 0)
