@@ -22,7 +22,7 @@ endpoints.post('/categoria', async (req, resp) => {
         if(categoriainserida.length > 0)
             throw new Error('Categoria já cadastrada')
         
-            resp.send(categoriainserido)
+            resp.send(categoriainserida)
         
     } catch (err) {
         resp.status(404).send({
