@@ -26,13 +26,14 @@ export async function inserirTipoIngresso(tipo){
 
 
 
-export async function listarTipos () {
+export async function listarTipos (id) {
 
     const comando = 
     `  SELECT * FROM   
-                TB_TIPOS_INGRESSO `
+                TB_TIPOS_INGRESSO
+                WHERE ID_INGRESSO = ? `
     
-    const [resposta] = await con.query(comando)
+    const [resposta] = await con.query(comando, [id])
 
     return resposta;
 }
