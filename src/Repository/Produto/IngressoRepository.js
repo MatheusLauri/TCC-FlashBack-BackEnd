@@ -184,7 +184,7 @@ export async function BuscarNomeIngresso(nome){
 
     const comando = 
         `
-        SELECT  
+        SELECT  INGRESSO.ID_INGRESSO,
                 NM_EVENTO, 
                 DT_COMECO,
                 DS_EVENTO,
