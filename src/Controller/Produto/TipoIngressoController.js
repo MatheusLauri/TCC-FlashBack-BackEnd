@@ -8,10 +8,11 @@ const endpoints  = Router()
 
 
 
-endpoints.get('/tipoIngresso', async (req, resp) => {
+endpoints.get('/tipoIngresso/:id', async (req, resp) => {
 
     try {
-        const tipos = await listarTipos()
+        const {id} = req.params
+        const tipos = await listarTipos(id)
 
         resp.send(tipos)
         
