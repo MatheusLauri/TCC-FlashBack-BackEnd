@@ -1,6 +1,6 @@
 
 
-import { InserirPedido } from "../../Repository/Produto/PedidoRepository.js";
+import { InserirPedido, ListarPedido } from "../../Repository/Produto/PedidoRepository.js";
 
 import { Router } from "express";
 
@@ -22,8 +22,21 @@ endpoints.post('/pedido', async (req, resp) =>{
             erro: err.message
         })  
     }
+})
 
 
+endpoints.get('/listarPedido', async (req,resp) =>{
+    try {
+        
+        const listagem = await ListarPedido()
+        
+        resp.send(listagem)
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
 })
 
 
