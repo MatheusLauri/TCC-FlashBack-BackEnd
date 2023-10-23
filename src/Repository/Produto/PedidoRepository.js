@@ -54,3 +54,38 @@ export async function ListarPedido(){
 
     return resposta
 }
+
+
+export async function ListarPedidoIngresso(){
+    const comando = 
+    `
+        SELECT 
+        PI.ID_PEDIDO_INGRESSO,
+        PI.ID_CLIENTE,
+        PI.ID_INGRESSO,
+        PI.ID_TIPO_INGRESSO,
+        PI.QTD_ITENS,
+        TI.NM_TIPO_INGRESSO,
+        TI.QTD_TIPO_INGRESSO,
+        TI.VL_PRECO_TIPO,
+        ING.ID_CATEGORIA_INGRESSO,
+        ING.ID_EMPRESA,
+        ING.ID_LOCAL_EVENTO,
+        ING.NM_EVENTO,
+        ING.DS_EVENTO,
+        ING.DT_COMECO,
+        ING.DT_FIM,
+        ING.IMAGEM_INGRESSO,
+        ING.DT_CADASTRO,
+        ING.BT_DESTAQUE
+        FROM TB_PEDIDO_INGRESSO PI
+        INNER JOIN TB_TIPOS_INGRESSO TI ON PI.ID_TIPO_INGRESSO = TI.ID_TIPO_INGRESSO
+        INNER JOIN TB_INGRESSO ING ON PI.ID_INGRESSO = ING.ID_INGRESSO
+    `
+    
+    
+
+    const [resposta] = await con.query(comando)
+
+    return resposta
+}
