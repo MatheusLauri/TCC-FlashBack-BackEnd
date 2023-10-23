@@ -13,6 +13,7 @@ import CategoriaController from './Controller/Produto/CategoriaController.js'
 import IngressoController from './Controller/Produto/IngressoController.js'
 import TipoIngressoController from './Controller/Produto/TipoIngressoController.js'
 import LocalEventoController from './Controller/Produto/LocalEventoController.js'
+import PedidoController from './Controller/Produto/PedidoController.js'
 
 import cors from 'cors'
 import express from 'express'
@@ -34,6 +35,8 @@ server.use(CategoriaController)
 server.use(IngressoController)
 server.use(TipoIngressoController)
 server.use(LocalEventoController)
+server.use(PedidoController)
+
 
 
 server.listen(process.env.PORT, 
