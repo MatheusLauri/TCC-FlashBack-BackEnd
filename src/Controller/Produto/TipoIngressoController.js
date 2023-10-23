@@ -39,7 +39,7 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
         if(!inserirTipo.Quantidade)
             throw new Error('Quantidade tipo ingresso Obrigatorio');
 
-        if(!inserirTipo.Preco)
+        if(inserirTipo.Preco === undefined)
             throw new Error('Preco tipo ingresso Obrigatorio')
 
         const tipoinserido = await inserirTipoIngresso(inserirTipo)
