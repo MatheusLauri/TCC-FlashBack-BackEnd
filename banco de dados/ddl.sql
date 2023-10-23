@@ -199,7 +199,15 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "Preco": 40
 }
 
+--Local Evento 
 
+{
+  "CEP": "04866-000",
+  "Logradouro": "Av. Castro",
+  "Bairro": "Jd. Das Rosas",
+  "Localidade": "São Paulo" ,
+  "UF": "SP"
+}
 
 -- LOGINS ----------------------------------------------------------------------------------------------
 
