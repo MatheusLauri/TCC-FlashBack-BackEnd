@@ -248,3 +248,23 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "cpf": "499.333.100-90",
   "senha": "123456"
 }
+
+
+-- Pedido
+
+
+{
+  "PedidoIngresso": 1,
+  "FormaPagamento": 1,
+  "Situacao": false 
+}
+
+-- Pedido ingresso
+
+
+{
+  "Cliente":2,
+  "Ingresso": 3, 
+  "TipoIngresso": 2,
+  "Itens": 10
+}
