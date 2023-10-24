@@ -7,8 +7,8 @@ export async function inserirIngresso(ingresso){
     
     const comando = 
     `
-    INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, NM_EVENTO, DS_EVENTO, DT_COMECO, DT_FIM, DT_CADASTRO, BT_DESTAQUE)
-	        VALUES (?, ?, ?, ?, ?, ?, now(), ?)
+    INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, ID_LOCAL_EVENTO, NM_EVENTO, DS_EVENTO, DT_COMECO, DT_FIM, DT_CADASTRO, BT_DESTAQUE)
+	        VALUES (?, ?, ?, ?, ?, ?, ?, now(), ?)
     `
 
     const [resposta] = await con.query (comando, 
@@ -16,6 +16,7 @@ export async function inserirIngresso(ingresso){
         [
             ingresso.Categoria,
             ingresso.Empresa,
+            ingresso.Local,
             ingresso.NomeEvento,
             ingresso.Descricao,
             ingresso.DataComeco,
@@ -41,6 +42,7 @@ export async function ListarIngressos(){
             NM_EVENTO, 
             DT_COMECO,
             DT_FIM,
+            DS_LOGRADOURO,
             DS_EVENTO,
             IMAGEM_INGRESSO,
             DT_CADASTRO,
@@ -49,7 +51,8 @@ export async function ListarIngressos(){
 	FROM 			TB_INGRESSO						INGRESSO
 	INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
     INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 			ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
-	ORDER BY  	NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO  `
+    INNER JOIN		TB_LOCAL_EVENTO					LOCAL			ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
+    ORDER BY  	NM_CATEGORIA_INGRESSO, NM_TIPO_INGRESSO  `
 
     const [resposta] = await con.query(comando)
 
@@ -63,11 +66,15 @@ export async function buscarIngressosCategoria (categoria) {
     SELECT  NM_CATEGORIA_INGRESSO, 
             NM_EVENTO, 
             DT_COMECO,
+            DS_LOGRADOURO,
+            DS_LOCALIDADE,
+            DS_UF,
             DS_EVENTO,
             IMAGEM_INGRESSO
     
         FROM 			TB_INGRESSO						INGRESSO
         INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        INNER JOIN		TB_LOCAL_EVENTO					LOCAL			ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
         WHERE NM_CATEGORIA_INGRESSO LIKE ?
     `
 
@@ -96,7 +103,8 @@ export async function alterarIngresso(id, ingresso){
     const comando = 
         `UPDATE TB_INGRESSO
                 SET ID_CATEGORIA_INGRESSO   = ?, 
-                    ID_EMPRESA              = ?, 
+                    ID_EMPRESA              = ?,
+                    ID_LOCAL_EVENTO         = ?, 
                     NM_EVENTO               = ?, 
                     DS_EVENTO               = ?, 
                     DT_COMECO               = ?, 
@@ -109,6 +117,7 @@ export async function alterarIngresso(id, ingresso){
         [
             ingresso.Categoria,
             ingresso.Empresa,
+            ingresso.Local,
             ingresso.NomeEvento,
             ingresso.Descricao,
             ingresso.DataComeco,
@@ -153,7 +162,7 @@ export async function removerIngresso(id){
 }
 
 
-export async function inserirIngressocomImagem(ingresso){
+/*export async function inserirIngressocomImagemTeste(ingresso){
     
     const comando = 
     `
@@ -177,7 +186,7 @@ export async function inserirIngressocomImagem(ingresso){
     ingresso.ID = resposta.insertId;
 
     return ingresso;
-}
+}*/
 
 
 export async function BuscarNomeIngresso(nome){

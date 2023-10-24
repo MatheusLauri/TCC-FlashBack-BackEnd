@@ -183,6 +183,7 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 {
   "Categoria": 1,
   "Empresa": 1,
+  "Local": 1,
   "NomeEvento": "Siu",
   "Descricao": "ssdsd",
   "DataComeco": "2023-11-12 20:00:00",
