@@ -198,12 +198,16 @@ export async function BuscarNomeIngresso(nome){
                 NM_EVENTO, 
                 DT_COMECO,
                 DT_FIM,
+                DS_LOGRADOURO,
+                DS_LOCALIDADE,
+                DS_UF,
                 DS_EVENTO,
                 IMAGEM_INGRESSO,
                 DT_CADASTRO,
                 BT_DESTAQUE
-        FROM 			TB_INGRESSO						INGRESSO
-        INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        FROM 			TB_INGRESSO						    INGRESSO
+        INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		    CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+        INNER JOIN		TB_LOCAL_EVENTO						LOCAL			ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
         WHERE   NM_EVENTO LIKE ? OR  NM_CATEGORIA_INGRESSO like ?
 
         `
