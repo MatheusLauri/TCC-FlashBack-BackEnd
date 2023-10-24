@@ -150,3 +150,24 @@ export async function DeletarPedidoIngresso(id){
 
     return resposta2.affectedRows
 }
+
+
+export async function AdicionarQtdItens(adicionar,id){ 
+
+
+    const comando = 
+    
+    `
+    UPDATE TB_PEDIDO_INGRESSO 
+           SET QTD_ITENS = ? 
+                WHERE (ID_PEDIDO_INGRESSO = ?)
+    `
+
+    const [resposta] =  await con.query(comando,
+         [
+            adicionar.Qtd,
+            id
+         ])
+
+    return resposta
+}

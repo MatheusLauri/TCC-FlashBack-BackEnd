@@ -1,6 +1,6 @@
 
 
-import { DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso } from "../../Repository/Produto/PedidoRepository.js";
+import { AdicionarQtdItens, DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso } from "../../Repository/Produto/PedidoRepository.js";
 
 import { Router } from "express";
 
@@ -102,6 +102,25 @@ endpoints.delete('/deletarPedidoIngresso/:id', async (req,resp) => {
     } catch (err) {
         resp.status(404).send({
             erro: err.message
+        })
+    }
+})
+
+
+endpoints.put('/pedidoIngresso/:id', async (req, resp) => {
+    try {
+        
+        const {id} = req.params 
+        const ingresso = req.body
+
+
+        const alterar = await AdicionarQtdItens(ingresso,id)
+
+        resp.status(204).send()
+
+    } catch (err) {
+        resp.status(404).send({
+            erro : err.mensag
         })
     }
 })
