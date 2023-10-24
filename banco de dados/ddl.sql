@@ -53,7 +53,8 @@ CREATE TABLE TB_LOCAL_EVENTO (
 	DS_LOGRADOURO 			VARCHAR(300),
 	DS_BAIRRO 				  VARCHAR(200),
 	DS_LOCALIDADE 			VARCHAR(150),
-	DS_UF 					    VARCHAR(3)
+	DS_UF 					    VARCHAR(3), 
+  DS_NUM              VARCHAR(100)
     
 );
 
@@ -99,9 +100,9 @@ CREATE TABLE TB_TIPOS_INGRESSO (
 CREATE TABLE TB_CARTAO (
 
 	ID_CARTAO 			INT PRIMARY KEY AUTO_INCREMENT,
-	NR_CARTAO 			INT,
-	DT_VALIDADE 		DATE,
-	NR_CVV 				  INT
+	NR_CARTAO 			VARCHAR(100),
+	DT_VALIDADE 		VARCHAR(100),
+	NR_CVV 				  VARCHAR(100)
     
 );
 
@@ -247,4 +248,24 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 {
   "cpf": "499.333.100-90",
   "senha": "123456"
+}
+
+
+-- Pedido
+
+
+{
+  "PedidoIngresso": 1,
+  "FormaPagamento": 1,
+  "Situacao": false 
+}
+
+-- Pedido ingresso
+
+
+{
+  "Cliente":2,
+  "Ingresso": 3, 
+  "TipoIngresso": 2,
+  "Itens": 10
 }

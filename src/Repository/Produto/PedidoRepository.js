@@ -2,7 +2,7 @@ import { con } from "../connection.js";
 
 
 
-export async function InserirPedido(pedido){
+export async function InserirPedidoIngresso(pedido){
 
     const comando = `
     
@@ -23,6 +23,28 @@ export async function InserirPedido(pedido){
 
     return pedido
 }
+
+
+export async function InserirPedido(pedido){
+
+    const comando = 
+    `
+    INSERT INTO tb_pedido (ID_PEDIDO_INGRESSO, ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
+           VALUES (?, ?, now(), ?)
+    `
+
+    const [resposta] = await con.query(comando, 
+    [
+        pedido.PedidoIngresso,
+        pedido.FormaPagamento,
+        pedido.Situacao
+    ])
+
+    pedido.id = resposta.insertId
+
+    return pedido
+}
+
 
 
 
@@ -83,9 +105,69 @@ export async function ListarPedidoIngresso(){
         INNER JOIN TB_INGRESSO ING ON PI.ID_INGRESSO = ING.ID_INGRESSO
     `
     
-    
 
     const [resposta] = await con.query(comando)
+
+    return resposta
+}
+
+
+export async function DeletarPedido(id){
+    const comando = 
+    `
+        DELETE FROM TB_PEDIDO 
+                    WHERE ID_PEDIDO = ?
+    `
+
+    const [resposta] = await con.query(comando,[id])
+
+    return resposta.affectedRows
+}
+
+
+
+export async function DeletarPedidoIngresso(id){
+
+    const comando1 = 
+    `
+    
+        DELETE FROM TB_PEDIDO 
+                    WHERE ID_PEDIDO_INGRESSO = ?
+
+    `
+
+
+    const comando2 = 
+    `
+
+        DELETE FROM TB_PEDIDO_INGRESSO 
+                    WHERE ID_PEDIDO_INGRESSO = ?
+
+    `
+
+    const [resposta1] = await con.query(comando1, [id])
+    const [resposta2] = await con.query(comando2, [id])
+
+    return resposta2.affectedRows
+}
+
+
+export async function AdicionarQtdItens(adicionar,id){ 
+
+
+    const comando = 
+    
+    `
+    UPDATE TB_PEDIDO_INGRESSO 
+           SET QTD_ITENS = ? 
+                WHERE (ID_PEDIDO_INGRESSO = ?)
+    `
+
+    const [resposta] =  await con.query(comando,
+         [
+            adicionar.Qtd,
+            id
+         ])
 
     return resposta
 }
