@@ -44,15 +44,13 @@ export async function alterarTipoIngresso (id, tipo) {
 
     const comando = 
     `   UPDATE  TB_TIPOS_INGRESSO 
-                SET     ID_INGRESSO             = ?, 
-                        NM_TIPO_INGRESSO        = ?, 
+                SET     NM_TIPO_INGRESSO        = ?, 
                         QTD_TIPO_INGRESSO       = ?, 
                         VL_PRECO_TIPO           = ?
                 WHERE ID_TIPO_INGRESSO          = ? `
 
     const [resposta] = await con.query(comando, 
         [
-            tipo.Ingresso,
             tipo.Tipo,
             tipo.Quantidade,
             tipo.Preco,

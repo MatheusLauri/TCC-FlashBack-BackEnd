@@ -63,8 +63,6 @@ endpoints.put('/tipoIngresso/:id', async (req, resp) => {
 
         const tipo = req.body
 
-        if(!tipo.Ingresso)
-            throw new Error('Id ingresso Obrigatorio')
         
         if(!tipo.Tipo)
             throw new Error('Tipo Ingresso Obrigatorio')

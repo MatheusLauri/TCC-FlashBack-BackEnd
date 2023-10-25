@@ -89,7 +89,7 @@ CREATE TABLE TB_TIPOS_INGRESSO (
 	QTD_TIPO_INGRESSO 			INT,
 	VL_PRECO_TIPO 					DECIMAL(15,2),
     
-   FOREIGN KEY (ID_INGRESSO) REFERENCES TB_INGRESSO(ID_INGRESSO)
+  FOREIGN KEY (ID_INGRESSO) REFERENCES TB_INGRESSO(ID_INGRESSO)
    
 );
 
@@ -208,7 +208,8 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "Logradouro": "Av. Castro",
   "Bairro": "Jd. Das Rosas",
   "Localidade": "São Paulo" ,
-  "UF": "SP"
+  "UF": "SP",
+  "Numero": "2390"
 }
 
 -- LOGINS ----------------------------------------------------------------------------------------------
