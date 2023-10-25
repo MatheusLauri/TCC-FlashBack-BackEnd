@@ -13,6 +13,7 @@ endpoints.post('/local', async (req, resp) => {
         const novoLocal = req.body
 
         const localInserido = await inserirLocal(novoLocal)
+        
 
         resp.send(localInserido)
         

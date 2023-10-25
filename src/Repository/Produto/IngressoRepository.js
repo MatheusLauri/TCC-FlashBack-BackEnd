@@ -69,6 +69,8 @@ export async function buscarIngressosCategoria (categoria) {
             DS_LOGRADOURO,
             DS_LOCALIDADE,
             DS_UF,
+            DS_NUM,
+            ID_INGRESSO,
             DS_EVENTO,
             IMAGEM_INGRESSO
     
@@ -201,6 +203,7 @@ export async function BuscarNomeIngresso(nome){
                 DS_LOGRADOURO,
                 DS_LOCALIDADE,
                 DS_UF,
+                DS_NUM,
                 DS_EVENTO,
                 IMAGEM_INGRESSO,
                 DT_CADASTRO,

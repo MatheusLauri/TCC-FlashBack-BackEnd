@@ -23,7 +23,8 @@ SELECT * FROM TB_CADASTRO_ADM;
 -- INSERTS INGRESSO --------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO TB_CATEGORIA_INGRESSO(NM_CATEGORIA_INGRESSO)
-	   VALUES ("Museu");
+	   VALUES ("Festas e eventos");
+
        
 INSERT INTO TB_LOCAL_EVENTO (DS_CEP, DS_LOGRADOURO, DS_BAIRRO, DS_LOCALIDADE, DS_UF)
 	   VALUES ("04839-000", "Av. Muriçoca", "Jd. Flavor", "Belo Horizonte", "MG");
