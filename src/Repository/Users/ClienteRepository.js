@@ -5,14 +5,15 @@ import { con } from "../connection.js";
 export async function InserirCliente (cliente) {
 
     const comando = 
-    `      INSERT INTO TB_CADASTRO_CLIENTE (NM_CLIENTE, NM_SOBRENOME, DS_CPF, DS_TELEFONE, NM_USUARIO, DS_EMAIL, DS_SENHA)
-	            VALUE (?, ?, ?, ?, ?, ?, ?)`
+    `      INSERT INTO TB_CADASTRO_CLIENTE (NM_CLIENTE, NM_SOBRENOME, DS_CPF, DT_NASCIMENTO, DS_TELEFONE, NM_USUARIO, DS_EMAIL, DS_SENHA)
+	            VALUE (?, ?, ?, ?, ?, ?, ?, ?)`
 
     const [resposta] = await con.query(comando, 
         [
             cliente.Nome,
             cliente.Sobrenome,
             cliente.CPF,
+            cliente.Data,
             cliente.Telefone,
             cliente.NomeUsuario,
             cliente.Email,
@@ -34,6 +35,7 @@ export async function login(NomeUsuario, cpf, email, senha){
                 NM_CLIENTE,
                 NM_SOBRENOME,
                 DS_CPF,
+                DT_NASCIMENTO,
                 DS_TELEFONE,
                 NM_USUARIO,
                 DS_EMAIL,
@@ -55,6 +57,7 @@ export async function alterarDadosCliente (id, cliente) {
             SET  NM_CLIENTE     = ?, 
             NM_SOBRENOME        = ?, 
             DS_CPF              = ?, 
+            DT_NASCIMENTO       = ?,
             DS_TELEFONE         = ?, 
             NM_USUARIO          = ?, 
             DS_EMAIL            = ?,
@@ -67,6 +70,7 @@ export async function alterarDadosCliente (id, cliente) {
         cliente.Nome,
         cliente.Sobrenome,
         cliente.CPF,
+        cliente.Data,
         cliente.Telefone,
         cliente.NomeUsuario,
         cliente.Email,
