@@ -246,3 +246,4 @@ export async function  buscarIngressoPorUf (uf) {
 
     return resposta
 } 
+

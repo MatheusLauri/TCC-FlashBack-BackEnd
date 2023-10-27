@@ -171,3 +171,36 @@ export async function AdicionarQtdItens(adicionar,id){
 
     return resposta
 }
+
+
+export async function TransferirIngresso (email , pedidoIngresso){
+
+
+    const comando1 = 
+    
+    `
+    SELECT ID_CLIENTE as Cliente,
+    DS_EMAIL
+    FROM TB_CADASTRO_CLIENTE
+    WHERE DS_EMAIL = ?
+
+    `
+
+    const [resposta1] = await con.query(comando1, email)
+
+    console.log(resposta1)
+
+    const comando = 
+    `
+        UPDATE TB_PEDIDO_INGRESSO SET ID_CLIENTE = ? WHERE ID_PEDIDO_INGRESSO = ?
+    `
+
+    const [resposta] = await con.query(comando,
+         [
+            resposta1[0].Cliente,
+            pedidoIngresso
+         ])
+
+         
+    return resposta
+}
