@@ -104,9 +104,9 @@ endpoints.delete('/categoria/:id', async (req, resp) => {
 endpoints.get('/tipo/busca', async (req,resp) => {
     try {
         
-        const { Categoria } = req.query
+        const { nome } = req.query
 
-        const resposta = await BuscarNomeTipo(Categoria)
+        const resposta = await BuscarNomeTipo(nome)
 
         if (resposta.length == 0)
             resp.status(404).send([])
