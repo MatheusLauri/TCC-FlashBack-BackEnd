@@ -1,5 +1,5 @@
 
-import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso, buscarIngressosCategoria, BuscarNomeIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso, buscarIngressosCategoria, BuscarNomeIngresso, buscarIngressoPorUf} from "../../Repository/Produto/IngressoRepository.js"
 
 import multer from "multer";
 
@@ -181,6 +181,7 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
 
 
 endpoints.get('/ingresso/busca', async (req,resp) => {
+
     try {
         
         const { nome } = req.query
@@ -200,5 +201,28 @@ endpoints.get('/ingresso/busca', async (req,resp) => {
        })
     }
 })
+
+
+
+endpoints.get('/ingresso/buscaUF', async (req, resp) => {
+
+  try {
+        
+        const { uf } = req.query
+
+        
+        const resposta = await buscarIngressoPorUf(uf)
+
+
+        resp.send(resposta)
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
+
 
 export default endpoints;

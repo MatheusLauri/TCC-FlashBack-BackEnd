@@ -13,7 +13,7 @@ export async function InserirCliente (cliente) {
             cliente.Nome,
             cliente.Sobrenome,
             cliente.CPF,
-            cliente.Data,
+            cliente.DataNasc,
             cliente.Telefone,
             cliente.NomeUsuario,
             cliente.Email,

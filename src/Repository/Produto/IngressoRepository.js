@@ -220,3 +220,29 @@ export async function BuscarNomeIngresso(nome){
 
     return linhas
 }
+
+
+
+export async function  buscarIngressoPorUf (uf) {
+
+    const comando = 
+    `
+        SELECT  NM_EVENTO, 
+                DT_COMECO,
+                DT_FIM,
+                DS_LOGRADOURO,
+                DS_LOCALIDADE,
+                DS_UF,
+                DS_NUM,
+                DS_EVENTO,
+                IMAGEM_INGRESSO
+                
+            FROM 			TB_INGRESSO 			INGRESSO 
+            INNER JOIN   	TB_LOCAL_EVENTO			LOCAL_EVENTO	ON	LOCAL_EVENTO.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
+            WHERE  DS_UF = ?;
+    ` 
+
+    const [resposta] = await con.query (comando, [uf])
+
+    return resposta
+} 
