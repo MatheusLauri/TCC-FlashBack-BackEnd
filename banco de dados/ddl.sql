@@ -150,8 +150,9 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 
 
 -- CADASTROS E ALTERAÇÕES ----------------------------------------------------------------------------------------------
+transferencia ingresso: 
 
-
+http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
 -- Cliente
 {
   "Nome": "Eric",
