@@ -22,15 +22,23 @@ SELECT * FROM TB_CADASTRO_ADM;
 
 -- INSERTS INGRESSO --------------------------------------------------------------------------------------------------------------------------------------------
 
-INSERT INTO TB_CATEGORIA_INGRESSO(NM_CATEGORIA_INGRESSO)
-	   VALUES ("Festas e eventos");
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas e Shows');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Teatros e Espetáculos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas Juninas');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Palestras e Congressos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Infantil');
 
        
 INSERT INTO TB_LOCAL_EVENTO (DS_CEP, DS_LOGRADOURO, DS_BAIRRO, DS_LOCALIDADE, DS_UF)
 	   VALUES ("04839-000", "Av. Muriçoca", "Jd. Flavor", "Belo Horizonte", "MG");
        
 INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, ID_LOCAL_EVENTO, NM_EVENTO, DS_EVENTO, DT_COMECO, DT_FIM, DT_CADASTRO, BT_DESTAQUE)
-	   VALUES (1, 1, 1, "Nuuu", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', now(), TRUE);
+	   VALUES (1, 1, 1, "Numanice", "Festa", '2023-10-12 20:00:00', '2023-10-12 22:00:00', now(), TRUE);
        
 INSERT INTO TB_TIPOS_INGRESSO (ID_INGRESSO, NM_TIPO_INGRESSO, QTD_TIPO_INGRESSO, VL_PRECO_TIPO) 
 	   VALUES (1, "Front", 100, 300);	
