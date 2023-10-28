@@ -271,3 +271,33 @@ http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
   "TipoIngresso": 2,
   "Itens": 10
 }
+
+
+-- Compra 
+
+
+{
+  "Numero": "11",
+  "Validade": "11",
+  "Cvv":"11"
+}
+
+
+{
+  "FormaDePag" : "2"
+}
+
+
+{
+  "Cliente" : "1",
+  "Ingresso" : "1",
+  "TipoIngresso" :"1" ,
+  "Qtd" : "50"
+}
+
+
+{
+  "PedidoIngresso": "2",
+  "FormaPagamento": "1",
+  "Situacao": false
+}

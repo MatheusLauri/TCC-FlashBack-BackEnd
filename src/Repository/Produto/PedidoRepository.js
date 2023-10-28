@@ -175,7 +175,6 @@ export async function AdicionarQtdItens(adicionar,id){
 
 export async function TransferirIngresso (email , pedidoIngresso){
 
-
     const comando1 = 
     
     `
