@@ -1,4 +1,4 @@
-import { FormaPagamento, Pedido, PedidoIngresso, inserirCartao } from '../../Repository/Produto/CompraRepository.js'
+import { AlterarPedido, AlterarPedidoIngresso, FormaPagamento, ListagemPedido, ListagemPedidoIngresso, Pedido, PedidoIngresso, inserirCartao } from '../../Repository/Produto/CompraRepository.js'
 
 import { Router } from "express";
 const endpoints  = Router()
@@ -80,9 +80,72 @@ endpoints.post('/Pedido', async (req,resp) => {
 })
 
 
+endpoints.put('/AlterarPedidoIngresso/:id', async (req, resp) => {
+    try {
+        
+        const {id} = req.params
+        const pedIngress = req.body
+
+
+        const alterar = await AlterarPedidoIngresso(pedIngress,id)
+        
+        
+        resp.status(204).send
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+}) 
 
 
 
+endpoints.put('/AlterarPedido/:id', async (req,resp) => {
+    try {
+        
+        const {id} = req.params
+        const situ = req.body
+
+        const alterar = await AlterarPedido(situ,id)
+
+        resp.status(204).send
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+})
+
+
+
+endpoints.get('/PedidoIngresso', async (req,resp) => {
+    try {
+        
+        const listagem = await ListagemPedidoIngresso()
+        resp.send(listagem)
+
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+})
+
+
+endpoints.get('/Pedido', async (req,resp) => {
+    try {
+        
+        const listagem = await ListagemPedido()
+        resp.send(listagem)
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+})
 
 
 export default endpoints;

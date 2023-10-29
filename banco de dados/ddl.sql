@@ -301,3 +301,18 @@ http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
   "FormaPagamento": "1",
   "Situacao": false
 }
+
+
+{
+  "Cliente": "2",
+  "Ingresso": "2",
+  "Tipo": "2",
+  "Qtd": "100"
+}
+
+
+{
+  "situacao": "1"
+}
+
+
