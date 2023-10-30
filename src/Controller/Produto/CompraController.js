@@ -1,4 +1,4 @@
-import { AlterarPedido, AlterarPedidoIngresso, FormaPagamento, ListagemPedido, ListagemPedidoIngresso, Pedido, PedidoIngresso, inserirCartao } from '../../Repository/Produto/CompraRepository.js'
+import { AlterarPedido, AlterarPedidoIngresso, DeletePedido, DeletePedidoIngresso, FormaPagamento, ListagemPedido, ListagemPedidoIngresso, Pedido, PedidoIngresso, inserirCartao } from '../../Repository/Produto/CompraRepository.js'
 
 import { Router } from "express";
 const endpoints  = Router()
@@ -147,5 +147,46 @@ endpoints.get('/Pedido', async (req,resp) => {
     }
 })
 
+
+endpoints.delete('/PedidoIngresso/:id', async (req,resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await DeletePedidoIngresso(id)
+
+        
+        if(!deletar)
+            throw new Error("Id Pedido Ingresso desconhecido")
+
+        resp.status(204).send()
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
+
+
+endpoints.delete('/Pedido/:id', async (req,resp) => {
+    try {
+        const {id} = req.params
+        
+        const deletar = await DeletePedido(id)
+
+
+        if(!deletar)
+            throw new Error("Id Pedido invalido")
+
+
+        resp.status(204).send()
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
 
 export default endpoints;

@@ -158,4 +158,36 @@ export async function ListagemPedido(){
 
 } 
 
-// Falta fazer os Delete apenas, e escolher oque vai selecionar na listagem e nos update
+
+export async function DeletePedidoIngresso(id){
+
+    const comando1 = 
+    `
+        DELETE FROM TB_PEDIDO WHERE ID_PEDIDO_INGRESSO = ?
+
+    `
+
+    const comando2 = 
+    `
+        DELETE FROM TB_PEDIDO_INGRESSO WHERE ID_PEDIDO_INGRESSO = ?
+    `
+
+    const [resposta1] = await con.query(comando1,[id])
+    const [resposta2] = await con.query(comando2,[id])
+
+    return resposta2.affectedRows
+}
+
+
+export async function DeletePedido(id){
+    const comando = 
+    `
+        DELETE FROM TB_PEDIDO WHERE ID_PEDIDO = ?
+    `
+
+    const [resposta] = await con.query(comando, [id])
+
+    return resposta.affectedRows
+}
+
+// escolher oque vai selecionar na listagem e nos update
