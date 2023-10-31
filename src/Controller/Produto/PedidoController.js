@@ -13,6 +13,18 @@ endpoints.post('/pedidoIngresso', async (req, resp) =>{
         
     const NovoPedido = req.body
 
+    // if(!NovoPedido.Cliente)
+    //      throw new Error("Cliente obrigatorio")
+
+    // if(!NovoPedido.Ingresso)
+    //     throw new Error("ingresso obrigatorio")
+
+    // if(!NovoPedido.TipoIngresso)
+    //      throw new Error("Tipo obrigatorio")
+
+    // if(!NovoPedido.Itens)
+    //      throw new Error("Itens obrigatorio")
+
     const Pedido = await InserirPedidoIngresso(NovoPedido)
 
     resp.send(Pedido)
@@ -29,6 +41,17 @@ endpoints.post('/pedido', async (req, resp) => {
 
     try {
         const NovoPedido = req.body
+
+        // if(!NovoPedido.PedidoIngresso)
+        //     throw new Error("PedidoIngresso obrigatorio")
+
+        
+        // if(!NovoPedido.FormaPagamento)
+        //     throw new Error("FormaPagamento obrigatorio")
+
+        
+        // if(!NovoPedido.Situacao)
+        //     throw new Error("Situacao obrigatorio")
 
         const Pedido = await InserirPedido(NovoPedido)
 
@@ -75,8 +98,8 @@ endpoints.delete('/deletarPedido/:id', async (req,resp) =>{
 
         const deletar = await DeletarPedido(id)
 
-        if(deletar == 0)
-            throw new Error('ingresso não pode ser deletado');
+      //  if(deletar == 0)
+            //throw new Error('ingresso não pode ser deletado');
 
         resp.status(204).send
 
@@ -95,8 +118,8 @@ endpoints.delete('/deletarPedidoIngresso/:id', async (req,resp) => {
 
         const deletar = await DeletarPedidoIngresso(id)
 
-        if(deletar == 0)
-            throw new Error('ingresso não pode ser deletado');
+      //  if(deletar == 0)
+          //  throw new Error('ingresso não pode ser deletado');
 
         resp.status(204).send
     } catch (err) {
@@ -131,7 +154,10 @@ endpoints.put('/transferencia', async (req,resp) =>{
         
         const {email , pedidoIngresso} = req.query
         
-    
+     //   if(!email)
+           // throw new Error("Email obrigatorio")
+
+
         const transferencia = await TransferirIngresso(email , pedidoIngresso)
 
         
