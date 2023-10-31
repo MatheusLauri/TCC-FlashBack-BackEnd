@@ -13,6 +13,16 @@ endpoints.post('/Cartao', async (req,resp) => {
 
         const inserir = req.body
 
+        // if(!inserir.Numero)
+        //     throw new Error("Numero do cartão Obrigatorio")
+
+            
+        // if(!inserir.Validade)
+        //     throw new Error("Validade do cartão Obrigatorio")
+
+        // if(!inserir.Cvv)
+        //     throw new Error("Cvv do cartão Obrigatorio")
+
         const CartaoInserido = await inserirCartao(inserir)
 
         resp.send(CartaoInserido)
@@ -29,6 +39,9 @@ endpoints.post('/Pagamento', async (req,resp) => {
     try {
         
         const pag = req.body
+
+        // if(!pag.FormaDePag)
+        //     throw new Error("Forma de pagamento Obrigatorio")
 
         const PagamentoInserido = await FormaPagamento(pag)
 
@@ -48,6 +61,18 @@ endpoints.post('/PedidoIngresso', async (req,resp) => {
         
         const pedido = req.body
 
+        // if(!pedido.Cliente)
+        //     throw new Error("Cliente Obrigatorio")
+
+        // if(!pedido.Ingresso)
+        //     throw new Error("Ingresso obrigatorio")
+
+        // if(!pedido.TipoIngresso)
+        //     throw new Error("TipoIngresso obrigatorio")
+    
+        // if(!pedido.Qtd)
+        //     throw new Error("Quantidade Obrigatorio")
+
         const PedidoInserido = await  PedidoIngresso(pedido)
 
         resp.send(PedidoInserido)
@@ -66,6 +91,16 @@ endpoints.post('/Pedido', async (req,resp) => {
     try {
         
         const ped = req.body
+
+        
+        // if(!ped.PedidoIngresso)
+        //     throw new Error("Pedido ingresso invalido")
+                   
+        // if(!ped.FormaPagamento)
+        //     throw new Error("Forma de pagamento invalida")
+               
+        // if(!ped.Situacao)
+        //     throw new Error("Situação obrigatorio")
 
         const PedidoInserido = await Pedido(ped)
 
