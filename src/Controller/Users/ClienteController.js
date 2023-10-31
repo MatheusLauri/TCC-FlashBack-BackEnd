@@ -5,17 +5,19 @@ import { InserirCliente, alterarDadosCliente, login } from "../../Repository/Use
 
 const endpoints = Router()
 
-import passwordValidator from 'password-validator';//import
+import passwordValidator from 'password-validator';
 
-let schema = new passwordValidator(); // cria uma instância de um objeto chamado schema, Esse objeto schema é usado para definir e aplicar regras de validação personalizadas a senhas.
+let schema = new passwordValidator(); 
 
 schema
-    .is().min(8) // Mínimo de 10 caracteres
-    .is().max(300) 
+    .is().min(8) // Mínimo de caracteres
+    .is().max(300) // Máximo de caracteres
     .has().uppercase(1) // Pelo menos uma letra maiúscula
     .has().digits(1) // Pelo menos um dígito numérico
     .has().not().spaces() //Sem espaços
     .has().symbols(1); // Pelo menos um caractere especial
+
+    //testes:
     //console.log(schema.validate(''));
     //console.log(schema.validate('K@1BHBHBH', { details: true }));
     //console.log(schema.validate('', { list: true }));
@@ -36,9 +38,9 @@ endpoints.post('/cliente', async (req, resp) => {
         if(!InserirNovoCliente.Senha)
             throw new Error('Senha Obrigatória!')
 
-        let errosSenha = schema.validate(InserirNovoCliente.senha, { list: true })
+        let errosSenha = schema.validate(InserirNovoCliente.Senha, { list: true })
 
-        if (errosSenha.length != 0) { //!!!!!!!!!!!!!!!!!!!!!!
+        if (errosSenha.length != 0) { 
 
             for(let item of errosSenha) {
                 if (item === 'min') {
@@ -64,11 +66,9 @@ endpoints.post('/cliente', async (req, resp) => {
                 if (item === 'symbols') {
                     throw new Error('É necessário pelo menos um caracter especial')
                 }
-
             }
-
-
         }
+
         const clienteInserido = await InserirCliente(InserirNovoCliente)
 
         resp.send(clienteInserido)

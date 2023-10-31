@@ -153,15 +153,17 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 transferencia ingresso: 
 
 http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
+
 -- Cliente
 {
   "Nome": "Eric",
   "Sobrenome": "Tasa",
   "CPF": "499.333.100-90",
+  "DataNasc": "2023-11-12",
   "Telefone": "(11) 96777-9088",
   "NomeUsuario": "Tuu",
   "Email": "epp@gmail.com",
-  "Senha": "123456"
+  "Senha": "K@1BHBHBH"
 }
 
 --Empresa
