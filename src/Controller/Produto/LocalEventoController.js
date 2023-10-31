@@ -12,9 +12,27 @@ endpoints.post('/local', async (req, resp) => {
 
         const novoLocal = req.body
 
-        const localInserido = await inserirLocal(novoLocal)
         
+        if(!novoLocal.CEP)
+            throw new Error("CEP obrigatorio")
+        
+        if(!novoLocal.Logradouro)
+            throw new Error("Logradouro obrigatorio")
 
+        if(!novoLocal.Bairro)
+            throw new Error("Bairro obrigatorio")
+
+        if(!novoLocal.Localidade)
+            throw new Error("Localidade obrigatorio")
+
+        if(!novoLocal.UF)
+            throw new Error("UF obrigatorio")
+
+        if(!novoLocal.Numero)
+            throw new Error("Numero obrigatorio")
+
+
+        const localInserido = await inserirLocal(novoLocal)
         resp.send(localInserido)
         
     } catch (err) {
@@ -35,6 +53,24 @@ endpoints.put('/local/:id', async (req, resp) => {
         const {id} = req.params
 
         const localAlterar = req.body
+
+        if(!localAlterar.CEP)
+        throw new Error("CEP obrigatorio")
+    
+        if(!localAlterar.Logradouro)
+            throw new Error("Logradouro obrigatorio")
+
+        if(!localAlterar.Bairro)
+            throw new Error("Bairro obrigatorio")
+
+        if(!localAlterar.Localidade)
+            throw new Error("Localidade obrigatorio")
+
+        if(!localAlterar.UF)
+            throw new Error("UF obrigatorio")
+
+        if(!localAlterar.Numero)
+            throw new Error("Numero obrigatorio")
 
         const localAlterado = await alterarLocal(id, localAlterar)
 
