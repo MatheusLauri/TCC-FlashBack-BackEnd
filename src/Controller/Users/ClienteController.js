@@ -10,16 +10,16 @@ import passwordValidator from 'password-validator';
 let schema = new passwordValidator(); 
 
 schema
-    .is().min(8) // Mínimo de caracteres
-    .is().max(300) // Máximo de caracteres
-    .has().uppercase(1) // Pelo menos uma letra maiúscula
-    .has().digits(1) // Pelo menos um dígito numérico
-    .has().not().spaces() //Sem espaços
-    .has().symbols(1); // Pelo menos um caractere especial
+    .is().min(8, 'O número minímo de caracteres é 8') // Mínimo de caracteres
+    .is().max(300, 'O número maximo de caracteres é 300') // Máximo de caracteres
+    .has().uppercase(1, 'É necessário pelo menos um caracter maiúsculo') // Pelo menos uma letra maiúscula
+    .has().digits(1, 'É necessário pelo menos um digito numérico') // Pelo menos um dígito numérico
+    .has().not().spaces(true ,'A senha não pode conter espaços') //Sem espaços
+    .has().symbols(1, 'É necessário pelo menos um caracter especial'); // Pelo menos um caractere especial
 
     //testes:
     //console.log(schema.validate(''));
-    //console.log(schema.validate('K@1BHBHBH', { details: true }));
+    //console.log(schema.validate('@ 1', { details: true }));
     //console.log(schema.validate('', { list: true }));
 
 
@@ -38,34 +38,14 @@ endpoints.post('/cliente', async (req, resp) => {
         if(!InserirNovoCliente.Senha)
             throw new Error('Senha Obrigatória!')
 
-        let errosSenha = schema.validate(InserirNovoCliente.Senha, { list: true })
-
+        let errosSenha = schema.validate(InserirNovoCliente.Senha, { details: true })
+        
         if (errosSenha.length != 0) { 
 
             for(let item of errosSenha) {
-                if (item === 'min') {
-                    throw new Error('O número minímo de caracteres é 8')
-                }
 
-                if (item === 'max') {
-                    throw new Error('O número maximo de caracteres é 300')
-                }
+                throw new Error(`${item.message}`)
 
-                if (item === 'uppercase') {
-                    throw new Error('É necessário pelo menos um caracter maiúsculo')
-                }
-
-                if (item === 'digits') {
-                    throw new Error('É necessário pelo menos um digito numérico')
-                }
-
-                if (item === 'spaces') {
-                    throw new Error('A senha não pode conter espaços')
-                }
-
-                if (item === 'symbols') {
-                    throw new Error('É necessário pelo menos um caracter especial')
-                }
             }
         }
 
