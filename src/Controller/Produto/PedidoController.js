@@ -69,6 +69,9 @@ endpoints.get('/listarPedido', async (req,resp) =>{
     try {
         
         const listagem = await ListarPedido()
+
+        if(listagem.length === 0) 
+            throw new Error('Nenhum pedido encontrado')
         
         resp.send(listagem)
 
