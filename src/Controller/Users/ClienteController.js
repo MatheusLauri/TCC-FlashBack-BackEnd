@@ -10,12 +10,12 @@ import passwordValidator from 'password-validator';
 let schema = new passwordValidator(); 
 
 schema
-    .is().min(8, 'O número minímo de caracteres é 8') // Mínimo de caracteres
-    .is().max(300, 'O número maximo de caracteres é 300') // Máximo de caracteres
-    .has().uppercase(1, 'É necessário pelo menos um caracter maiúsculo') // Pelo menos uma letra maiúscula
-    .has().digits(1, 'É necessário pelo menos um digito numérico') // Pelo menos um dígito numérico
-    .has().not().spaces(true ,'A senha não pode conter espaços') //Sem espaços
-    .has().symbols(1, 'É necessário pelo menos um caracter especial'); // Pelo menos um caractere especial
+    .is().min(8, 'A senha deve ter ao menos 8 caracteres!') // Mínimo de caracteres
+    .is().max(300, 'A senha não pode ultrapassar 300 caracteres!') // Máximo de caracteres
+    .has().uppercase(1, 'A senha deve ter ao menos um caractere maiúsculo!') // Pelo menos uma letra maiúscula
+    .has().digits(1, 'A senha deve ter ao menos um digito numérico!') // Pelo menos um dígito numérico
+    .has().not().spaces(true ,'A senha não pode conter espaços!') //Sem espaços
+    .has().symbols(1, 'A senha deve ter ao menos um caracter especial!'); // Pelo menos um caractere especial
 
     //testes:
     //console.log(schema.validate(''));
