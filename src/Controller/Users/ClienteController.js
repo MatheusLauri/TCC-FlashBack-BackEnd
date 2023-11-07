@@ -16,7 +16,6 @@ schema
     .has().digits(1, 'A senha deve ter ao menos um digito numérico!') // Pelo menos um dígito numérico
     .has().not().spaces(true ,'A senha não pode conter espaços!') //Sem espaços
     .has().symbols(1, 'A senha deve ter ao menos um caracter especial!'); // Pelo menos um caractere especial
-
     //testes:
     //console.log(schema.validate(''));
     //console.log(schema.validate('@ 1', { details: true }));
