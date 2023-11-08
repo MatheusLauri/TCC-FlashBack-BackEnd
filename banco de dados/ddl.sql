@@ -8,11 +8,11 @@ CREATE TABLE TB_CADASTRO_CLIENTE (
 	NM_CLIENTE 			VARCHAR(200),
 	NM_SOBRENOME 		VARCHAR(200),
 	DS_CPF 				  VARCHAR(14)   UNIQUE,
+  DT_NASCIMENTO   DATE,
 	DS_TELEFONE 		VARCHAR(15)   UNIQUE,
 	NM_USUARIO			VARCHAR(200),
 	DS_EMAIL 			  VARCHAR(200)  UNIQUE,
 	DS_SENHA	 		  VARCHAR(200)
-
 );
 
 
@@ -46,19 +46,6 @@ CREATE TABLE TB_CATEGORIA_INGRESSO (
 );
 
 
-CREATE TABLE TB_TIPOS_INGRESSO (
-
-	ID_TIPO_INGRESSO 				INT PRIMARY KEY AUTO_INCREMENT,
-  ID_INGRESSO						  INT,
-	NM_TIPO_INGRESSO 				VARCHAR(200),
-	QTD_TIPO_INGRESSO 			INT,
-	VL_PRECO_TIPO 					DECIMAL(15,2),
-    
-   FOREIGN KEY (ID_INGRESSO) REFERENCES TB_INGRESSO(ID_INGRESSO)
-   
-);
-
-
 CREATE TABLE TB_LOCAL_EVENTO (
 
 	ID_LOCAL_EVENTO 		INT PRIMARY KEY AUTO_INCREMENT,
@@ -66,7 +53,8 @@ CREATE TABLE TB_LOCAL_EVENTO (
 	DS_LOGRADOURO 			VARCHAR(300),
 	DS_BAIRRO 				  VARCHAR(200),
 	DS_LOCALIDADE 			VARCHAR(150),
-	DS_UF 					    VARCHAR(3)
+	DS_UF 					    VARCHAR(3), 
+  DS_NUM              VARCHAR(100)
     
 );
 
@@ -93,15 +81,28 @@ CREATE TABLE TB_INGRESSO (
 );
 
 
+CREATE TABLE TB_TIPOS_INGRESSO (
+
+	ID_TIPO_INGRESSO 				INT PRIMARY KEY AUTO_INCREMENT,
+  ID_INGRESSO						  INT,
+	NM_TIPO_INGRESSO 				VARCHAR(200),
+	QTD_TIPO_INGRESSO 			INT,
+	VL_PRECO_TIPO 					DECIMAL(15,2),
+    
+  FOREIGN KEY (ID_INGRESSO) REFERENCES TB_INGRESSO(ID_INGRESSO)
+   
+);
+
+
 -- TABELAS PEDIDO ---------------------------------------------------------------------------------------------------------------------------------
 
 
 CREATE TABLE TB_CARTAO (
 
 	ID_CARTAO 			INT PRIMARY KEY AUTO_INCREMENT,
-	NR_CARTAO 			INT,
-	DT_VALIDADE 		DATE,
-	NR_CVV 				  INT
+	NR_CARTAO 			VARCHAR(100),
+	DT_VALIDADE 		VARCHAR(100),
+	NR_CVV 				  VARCHAR(100)
     
 );
 
@@ -149,17 +150,20 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 
 
 -- CADASTROS E ALTERAÇÕES ----------------------------------------------------------------------------------------------
+transferencia ingresso: 
 
+http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
 
 -- Cliente
 {
   "Nome": "Eric",
   "Sobrenome": "Tasa",
   "CPF": "499.333.100-90",
+  "DataNasc": "2023-11-12",
   "Telefone": "(11) 96777-9088",
   "NomeUsuario": "Tuu",
   "Email": "epp@gmail.com",
-  "Senha": "123456"
+  "Senha": "K@1BHBHBH"
 }
 
 --Empresa
@@ -183,6 +187,7 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
 {
   "Categoria": 1,
   "Empresa": 1,
+  "Local": 1,
   "NomeEvento": "Siu",
   "Descricao": "ssdsd",
   "DataComeco": "2023-11-12 20:00:00",
@@ -199,7 +204,16 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "Preco": 40
 }
 
+--Local Evento 
 
+{
+  "CEP": "04866-000",
+  "Logradouro": "Av. Castro",
+  "Bairro": "Jd. Das Rosas",
+  "Localidade": "São Paulo" ,
+  "UF": "SP",
+  "Numero": "2390"
+}
 
 -- LOGINS ----------------------------------------------------------------------------------------------
 
@@ -239,3 +253,68 @@ DROP TABLE TB_CATEGORIA_INGRESSO;
   "cpf": "499.333.100-90",
   "senha": "123456"
 }
+
+
+-- Pedido
+
+
+{
+  "PedidoIngresso": 1,
+  "FormaPagamento": 1,
+  "Situacao": false 
+}
+
+-- Pedido ingresso
+
+
+{
+  "Cliente":2,
+  "Ingresso": 3, 
+  "TipoIngresso": 2,
+  "Itens": 10
+}
+
+
+-- Compra 
+
+
+{
+  "Numero": "11",
+  "Validade": "11",
+  "Cvv":"11"
+}
+
+
+{
+  "FormaDePag" : "2"
+}
+
+
+{
+  "Cliente" : "1",
+  "Ingresso" : "1",
+  "TipoIngresso" :"1" ,
+  "Qtd" : "50"
+}
+
+
+{
+  "PedidoIngresso": "2",
+  "FormaPagamento": "1",
+  "Situacao": false
+}
+
+
+{
+  "Cliente": "2",
+  "Ingresso": "2",
+  "Tipo": "2",
+  "Qtd": "100"
+}
+
+
+{
+  "situacao": "1"
+}
+
+

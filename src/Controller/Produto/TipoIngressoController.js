@@ -8,10 +8,11 @@ const endpoints  = Router()
 
 
 
-endpoints.get('/tipoIngresso', async (req, resp) => {
+endpoints.get('/tipoIngresso/:id', async (req, resp) => {
 
     try {
-        const tipos = await listarTipos()
+        const {id} = req.params
+        const tipos = await listarTipos(id)
 
         resp.send(tipos)
         
@@ -38,7 +39,7 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
         if(!inserirTipo.Quantidade)
             throw new Error('Quantidade tipo ingresso Obrigatorio');
 
-        if(!inserirTipo.Preco)
+        if(inserirTipo.Preco === undefined)
             throw new Error('Preco tipo ingresso Obrigatorio')
 
         const tipoinserido = await inserirTipoIngresso(inserirTipo)
@@ -62,8 +63,6 @@ endpoints.put('/tipoIngresso/:id', async (req, resp) => {
 
         const tipo = req.body
 
-        if(!tipo.Ingresso)
-            throw new Error('Id ingresso Obrigatorio')
         
         if(!tipo.Tipo)
             throw new Error('Tipo Ingresso Obrigatorio')

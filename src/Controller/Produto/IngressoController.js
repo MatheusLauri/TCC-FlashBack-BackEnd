@@ -1,5 +1,5 @@
 
-import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso, buscarIngressosCategoria, BuscarNomeIngresso} from "../../Repository/Produto/IngressoRepository.js"
+import {inserirIngresso, removerIngresso, ListarIngressos, alterarIngresso, AlterarCapaIngresso, buscarIngressosCategoria, BuscarNomeIngresso, buscarIngressoPorUf, ListarIngressosDestaque} from "../../Repository/Produto/IngressoRepository.js"
 
 import multer from "multer";
 
@@ -65,6 +65,21 @@ endpoints.get('/ingresso', async (req, resp) => {
     
 })
 
+endpoints.get('/ingresso/destaque', async (req, resp) => {
+
+    try{
+
+        const listagem = await ListarIngressosDestaque()
+        resp.send(listagem)
+
+    } catch(err) {
+        resp.status(404).send({
+            erro: err.message
+        })
+    }
+    
+})
+
 
 endpoints.get('/ingresso/categoria', async(req, resp) => {
 
@@ -73,6 +88,9 @@ endpoints.get('/ingresso/categoria', async(req, resp) => {
         const {categoria} = req.query
 
         const listarCategoria = await buscarIngressosCategoria(categoria)
+
+        if (listarCategoria.length < 1) 
+        throw new Error ('Nenhum foi ingresso encontrado')
 
         resp.send(listarCategoria)
 
@@ -88,6 +106,9 @@ endpoints.get('/ingresso/categoria', async(req, resp) => {
 endpoints.put('/ingresso/:id/capa', upload.single('capa'), async (req, resp) => {
 
     try {
+
+        if (!req.file) 
+            throw new Error ('Insira uma imagem!')  
 
         const {id} = req.params
 
@@ -175,10 +196,12 @@ endpoints.delete('/ingresso/:id', async (req, resp) => {
 
 
 endpoints.get('/ingresso/busca', async (req,resp) => {
+
     try {
         
         const { nome } = req.query
 
+        
         const resposta = await BuscarNomeIngresso(nome)
 
         if (resposta.length == 0)
@@ -193,5 +216,28 @@ endpoints.get('/ingresso/busca', async (req,resp) => {
        })
     }
 })
+
+
+
+endpoints.get('/ingresso/buscaUF', async (req, resp) => {
+
+  try {
+        
+        const { uf } = req.query
+
+        
+        const resposta = await buscarIngressoPorUf(uf)
+
+
+        resp.send(resposta)
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
+
 
 export default endpoints;
