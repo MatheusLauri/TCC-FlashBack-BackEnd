@@ -28,7 +28,8 @@ export async function InserirEmpresa (empresa) {
 export async function login(cnpj, email, senha){
 
     const comando = 
-    `   SELECT  DS_CNPJ,      
+    `   SELECT  ID_EMPRESA,
+                DS_CNPJ,      
                 DS_EMAIL_EMPRESA, 
                 DS_SENHA_EMPRESA      
         FROM    TB_CADASTRO_EMPRESA 

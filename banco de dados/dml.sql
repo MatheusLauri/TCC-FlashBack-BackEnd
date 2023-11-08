@@ -38,18 +38,18 @@ INSERT INTO TB_LOCAL_EVENTO (DS_CEP, DS_LOGRADOURO, DS_BAIRRO, DS_LOCALIDADE, DS
 		VALUES ("04839-000", "Av. Muriçoca", "Jd. Flavor", "Belo Horizonte", "MG");
        
 INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, ID_LOCAL_EVENTO, NM_EVENTO, DS_EVENTO, DT_COMECO, DT_FIM, IMAGEM_INGRESSO, DT_CADASTRO, BT_DESTAQUE)
-		VALUES (1, 1, 1, "Numanice", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\2379eac7d81d235ed5fb04c4b184063b', now(), TRUE),
-			   (2, 1, 1, "Inter Tenda", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\d8a7eea9ba4faf59ba881ee6ea63f776', now(), TRUE),
-			   (3, 1, 1, "FaroFada", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\716b8e60209d60b398d5c3f905de5a5a',now(), TRUE),
-               (4, 1, 1, "Alok & Jefferson .M", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\292882a2b6c72b4f7dc931d178b68d9a',now(), TRUE),
-			   (5, 1, 1, "Inutilismo", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\d8a7eea9ba4faf59ba881ee6ea63f776',now(), TRUE);
+		VALUES  (1, 1, 1, "Numanice", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\2379eac7d81d235ed5fb04c4b184063b', now(), TRUE),
+                        (2, 1, 1, "Inter Tenda", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\d8a7eea9ba4faf59ba881ee6ea63f776', now(), TRUE),
+                        (3, 1, 1, "FaroFada", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\716b8e60209d60b398d5c3f905de5a5a',now(), TRUE),
+                        (4, 1, 1, "Alok & Jefferson .M", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\292882a2b6c72b4f7dc931d178b68d9a',now(), TRUE),
+                        (5, 1, 1, "Inutilismo", "Bebidas Dorgas bla bla sex", '2023-10-12 20:00:00', '2023-10-12 22:00:00', 'Storage\capasIngressos\d8a7eea9ba4faf59ba881ee6ea63f776',now(), TRUE);
        
 INSERT INTO TB_TIPOS_INGRESSO (ID_INGRESSO, NM_TIPO_INGRESSO, QTD_TIPO_INGRESSO, VL_PRECO_TIPO) 
-	   VALUES  (1, "Front", 100, 300),
-			   (2, "Front", 100, 300),
-			   (3, "Front", 100, 300),
-			   (4, "Front", 100, 300),
-			   (5, "Front", 100, 300);	
+                VALUES  (1, "Front", 100, 300),
+                        (2, "Front", 100, 300),
+                        (3, "Front", 100, 300),
+                        (4, "Front", 100, 300),
+                        (5, "Front", 100, 300);	
 
 
 -- SELECTS  INGRESSO --------------------------------------------------------------------------------------------------------------------------------------------       
