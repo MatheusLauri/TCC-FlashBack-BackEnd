@@ -62,7 +62,8 @@ export async function alterarDadosCliente (id, cliente) {
             DS_TELEFONE         = ?, 
             NM_USUARIO          = ?, 
             DS_EMAIL            = ?,
-            DS_SENHA            = ?
+            DS_SENHA            = ?,
+            DT_CADASTRO         = now()
             WHERE   ID_CLIENTE = ?`
 
     const [resposta] = await con.query(comando, 
