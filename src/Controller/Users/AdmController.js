@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { login } from "../../Repository/Users/AdmRespository.js";
+import { ListarClientes, ListarEmpresa, login } from "../../Repository/Users/AdmRespository.js";
 
 const endpoints  = Router()
 
@@ -30,6 +30,37 @@ endpoints.post('/adm/login', async (req, resp) => {
         })
     }
     
+})
+
+
+endpoints.get('/empresasList',  async (req,resp) =>{ 
+    try {
+        
+        const empresas = await ListarEmpresa()
+
+        resp.send(empresas)
+
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+endpoints.get('/clientesList', async (req,resp) =>{
+
+    try {
+        
+        const clientes = await ListarClientes()
+
+        resp.send(clientes)
+        
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+
 })
     
 
