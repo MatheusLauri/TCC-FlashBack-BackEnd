@@ -14,6 +14,7 @@ import TipoIngressoController from './Controller/Produto/TipoIngressoController.
 import LocalEventoController from './Controller/Produto/LocalEventoController.js'
 import PedidoController from './Controller/Produto/PedidoController.js'
 import CompraController from './Controller/Produto/CompraController.js'
+import DataseHorarios from './Controller/Produto/Datas_horariosController.js'
 
 import cors from 'cors'
 import express from 'express'
@@ -37,6 +38,7 @@ server.use(TipoIngressoController)
 server.use(LocalEventoController)
 server.use(PedidoController)
 server.use(CompraController)
+server.use(DataseHorarios)
 
 
 
