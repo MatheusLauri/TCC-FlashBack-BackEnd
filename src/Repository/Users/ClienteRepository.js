@@ -5,8 +5,8 @@ import { con } from "../connection.js";
 export async function InserirCliente (cliente) {
 
     const comando = 
-    `      INSERT INTO TB_CADASTRO_CLIENTE (NM_CLIENTE, NM_SOBRENOME, DS_CPF, DT_NASCIMENTO, DS_TELEFONE, NM_USUARIO, DS_EMAIL, DS_SENHA)
-	            VALUE (?, ?, ?, ?, ?, ?, ?, ?)`
+    `      INSERT INTO TB_CADASTRO_CLIENTE (NM_CLIENTE, NM_SOBRENOME, DS_CPF, DT_NASCIMENTO, DS_TELEFONE, NM_USUARIO, DS_EMAIL, DS_SENHA, DT_CADASTRO)
+	            VALUE (?, ?, ?, ?, ?, ?, ?, ?, now())`
 
     const [resposta] = await con.query(comando, 
         [
@@ -39,7 +39,8 @@ export async function login(NomeUsuario, cpf, email, senha){
                 DS_TELEFONE,
                 NM_USUARIO,
                 DS_EMAIL,
-                DS_SENHA 
+                DS_SENHA,
+                DT_CADASTRO
         FROM TB_CADASTRO_CLIENTE 
         WHERE  (NM_USUARIO = ? OR DS_CPF = ? OR DS_EMAIL = ?) 
         AND    DS_SENHA = ?`
