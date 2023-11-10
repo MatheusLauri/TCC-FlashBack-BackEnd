@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { InserirEmpresa, login } from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, login } from "../../Repository/Users/EmpresaRepository.js";
 
 
 const endpoints  = Router()
@@ -71,4 +71,20 @@ endpoints.post('/empresa/login', async (req, resp) => {
 
 })
 
+
+
+endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
+    try {
+        
+        const {id} = req.query
+
+        const list = await ListIngresso(id)
+
+        resp.send(list)
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
 export default endpoints;

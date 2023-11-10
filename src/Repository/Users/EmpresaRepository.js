@@ -41,6 +41,23 @@ export async function login(cnpj, email, senha){
 }
 
 
+
+export async function ListIngresso(id){
+    const comando = 
+    `
+    SELECT  *
+	FROM 			TB_INGRESSO						INGRESSO
+    INNER JOIN 		TB_CADASTRO_EMPRESA				EMPRESA			ON EMPRESA.ID_EMPRESA = INGRESSO.ID_EMPRESA
+	INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
+    INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 			ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
+    INNER JOIN		TB_LOCAL_EVENTO					LOCAL			ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
+    WHERE INGRESSO.ID_EMPRESA = ?
+    `
+
+    const [resposta] = await con.query(comando, id)
+    return resposta
+}
+
 export async function alterarDadosEmpresa () {
 
 }
