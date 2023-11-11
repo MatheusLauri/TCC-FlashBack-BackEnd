@@ -8,7 +8,7 @@ export async function inserirIngresso(ingresso){
     const comando = 
     `
     INSERT INTO TB_INGRESSO(ID_CATEGORIA_INGRESSO, ID_EMPRESA, ID_LOCAL_EVENTO, NM_EVENTO, DS_EVENTO, DT_CADASTRO, BT_DESTAQUE)
-	        VALUES (?, ?, ?, ?, ?, ?, ?, now(), ?)
+	        VALUES (?, ?, ?, ?, ?, now(), ?)
     `
 
     const [resposta] = await con.query (comando, 
@@ -116,7 +116,6 @@ export async function buscarIngressosCategoria (categoria) {
     const comando = `
     SELECT  NM_CATEGORIA_INGRESSO, 
             NM_EVENTO, 
-            DT_COMECO,
             DS_LOGRADOURO,
             DS_LOCALIDADE,
             DS_UF,

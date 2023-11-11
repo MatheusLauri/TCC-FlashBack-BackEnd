@@ -28,11 +28,11 @@ endpoints.post('/ingresso', async (req, resp) => {
         if(!inserir.Descricao)
             throw new Error('Descrição obrigatória!')
      
-        if(!inserir.DataComeco)
-           throw new Error('Data de início obrigatória!')
+        // if(!inserir.DataComeco)
+        //    throw new Error('Data de início obrigatória!')
 
-        if(!inserir.DataFim)
-           throw new Error('Data de fim obrigatória!')
+        // if(!inserir.DataFim)
+        //    throw new Error('Data de fim obrigatória!')
 
 
         const ingressoInserido = await inserirIngresso(inserir)
