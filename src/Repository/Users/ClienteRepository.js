@@ -84,6 +84,16 @@ export async function alterarDadosCliente (id, cliente) {
 
 }
 
+export async function ListarUsuarios(){
+
+    const comando = `
+    SELECT * FROM TB_CADASTRO_CLIENTE
+             ORDER BY DT_CADASTRO DESC;  `
+
+    const [resposta] = await con.query(comando)
+
+    return resposta
+}
 
 export async function removerCliente () {
 

@@ -1,7 +1,7 @@
 
 import { Router } from "express";
 
-import { InserirCliente, alterarDadosCliente, login } from "../../Repository/Users/ClienteRepository.js";
+import { InserirCliente, ListarUsuarios, alterarDadosCliente, login } from "../../Repository/Users/ClienteRepository.js";
 
 const endpoints = Router()
 
@@ -108,6 +108,22 @@ endpoints.put('/cliente/alterarInfos/:id', async (req, resp) => {
     
 })
 
+endpoints.get('/cliente', async (req,resp) => {
+    try {
+        
+        const resposta = await ListarUsuarios()
 
+        if (resposta.length == 0)
+            resp.status(404).send([])
+        else
+            resp.send(resposta)
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
 
 export default endpoints;
