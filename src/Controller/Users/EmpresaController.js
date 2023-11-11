@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { InserirEmpresa, ListIngresso, login } from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, ListarEmpresas, login } from "../../Repository/Users/EmpresaRepository.js";
 
 
 const endpoints  = Router()
@@ -71,7 +71,23 @@ endpoints.post('/empresa/login', async (req, resp) => {
 
 })
 
+endpoints.get('/empresas', async (req,resp) => {
+    try {
+        
+        const resposta = await ListarEmpresas()
 
+        if (resposta.length == 0)
+            resp.status(404).send([])
+        else
+            resp.send(resposta)
+
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
 
 endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
     try {
@@ -87,4 +103,6 @@ endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
         })
     }
 })
+
+
 export default endpoints;

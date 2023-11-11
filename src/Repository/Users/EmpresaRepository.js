@@ -40,7 +40,15 @@ export async function login(cnpj, email, senha){
     return resposta[0]
 }
 
+export async function ListarEmpresas(){
 
+    const comando = `
+    SELECT * FROM TB_CADASTRO_EMPRESA  `
+
+    const [resposta] = await con.query(comando)
+
+    return resposta
+}
 
 export async function ListIngresso(id){
     const comando = 
@@ -66,3 +74,4 @@ export async function alterarDadosEmpresa () {
 export async function removerEmpresa () {
     
 }
+

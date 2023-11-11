@@ -88,7 +88,7 @@ export async function ListarUsuarios(){
 
     const comando = `
     SELECT * FROM TB_CADASTRO_CLIENTE
-             ORDER BY DT_CADASTRO DESC;  `
+             ORDER BY DT_CADASTRO DESC `
 
     const [resposta] = await con.query(comando)
 
