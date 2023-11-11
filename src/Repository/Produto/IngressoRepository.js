@@ -253,9 +253,7 @@ export async function BuscarNomeIngresso(nome){
         `
         SELECT  INGRESSO.ID_INGRESSO,
 				NM_CATEGORIA_INGRESSO,
-                NM_EVENTO, 
-                DT_COMECO,
-                DT_FIM,
+                NM_EVENTO,
                 DS_LOGRADOURO,
                 DS_LOCALIDADE,
                 DS_UF,

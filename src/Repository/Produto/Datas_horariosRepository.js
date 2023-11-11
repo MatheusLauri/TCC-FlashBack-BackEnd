@@ -45,3 +45,45 @@ export async function InserirHorario (HorarioIngresso) {
     return HorarioIngresso;
 
 }
+
+
+export async function BuscarData_Compra (idIngresso) {
+
+    const comando = 
+    `
+    SELECT 	ID_DATA_INGRESSO,
+            DATE(DT_INGRESSO) AS DT_INGRESSO
+        
+        FROM 			TB_INGRESSO						INGRESSO
+        INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+        
+        WHERE INGRESSO.ID_INGRESSO = ?
+    `
+
+    const [resposta] = await con.query (comando, [idIngresso])
+
+    return resposta;
+
+}
+
+
+
+export async function BuscarHorario_Compra (idData) {
+
+    const comando = 
+    `
+    SELECT 	ID_HORARIO_INGRESSO,
+		    DS_HORARIO
+        
+        FROM 			TB_INGRESSO						INGRESSO
+        INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+        INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS		ON HORARIOS.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
+        
+        WHERE   DATAS.ID_DATA_INGRESSO = ?
+    `
+
+    const [resposta] = await con.query (comando, [idData])
+
+    return resposta;
+
+}
