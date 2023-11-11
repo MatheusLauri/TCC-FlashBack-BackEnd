@@ -116,18 +116,30 @@ export async function buscarIngressosCategoria (categoria) {
     const comando = `
     SELECT  NM_CATEGORIA_INGRESSO, 
             NM_EVENTO, 
+            MIN(DT_INGRESSO) AS DT_COMECO,
+            MAX(DT_INGRESSO) AS DT_FIM,
+            DS_HORARIO,
             DS_LOGRADOURO,
             DS_LOCALIDADE,
             DS_UF,
             DS_NUM,
-            ID_INGRESSO,
+            INGRESSO.ID_INGRESSO,
             DS_EVENTO,
             IMAGEM_INGRESSO
-    
+
         FROM 			TB_INGRESSO						INGRESSO
         INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
         INNER JOIN		TB_LOCAL_EVENTO					LOCAL			ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
-        WHERE NM_CATEGORIA_INGRESSO LIKE ?
+        INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+        INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS		ON HORARIOS.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
+
+        WHERE DT_INGRESSO = (SELECT MIN(DT_INGRESSO) FROM TB_DATAS_INGRESSO WHERE ID_INGRESSO = INGRESSO.ID_INGRESSO) 
+        AND DS_HORARIO= (SELECT MIN(DS_HORARIO) FROM TB_HORARIOS_DATAS_INGRESSO WHERE ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO)
+        AND NM_CATEGORIA_INGRESSO LIKE ?
+
+        GROUP BY
+        NM_CATEGORIA_INGRESSO, NM_EVENTO, DS_HORARIO, DS_LOGRADOURO, DS_LOCALIDADE, DS_UF, DS_NUM, DS_EVENTO, INGRESSO.ID_INGRESSO, IMAGEM_INGRESSO, DT_CADASTRO, BT_DESTAQUE;
+
     `
 
     const [resposta] = await con.query(comando, [`%${categoria}%`])
@@ -155,12 +167,9 @@ export async function alterarIngresso(id, ingresso){
     const comando = 
         `UPDATE TB_INGRESSO
                 SET ID_CATEGORIA_INGRESSO   = ?, 
-                    ID_EMPRESA              = ?,
                     ID_LOCAL_EVENTO         = ?, 
                     NM_EVENTO               = ?, 
                     DS_EVENTO               = ?, 
-                    DT_COMECO               = ?, 
-                    DT_FIM                  = ?, 
                     BT_DESTAQUE             = ?
                 WHERE   ID_INGRESSO = ?`
 
@@ -168,12 +177,9 @@ export async function alterarIngresso(id, ingresso){
         
         [
             ingresso.Categoria,
-            ingresso.Empresa,
             ingresso.Local,
             ingresso.NomeEvento,
             ingresso.Descricao,
-            ingresso.DataComeco,
-            ingresso.DataFim,
             ingresso.Destaque,
             id
         ]

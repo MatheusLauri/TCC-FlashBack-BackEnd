@@ -142,20 +142,17 @@ endpoints.put('/ingresso/:id', async (req, resp) => {
         if(!ingresso.Categoria)
             throw new Error('Nome categoria obrigatória!')
 
-        if(!ingresso.Empresa)
-            throw new Error('Nome Empresa obrigatória!')
-        
         if(!ingresso.NomeEvento)
             throw new Error('Nome evento obrigatório!')
 
         if(!ingresso.Descricao)
             throw new Error('Descrição obrigatória!')
      
-        if(!ingresso.DataComeco)
-           throw new Error('Data de início obrigatória!')
+        // if(!ingresso.DataComeco)
+        //    throw new Error('Data de início obrigatória!')
 
-        if(!ingresso.DataFim)
-           throw new Error('Data de fim obrigatória!')
+        // if(!ingresso.DataFim)
+        //    throw new Error('Data de fim obrigatória!')
 
         if(isNaN(id))
             throw new Error('Id obrigatório')
