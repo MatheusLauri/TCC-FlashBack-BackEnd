@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, TodasCompras, login } from "../../Repository/Users/AdmRespository.js";
+import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, TodasCompras, compraPorCategoria, login } from "../../Repository/Users/AdmRespository.js";
 
 const endpoints  = Router()
 
@@ -104,6 +104,22 @@ endpoints.get('/CompraData', async (req,resp) => {
 
         resp.send(list)
 
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+endpoints.get('/CompraPorCategoria', async (req,resp) => {
+    try {
+        
+        const {categoria} = req.query
+
+        const cat = await compraPorCategoria(categoria)
+
+        resp.send(cat)
     } catch (err) {
         resp.status(404).send ({
             erro: err.message
