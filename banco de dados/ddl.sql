@@ -227,8 +227,8 @@ http://localhost:5000/transferencia?email=ETS@GMAIL.COM&pedidoIngresso=1
 --Horarios
 
 {
-  "Ingresso": 1,
-  "Data": "2023-10-11"
+  "Data": 1,
+  "Horario": "10:00:00"
 }
 
 --Tipo
