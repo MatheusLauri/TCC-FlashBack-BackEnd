@@ -92,9 +92,10 @@ endpoints.get('/empresas', async (req,resp) => {
 endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
     try {
         
-        const {id} = req.query
+        const {id, evento } = req.query
 
-        const list = await ListIngresso(id)
+        console.log(id, evento)
+        const list = await ListIngresso(id, evento)
 
         resp.send(list)
     } catch (err) {
