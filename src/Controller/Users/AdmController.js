@@ -129,7 +129,7 @@ endpoints.get('/CompraPorCategoria', async (req,resp) => {
 })
 
 
-
+// n usar esse ( usar o da parte de empresa, formulario)
 endpoints.post('/postCnpj', async (req,resp) => {
     try {
         

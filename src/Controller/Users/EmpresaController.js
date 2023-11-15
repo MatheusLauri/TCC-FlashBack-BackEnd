@@ -114,7 +114,6 @@ endpoints.post('/formulario', async (req,resp) => {
         
         const {cnpj, senha} = req.body
 
-        
         const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
         
 
@@ -124,6 +123,7 @@ endpoints.post('/formulario', async (req,resp) => {
         const razao = url.data.fantasia
         const email = url.data.email
 
+        console.log(razao,email)
 
         const resposta = await InserirFormulario(cnpj,razao, email, senha)
 
@@ -146,7 +146,6 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
 
         const inserir = await InserirEmpresa(resposta)
 
-        
         resp.send(inserir)
         
     } catch (err) {

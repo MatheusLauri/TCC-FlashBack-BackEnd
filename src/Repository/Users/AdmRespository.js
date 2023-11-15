@@ -165,7 +165,7 @@ export async function compraPorCategoria(categoria){
 
 
 
-
+// não usar esse 
 export async function PostApi(cnpj,razao,email,senha){
 
     const comando = `
@@ -177,7 +177,7 @@ export async function PostApi(cnpj,razao,email,senha){
     const [resposta] = await con.query(comando,[cnpj,razao,email,senha])
 
 
-    return resposta.affectedRows
+    return resposta
 }
 
 

@@ -120,7 +120,7 @@ export async function InserirFormulario(cnpj,razao,email,senha){
     const [resposta] = await con.query(comando,[cnpj,razao,email,senha])
 
 
-    return resposta.affectedRows
+    return resposta
 }
 
 
