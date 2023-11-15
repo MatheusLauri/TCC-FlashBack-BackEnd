@@ -1,5 +1,5 @@
 
-import { BuscarData_Compra, BuscarHorario_Compra, InserirData, InserirHorario } from "../../Repository/Produto/Datas_horariosRepository.js";
+import { BuscarData_Compra, BuscarData_CompraId, BuscarHorario_Compra, DeletarData, DeletarHorario, InserirData, InserirHorario } from "../../Repository/Produto/Datas_horariosRepository.js";
 
 import { Router } from "express";
 const endpoints  = Router()
@@ -85,6 +85,68 @@ endpoints.get('/horario/compra/:id', async (req, resp) => {
         resp.status(404).send({
             erro: err.message
         })     
+    }
+})
+
+
+endpoints.get('/data/horario/:id', async (req, resp) => {
+
+    try {
+
+        const {id} = req.params
+        
+        const resposta = await BuscarData_CompraId(id)
+
+        if(resposta.length === 0) 
+            throw new Error('Nehuma data ou horário encontrada para este ingresso')
+        
+        resp.send(resposta)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
+endpoints.delete('/data/:id', async (req, resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await DeletarData(id)
+
+        if(deletar == 0)
+            throw new Error('Data não pode ser deletada');
+        
+        resp.status(204).send()
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
+    }
+})
+
+
+
+endpoints.delete('/horario/:id', async (req, resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await DeletarHorario(id)
+
+        if(deletar == 0)
+            throw new Error('Horário não pode ser deletado');
+        
+        resp.status(204).send()
+
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       })
     }
 })
 
