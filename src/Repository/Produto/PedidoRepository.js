@@ -2,26 +2,29 @@ import { con } from "../connection.js";
 
 
 
-export async function InserirPedidoIngresso(pedido){
+export async function InserirPedidoIngresso(pedidoIngresso){
 
     const comando = `
     
-        INSERT INTO TB_PEDIDO_INGRESSO(ID_CLIENTE, ID_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
-               VALUES (?, ?, ?, ?) 
+        INSERT INTO TB_PEDIDO_INGRESSO(ID_CLIENTE, ID_LOCAL_EVENTO, ID_INGRESSO, ID_DATA_INGRESSO, ID_HORARIO_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
+               VALUES (?, ?, ?, ?, ?, ?, ?) 
     `
 
     const [resposta] = await con.query(comando, 
         [
-            pedido.Cliente, 
-            pedido.Ingresso,
-            pedido.TipoIngresso,
-            pedido.Itens
+            pedidoIngresso.Cliente, 
+            pedidoIngresso.Local,
+            pedidoIngresso.Ingresso,
+            pedidoIngresso.Data,
+            pedidoIngresso.Horario,
+            pedidoIngresso.TipoIngresso,
+            pedidoIngresso.Itens
         ])
 
-    pedido.ID = resposta.insertId
+    pedidoIngresso.ID = resposta.insertId
 
 
-    return pedido
+    return pedidoIngresso
 }
 
 

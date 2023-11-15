@@ -65,7 +65,7 @@ endpoints.post('/pedido', async (req, resp) => {
 })
 
 
-endpoints.get('/listarPedido', async (req,resp) =>{
+endpoints.get('/listarPedido', async (req, resp) =>{
     try {
         
         const listagem = await ListarPedido()
