@@ -95,7 +95,7 @@ endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
         
         const {id, evento } = req.query
 
-        console.log(id, evento)
+        
         const list = await ListIngresso(id, evento)
 
         resp.send(list)
@@ -116,15 +116,10 @@ endpoints.post('/formulario', async (req,resp) => {
 
         const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
         
-
-        console.log(url)
-
-
         const razao = url.data.fantasia
         const email = url.data.email
 
-        console.log(razao,email)
-
+    
         const resposta = await InserirFormulario(cnpj,razao, email, senha)
 
         resp.send(resposta)
