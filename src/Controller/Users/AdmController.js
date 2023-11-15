@@ -1,7 +1,8 @@
 import { Router } from "express";
 
-import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, TodasCompras, compraPorCategoria, login } from "../../Repository/Users/AdmRespository.js";
+import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, PostApi, TodasCompras, compraPorCategoria, login } from "../../Repository/Users/AdmRespository.js";
 
+import axios from "axios";
 const endpoints  = Router()
 
 
@@ -126,4 +127,66 @@ endpoints.get('/CompraPorCategoria', async (req,resp) => {
         })
     }
 })
+
+
+
+endpoints.post('/postCnpj', async (req,resp) => {
+    try {
+        
+        const {cnpj, senha} = req.body
+
+        const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
+        
+        const razao = url.data.fantasia
+        const email = url.data.email
+
+        const resposta = await PostApi(cnpj,razao, email, senha)
+
+        resp.send(resposta)
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+// select api 
+
+// http://localhost:5000/getCnpj?cnpj=39739202000195
+
+endpoints.get('/getCnpj', async (req, resp) => {
+    try {
+        const { cnpj } = req.query;
+
+        if (!cnpj) {
+            return resp.status(400).send({
+                erro: 'O parâmetro "cnpj" é obrigatório.',
+            });
+        }
+
+        // Fazer a requisição para a API externa
+        const response = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
+
+        // Verificar o status da resposta
+        if (response.status === 200) {
+            // A resposta foi bem-sucedida
+            const data = response.data;
+            resp.json(data);
+        } else {
+            // A resposta não foi bem-sucedida
+            resp.status(response.status).send({
+                erro: `Erro na requisição para a API externa. Status: ${response.status}`,
+            });
+        }
+    } catch (err) {
+        // Lidar com erros durante a execução
+        console.error('Erro na requisição:', err);
+        resp.status(500).send({
+            erro: 'Erro interno do servidor.',
+        });
+    }
+});
+
+
 export default endpoints;
