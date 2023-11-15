@@ -157,3 +157,14 @@ export async function ListForm(){
 
     return resposta
 }
+
+
+export async function ReprovarCadastro(id){
+    const comando = `
+        DELETE FROM TB_FORMULARIO_EMPRESA WHERE ID_EMPRESA = ?
+    `
+
+    const [resposta] = await con.query(comando, id) 
+
+    return resposta.affectedRows
+}

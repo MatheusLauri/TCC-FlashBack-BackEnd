@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost, ListForm} from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost, ListForm, ReprovarCadastro} from "../../Repository/Users/EmpresaRepository.js";
 
 import axios from "axios";
 
@@ -163,6 +163,22 @@ endpoints.get('/listForm', async (req,resp) => {
         resp.status(404).send ({
             erro: err.message
         })
+    }
+})
+
+
+endpoints.delete('/FormularioDel/:id', async (req,resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await ReprovarCadastro(id)
+
+        resp.status(204).send()
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       }) 
     }
 })
 export default endpoints;
