@@ -65,7 +65,7 @@ endpoints.post('/pedido', async (req, resp) => {
 })
 
 
-endpoints.get('/listarPedido', async (req, resp) =>{
+endpoints.get('/pedido', async (req, resp) =>{
     try {
         
         const listagem = await ListarPedido()
@@ -82,7 +82,7 @@ endpoints.get('/listarPedido', async (req, resp) =>{
     }
 })
 
-endpoints.get('/listarPedidoIngresso', async (req,resp) => {
+endpoints.get('/pedidoIngresso', async (req,resp) => {
     try {
         const listagem = await ListarPedidoIngresso()
 
@@ -94,7 +94,7 @@ endpoints.get('/listarPedidoIngresso', async (req,resp) => {
     }
 })
 
-endpoints.delete('/deletarPedido/:id', async (req,resp) =>{
+endpoints.delete('/pedido/:id', async (req,resp) =>{
     try {
 
         const {id} = req.params 
@@ -104,7 +104,7 @@ endpoints.delete('/deletarPedido/:id', async (req,resp) =>{
       //  if(deletar == 0)
             //throw new Error('ingresso não pode ser deletado');
 
-        resp.status(204).send
+        resp.status(204).send()
 
     } catch (err) {
         resp.status(404).send({
@@ -114,7 +114,7 @@ endpoints.delete('/deletarPedido/:id', async (req,resp) =>{
 })
 
 
-endpoints.delete('/deletarPedidoIngresso/:id', async (req,resp) => {
+endpoints.delete('/pedidoIngresso/:id', async (req,resp) => {
     try {
         
         const {id} = req.params
@@ -124,7 +124,7 @@ endpoints.delete('/deletarPedidoIngresso/:id', async (req,resp) => {
       //  if(deletar == 0)
           //  throw new Error('ingresso não pode ser deletado');
 
-        resp.status(204).send
+        resp.status(204).send()
     } catch (err) {
         resp.status(404).send({
             erro: err.message

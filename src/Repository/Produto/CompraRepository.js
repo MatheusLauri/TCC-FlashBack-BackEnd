@@ -41,47 +41,6 @@ export async function FormaPagamento(forma){
 }   
 
 
-export async function PedidoIngresso(pedido){
-
-    const comando = 
-    `
-        INSERT INTO TB_PEDIDO_INGRESSO (ID_CLIENTE, ID_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS) 
-	           VALUES (?, ?, ?, ?);
-    `
-
-    const [resposta] = await con.query(comando, 
-        [
-            pedido.Cliente,
-            pedido.Ingresso,
-            pedido.TipoIngresso,
-            pedido.Qtd
-        ])
-
-    pedido.ID = resposta.insertId
-
-    return pedido
-}
-
-
-export async function Pedido(pedido){
-    const comando = 
-    `
-    INSERT INTO TB_PEDIDO (ID_PEDIDO_INGRESSO, ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
-			VALUES (?, ?, now(), ?)
-
-    `
-
-    const [resposta] = await con.query(comando,
-        [
-            pedido.PedidoIngresso,
-            pedido.FormaPagamento,
-            pedido.Situacao
-        ]
-    )
-        pedido.ID = resposta.insertId
-        
-        return pedido
-}
 
 
 export async function AlterarPedidoIngresso(pedido,id){
@@ -124,39 +83,6 @@ export async function AlterarPedido(situacao,id){
 
     return resposta.affectedRows
 }
-
-
-export async function ListagemPedidoIngresso(){
-
-    const comando = `
-        SELECT *
-        FROM TB_PEDIDO_INGRESSO
-        INNER JOIN TB_CADASTRO_CLIENTE ON TB_PEDIDO_INGRESSO.ID_CLIENTE = TB_CADASTRO_CLIENTE.ID_CLIENTE
-        INNER JOIN TB_INGRESSO ON TB_PEDIDO_INGRESSO.ID_INGRESSO = TB_INGRESSO.ID_INGRESSO
-        INNER JOIN TB_TIPOS_INGRESSO ON TB_PEDIDO_INGRESSO.ID_TIPO_INGRESSO = TB_TIPOS_INGRESSO.ID_TIPO_INGRESSO
-    `
-
-    const [resposta] = await con.query(comando)
-
-    return resposta
-}
-
-
-export async function ListagemPedido(){
-
-
-    const comando = 
-    `
-        SELECT *
-    FROM TB_PEDIDO
-    INNER JOIN TB_PEDIDO_INGRESSO ON TB_PEDIDO.ID_PEDIDO_INGRESSO = TB_PEDIDO_INGRESSO.ID_PEDIDO_INGRESSO
-    INNER JOIN TB_FORMA_PAGAMENTO ON TB_PEDIDO.ID_FORMA_PAGAMENTO = TB_FORMA_PAGAMENTO.ID_FORMA_PAGAMENTO
-    `
-
-    const [resposta] = await con.query(comando)
-    return resposta
-
-} 
 
 
 export async function DeletePedidoIngresso(id){

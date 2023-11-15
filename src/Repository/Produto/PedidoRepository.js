@@ -6,13 +6,14 @@ export async function InserirPedidoIngresso(pedidoIngresso){
 
     const comando = `
     
-        INSERT INTO TB_PEDIDO_INGRESSO(ID_CLIENTE, ID_LOCAL_EVENTO, ID_INGRESSO, ID_DATA_INGRESSO, ID_HORARIO_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
-               VALUES (?, ?, ?, ?, ?, ?, ?) 
+        INSERT INTO TB_PEDIDO_INGRESSO(ID_CLIENTE, ID_CATEGORIA_INGRESSO, ID_LOCAL_EVENTO, ID_INGRESSO, ID_DATA_INGRESSO, ID_HORARIO_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
     `
 
     const [resposta] = await con.query(comando, 
         [
-            pedidoIngresso.Cliente, 
+            pedidoIngresso.Cliente,
+            pedidoIngresso.Categoria, 
             pedidoIngresso.Local,
             pedidoIngresso.Ingresso,
             pedidoIngresso.Data,
@@ -79,7 +80,9 @@ export async function ListarPedido(){
         INNER JOIN 		TB_FORMA_PAGAMENTO   			FORMA_PAGAMENTO			ON 		FORMA_PAGAMENTO.ID_FORMA_PAGAMENTO = PEDIDO.ID_FORMA_PAGAMENTO
         INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON 		PDINGRESSO.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
         INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS				ON 		PDINGRESSO.ID_HORARIO_INGRESSO = HORARIOS.ID_HORARIO_INGRESSO
-`
+
+        ORDER BY ID_PEDIDO
+    `
 
     const [resposta] = await con.query(comando)
 
@@ -107,7 +110,6 @@ export async function ListarPedidoIngresso(){
                 DT_CADASTRO,
                 QTD_ITENS,
                 NM_TIPO_INGRESSO,
-                QTD_TIPO_INGRESSO,
                 VL_PRECO_TIPO,
                 BT_DESTAQUE
 
@@ -123,6 +125,7 @@ export async function ListarPedidoIngresso(){
         GROUP BY 	ID_PEDIDO_INGRESSO, ID_CLIENTE, INGRESSO.ID_INGRESSO, TIPOS.ID_TIPO_INGRESSO,ID_CATEGORIA_INGRESSO, ID_EMPRESA, LOCAL.ID_LOCAL_EVENTO, DATAS.ID_DATA_INGRESSO,
                     HORARIOS.ID_HORARIO_INGRESSO, NM_EVENTO, DATAS.DT_INGRESSO, HORARIOS.DS_HORARIO, DS_EVENTO, IMAGEM_INGRESSO, DT_CADASTRO, QTD_ITENS,NM_TIPO_INGRESSO,
                     QTD_TIPO_INGRESSO,VL_PRECO_TIPO,BT_DESTAQUE
+
     `
     
 
@@ -207,7 +210,6 @@ export async function TransferirIngresso (email , pedidoIngresso){
 
     const [resposta1] = await con.query(comando1, email)
 
-    console.log(resposta1)
 
     const comando = 
     `
