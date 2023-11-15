@@ -12,15 +12,14 @@ export async function InserirEmpresa (empresa) {
     const [resposta] = await con.query (comando, 
         [
 
-            empresa.CNPJ,
-            empresa.RazaoSocial,
-            empresa.Email,
-            empresa.Senha,
+            empresa.DS_CNPJ,
+            empresa.NM_RAZAO_SOCIAL,
+            empresa.DS_EMAIL_EMPRESA,
+            empresa.DS_SENHA_EMPRESA,
 
         ]);
 
     empresa.ID = resposta.insertId;
-
     return empresa;
 }
 
@@ -132,11 +131,39 @@ export async function AprovaçãoPost(id){
             NM_RAZAO_SOCIAL,
             DS_EMAIL_EMPRESA,
             DS_SENHA_EMPRESA
-        FROM TB_CADASTRO_EMPRESA
+        FROM TB_FORMULARIO_EMPRESA
         WHERE ID_EMPRESA = ?
     `
     
     const [resposta] = await con.query(comando,[id])
 
     return resposta[0]
+}
+
+
+export async function ListForm(){
+    const comando = 
+    `
+        SELECT ID_EMPRESA,
+               DS_CNPJ,
+               NM_RAZAO_SOCIAL,
+               DS_EMAIL_EMPRESA, 
+               DS_SENHA_EMPRESA 
+        FROM TB_FORMULARIO_EMPRESA
+    `
+
+    const [resposta] =  await con.query(comando)
+
+    return resposta
+}
+
+
+export async function ReprovarCadastro(id){
+    const comando = `
+        DELETE FROM TB_FORMULARIO_EMPRESA WHERE ID_EMPRESA = ?
+    `
+
+    const [resposta] = await con.query(comando, id) 
+
+    return resposta.affectedRows
 }

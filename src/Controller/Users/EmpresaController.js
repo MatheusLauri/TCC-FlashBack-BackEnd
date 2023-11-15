@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost} from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost, ListForm, ReprovarCadastro} from "../../Repository/Users/EmpresaRepository.js";
 
 import axios from "axios";
 
@@ -13,19 +13,6 @@ endpoints.post('/empresa', async (req, resp) => {
     try {
 
         const InserirNovaEmpresa = req.body
-
-        if(!InserirNovaEmpresa.CNPJ)
-            throw new Error('CNPJ Obrigatorio!')
-
-        if(!InserirNovaEmpresa.RazaoSocial)
-            throw new Error('Razão Social Obrigatorio!')
-
-        if(!InserirNovaEmpresa.Email)
-            throw new Error('Email Obrigatorio!')
-
-        if(!InserirNovaEmpresa.Senha)
-            throw new Error('Senha Obrigatorio!')
-
 
         const empresaInserida = await InserirEmpresa(InserirNovaEmpresa)
 
@@ -136,10 +123,11 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
     try {
             
         const {id} = req.body
-
         const resposta = await AprovaçãoPost(id)
 
         const inserir = await InserirEmpresa(resposta)
+
+        const deletar = await ReprovarCadastro(id)
 
         resp.send(inserir)
         
@@ -147,6 +135,38 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
         resp.status(404).send ({
             erro: err.message
         })
+    }
+})
+
+
+
+endpoints.get('/listForm', async (req,resp) => {
+    try {
+        
+        const listagem = await ListForm()
+
+        resp.send(listagem)
+
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+endpoints.delete('/FormularioDel/:id', async (req,resp) => {
+    try {
+        
+        const {id} = req.params
+
+        const deletar = await ReprovarCadastro(id)
+
+        resp.status(204).send()
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+       }) 
     }
 })
 export default endpoints;
