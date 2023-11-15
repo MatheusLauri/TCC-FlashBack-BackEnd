@@ -1,7 +1,8 @@
 import { Router } from "express";
 
-import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, TodasCompras, compraPorCategoria, login } from "../../Repository/Users/AdmRespository.js";
+import { CompraPorData, ListarClientes, ListarCompraUF, ListarEmpresa, PostApi, TodasCompras, compraPorCategoria, login } from "../../Repository/Users/AdmRespository.js";
 
+import axios from "axios";
 const endpoints  = Router()
 
 
@@ -120,6 +121,30 @@ endpoints.get('/CompraPorCategoria', async (req,resp) => {
         const cat = await compraPorCategoria(categoria)
 
         resp.send(cat)
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+
+endpoints.post('/postCnpj', async (req,resp) => {
+    try {
+        
+        const {cnpj, senha} = req.body
+
+        const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
+
+        const razao = url.data.fantasia
+        const email = url.data.email
+
+
+
+        const resposta = PostApi(cnpj,razao, email, senha)
+
+        resp.send(resposta)
     } catch (err) {
         resp.status(404).send ({
             erro: err.message

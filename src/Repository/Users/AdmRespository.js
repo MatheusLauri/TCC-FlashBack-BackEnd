@@ -40,7 +40,7 @@ export async function ListarClientes(){
 export async function ListarCompraUF(UF){
     const comando = 
     `
-    SELECT  	ID_PEDIDO,
+    SELECT  ID_PEDIDO,
 			NM_CLIENTE,
             NM_SOBRENOME,
             DS_CPF,
@@ -161,4 +161,21 @@ export async function compraPorCategoria(categoria){
 
  
     return resposta
+}
+
+
+
+
+export async function PostApi(cnpj,razao,email,senha){
+
+    const comando = `
+    INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_SENHA_EMPRESA) 
+                VALUES (?, ?, ?, ?)
+
+    `
+
+    const [resposta] = await con.query(comando,[cnpj,razao,email,senha])
+
+
+    return resposta.affectedRows
 }
