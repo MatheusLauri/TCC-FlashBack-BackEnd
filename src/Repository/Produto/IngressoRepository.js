@@ -273,6 +273,7 @@ export async function BuscarNomeIngresso(nome){
                 DT_CADASTRO,
                 BT_DESTAQUE
 
+                
             FROM 			TB_INGRESSO						INGRESSO
             INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA		ON CATEGORIA.ID_CATEGORIA_INGRESSO = INGRESSO.ID_CATEGORIA_INGRESSO
             INNER JOIN 		TB_TIPOS_INGRESSO   			TIPO 			ON TIPO.ID_INGRESSO = INGRESSO.ID_INGRESSO
