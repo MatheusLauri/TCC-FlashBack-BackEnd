@@ -14,19 +14,6 @@ endpoints.post('/empresa', async (req, resp) => {
 
         const InserirNovaEmpresa = req.body
 
-        if(!InserirNovaEmpresa.CNPJ)
-            throw new Error('CNPJ Obrigatorio!')
-
-        if(!InserirNovaEmpresa.RazaoSocial)
-            throw new Error('Razão Social Obrigatorio!')
-
-        if(!InserirNovaEmpresa.Email)
-            throw new Error('Email Obrigatorio!')
-
-        if(!InserirNovaEmpresa.Senha)
-            throw new Error('Senha Obrigatorio!')
-
-
         const empresaInserida = await InserirEmpresa(InserirNovaEmpresa)
 
         if(empresaInserida.length > 0)

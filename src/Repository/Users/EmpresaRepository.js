@@ -12,15 +12,14 @@ export async function InserirEmpresa (empresa) {
     const [resposta] = await con.query (comando, 
         [
 
-            empresa.CNPJ,
-            empresa.RazaoSocial,
-            empresa.Email,
-            empresa.Senha,
+            empresa.DS_CNPJ,
+            empresa.NM_RAZAO_SOCIAL,
+            empresa.DS_EMAIL_EMPRESA,
+            empresa.DS_SENHA_EMPRESA,
 
         ]);
 
     empresa.ID = resposta.insertId;
-
     return empresa;
 }
 
