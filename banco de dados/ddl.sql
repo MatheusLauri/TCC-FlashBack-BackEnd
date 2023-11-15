@@ -71,7 +71,16 @@ DS_NUM              	VARCHAR(100)
     
 );
 
-
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas e Shows');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Teatros e Espetáculos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas Juninas');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Palestras e Congressos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Infantil');
 
 CREATE TABLE TB_INGRESSO (
 
