@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost} from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost, ListForm} from "../../Repository/Users/EmpresaRepository.js";
 
 import axios from "axios";
 
@@ -143,6 +143,22 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
 
         resp.send(inserir)
         
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+
+endpoints.get('/listForm', async (req,resp) => {
+    try {
+        
+        const listagem = await ListForm()
+
+        resp.send(listagem)
+
     } catch (err) {
         resp.status(404).send ({
             erro: err.message

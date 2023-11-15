@@ -140,3 +140,20 @@ export async function AprovaçãoPost(id){
 
     return resposta[0]
 }
+
+
+export async function ListForm(){
+    const comando = 
+    `
+        SELECT ID_EMPRESA,
+               DS_CNPJ,
+               NM_RAZAO_SOCIAL,
+               DS_EMAIL_EMPRESA, 
+               DS_SENHA_EMPRESA 
+        FROM TB_FORMULARIO_EMPRESA
+    `
+
+    const [resposta] =  await con.query(comando)
+
+    return resposta
+}
