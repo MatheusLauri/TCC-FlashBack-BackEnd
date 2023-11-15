@@ -114,8 +114,13 @@ endpoints.post('/formulario', async (req,resp) => {
         
         const {cnpj, senha} = req.body
 
+        
         const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
         
+
+        console.log(url)
+
+
         const razao = url.data.fantasia
         const email = url.data.email
 

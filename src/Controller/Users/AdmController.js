@@ -136,12 +136,16 @@ endpoints.post('/postCnpj', async (req,resp) => {
         const {cnpj, senha} = req.body
 
         const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
+
+        
         
         const razao = url.data.fantasia
         const email = url.data.email
 
-        const resposta = await PostApi(cnpj,razao, email, senha)
 
+        
+        const resposta = await PostApi(cnpj,razao, email, senha)
+        console.log(resposta)
         resp.send(resposta)
     } catch (err) {
         resp.status(404).send ({
