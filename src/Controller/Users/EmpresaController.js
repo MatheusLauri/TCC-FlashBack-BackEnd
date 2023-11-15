@@ -141,6 +141,8 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
 
         const inserir = await InserirEmpresa(resposta)
 
+        const deletar = await ReprovarCadastro(id)
+
         resp.send(inserir)
         
     } catch (err) {
