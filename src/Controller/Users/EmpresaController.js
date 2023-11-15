@@ -123,7 +123,6 @@ endpoints.post('/Aprovacao', async (req,resp) =>{
     try {
             
         const {id} = req.body
-
         const resposta = await AprovaçãoPost(id)
 
         const inserir = await InserirEmpresa(resposta)

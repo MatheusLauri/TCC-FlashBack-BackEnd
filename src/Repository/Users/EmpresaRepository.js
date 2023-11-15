@@ -131,7 +131,7 @@ export async function AprovaçãoPost(id){
             NM_RAZAO_SOCIAL,
             DS_EMAIL_EMPRESA,
             DS_SENHA_EMPRESA
-        FROM TB_CADASTRO_EMPRESA
+        FROM TB_FORMULARIO_EMPRESA
         WHERE ID_EMPRESA = ?
     `
     
