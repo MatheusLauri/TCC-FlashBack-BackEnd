@@ -179,3 +179,5 @@ export async function PostApi(cnpj,razao,email,senha){
 
     return resposta.affectedRows
 }
+
+

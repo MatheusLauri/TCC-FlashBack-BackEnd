@@ -1,7 +1,8 @@
 
 import { Router } from "express";
-import { InserirEmpresa, ListIngresso, ListarEmpresas, login } from "../../Repository/Users/EmpresaRepository.js";
+import { InserirEmpresa, ListIngresso, ListarEmpresas, login, InserirFormulario, AprovaçãoPost} from "../../Repository/Users/EmpresaRepository.js";
 
+import axios from "axios";
 
 const endpoints  = Router()
 
@@ -106,4 +107,47 @@ endpoints.get('/IngressoPorEmpresa', async (req,resp) => {
 })
 
 
+
+
+endpoints.post('/formulario', async (req,resp) => {
+    try {
+        
+        const {cnpj, senha} = req.body
+
+        const url = await axios.get(`https://receitaws.com.br/v1/cnpj/${cnpj}`)
+        
+        const razao = url.data.fantasia
+        const email = url.data.email
+
+
+        const resposta = await InserirFormulario(cnpj,razao, email, senha)
+
+        resp.send(resposta)
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
+
+
+
+endpoints.post('/Aprovacao', async (req,resp) =>{
+    try {
+            
+        const {id} = req.body
+
+        const resposta = await AprovaçãoPost(id)
+
+        const inserir = await InserirEmpresa(resposta)
+
+        
+        resp.send(inserir)
+        
+    } catch (err) {
+        resp.status(404).send ({
+            erro: err.message
+        })
+    }
+})
 export default endpoints;
