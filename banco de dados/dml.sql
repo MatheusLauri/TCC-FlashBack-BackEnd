@@ -13,6 +13,17 @@ INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_
     
 INSERT INTO TB_CADASTRO_ADM (DS_EMAIL_ADM, DS_SENHA_ADM)
 	VALUE ("admin", "1234");
+
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas e Shows');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Teatros e Espetáculos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+	   VALUES ('Festas Juninas');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Palestras e Congressos');
+INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
+       VALUES ('Infantil');
     
 -------------------------------------------------------------------------------------------------------------------
     
@@ -276,14 +287,3 @@ SELECT  *
 WHERE INGRESSO.ID_EMPRESA = 1;
 
 
-
-INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
-	   VALUES ('Festas e Shows');
-INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
-	   VALUES ('Teatros e Espetáculos');
-INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
-	   VALUES ('Festas Juninas');
-INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
-       VALUES ('Palestras e Congressos');
-INSERT INTO `infoadb`.`TB_CATEGORIA_INGRESSO` (`NM_CATEGORIA_INGRESSO`) 
-       VALUES ('Infantil');
