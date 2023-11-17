@@ -19,6 +19,7 @@ endpoints.post('/data', async (req, resp) => {
             throw new Error('Campo de data vazio insira ao menos uma data!')
 
 
+            
         
         const DataInserida = await InserirData(inserirDate)
 
