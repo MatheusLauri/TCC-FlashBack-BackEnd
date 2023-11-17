@@ -135,7 +135,7 @@ export async function DeletarHorario(id) {
     const comando = 
     `
     DELETE FROM TB_HORARIOS_DATAS_INGRESSO
-        WHERE   ID_DATA_INGRESSO = ?
+        WHERE   ID_HORARIO_INGRESSO = ?
     `
 
     const [resposta] = await con.query (comando, [id])
