@@ -68,10 +68,10 @@ endpoints.post('/pedido', async (req, resp) => {
 endpoints.get('/pedido', async (req, resp) =>{
     try {
         
-        const listagem = await ListarPedido()
+        const {id} = req.query
 
-        if(listagem.length === 0) 
-            throw new Error('Nenhum pedido encontrado')
+        const listagem = await ListarPedido(id)
+
         
         resp.send(listagem)
 
