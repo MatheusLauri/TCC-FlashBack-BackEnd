@@ -18,10 +18,7 @@ endpoints.post('/data', async (req, resp) => {
         if(!inserirDate.Data)
             throw new Error('Campo de data vazio insira ao menos uma data!')
 
-        const resp2 = await BuscarData_Compra(inserirDate.Ingresso)
 
-        if(resp2.length > 0)
-            throw new Error('Essa data já existe!')
         
         const DataInserida = await InserirData(inserirDate)
 
