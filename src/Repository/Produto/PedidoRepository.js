@@ -196,7 +196,7 @@ export async function AdicionarQtdItens(adicionar,id){
 }
 
 
-export async function TransferirIngresso (email , pedidoIngresso){
+export async function TransferirIngresso (email ,ClienteAntigo, pedidoIngresso){
 
     const comando1 = 
     
@@ -213,15 +213,20 @@ export async function TransferirIngresso (email , pedidoIngresso){
 
     const comando = 
     `
-        UPDATE TB_PEDIDO_INGRESSO SET ID_CLIENTE = ? WHERE ID_PEDIDO_INGRESSO = ?
+        UPDATE TB_PEDIDO P
+        JOIN TB_PEDIDO_INGRESSO PDI ON PDI.ID_PEDIDO_INGRESSO = P.ID_PEDIDO_INGRESSO
+        JOIN TB_CADASTRO_CLIENTE CLI ON CLI.ID_CLIENTE = PDI.ID_CLIENTE
+        SET PDI.ID_CLIENTE = ?
+        WHERE CLI.ID_CLIENTE = ? AND P.ID_PEDIDO = ?
     `
 
     const [resposta] = await con.query(comando,
          [
             resposta1[0].Cliente,
+            ClienteAntigo,
             pedidoIngresso
          ])
 
-         
+    
     return resposta
 }
