@@ -68,10 +68,10 @@ endpoints.post('/pedido', async (req, resp) => {
 endpoints.get('/pedido', async (req, resp) =>{
     try {
         
-        const listagem = await ListarPedido()
+        const {id} = req.query
 
-        if(listagem.length === 0) 
-            throw new Error('Nenhum pedido encontrado')
+        const listagem = await ListarPedido(id)
+
         
         resp.send(listagem)
 
@@ -155,13 +155,13 @@ endpoints.put('/pedidoIngresso/:id', async (req, resp) => {
 endpoints.put('/transferencia', async (req,resp) =>{
     try {
         
-        const {email , pedidoIngresso} = req.query
+        const {email, ClienteAntigo, pedidoIngresso} = req.query
         
      //   if(!email)
            // throw new Error("Email obrigatorio")
 
 
-        const transferencia = await TransferirIngresso(email , pedidoIngresso)
+        const transferencia = await TransferirIngresso(email , ClienteAntigo, pedidoIngresso)
 
         
         resp.status(204).send()

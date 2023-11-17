@@ -34,14 +34,13 @@ export async function InserirPedido(pedido){
     const comando = 
     `
     INSERT INTO tb_pedido (ID_PEDIDO_INGRESSO, ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
-           VALUES (?, ?, now(), ?)
+           VALUES (?, ?, now(), true)
     `
 
     const [resposta] = await con.query(comando, 
     [
         pedido.PedidoIngresso,
-        pedido.FormaPagamento,
-        pedido.Situacao
+        pedido.FormaPagamento
     ])
 
     pedido.id = resposta.insertId
@@ -52,39 +51,28 @@ export async function InserirPedido(pedido){
 
 
 
-export async function ListarPedido(){
-    const comando = `
-    SELECT  	ID_PEDIDO,
-                NM_CLIENTE,
-                NM_SOBRENOME,
-                DS_CPF,
-                DS_EMAIL,
-                DS_TELEFONE,
-                NM_CATEGORIA_INGRESSO,
-                NM_EVENTO, 
-                DT_INGRESSO,
-                DS_HORARIO,
-                IMAGEM_INGRESSO,
-                DS_EVENTO,
-                NM_TIPO_INGRESSO,
-                VL_PRECO_TIPO,
-                QTD_ITENS,
-                DT_PEDIDO
-    
-        FROM 			TB_PEDIDO						PEDIDO
-        INNER JOIN 		TB_PEDIDO_INGRESSO 	 			PDINGRESSO				ON 		PDINGRESSO.ID_PEDIDO_INGRESSO = PEDIDO.ID_PEDIDO_INGRESSO
-        INNER JOIN 		TB_CADASTRO_CLIENTE 			CLIENTE					ON 		CLIENTE.ID_CLIENTE = PDINGRESSO.ID_CLIENTE
-        INNER JOIN 		TB_CATEGORIA_INGRESSO 	 		CATEGORIA				ON      PDINGRESSO.ID_CATEGORIA_INGRESSO = CATEGORIA.ID_CATEGORIA_INGRESSO
-        INNER JOIN 		TB_INGRESSO 	 				INGRESSO				ON 		INGRESSO.ID_INGRESSO = PDINGRESSO.ID_INGRESSO
-        INNER JOIN 		TB_TIPOS_INGRESSO 	 			TIPO					ON 		TIPO.ID_TIPO_INGRESSO = PDINGRESSO.ID_TIPO_INGRESSO
-        INNER JOIN 		TB_FORMA_PAGAMENTO   			FORMA_PAGAMENTO			ON 		FORMA_PAGAMENTO.ID_FORMA_PAGAMENTO = PEDIDO.ID_FORMA_PAGAMENTO
-        INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON 		PDINGRESSO.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
-        INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS				ON 		PDINGRESSO.ID_HORARIO_INGRESSO = HORARIOS.ID_HORARIO_INGRESSO
-
-        ORDER BY ID_PEDIDO
+export async function ListarPedido(id){
+        const comando = `
+        SELECT  	
+        INGRESSO.IMAGEM_INGRESSO,
+        INGRESSO.NM_EVENTO,
+        LOCAL.DS_LOGRADOURO,
+        DATAS.DT_INGRESSO,
+        PEDIDO.BT_SITUACAO
+        
+    FROM 			TB_PEDIDO						PEDIDO
+    INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON PDINGRESSO.ID_PEDIDO_INGRESSO = PEDIDO.ID_PEDIDO_INGRESSO
+    INNER JOIN 		TB_CADASTRO_CLIENTE 	 		CLIENTE					ON CLIENTE.ID_CLIENTE = PDINGRESSO.ID_CLIENTE
+    INNER JOIN 		TB_INGRESSO 	 				INGRESSO				ON INGRESSO.ID_INGRESSO = PDINGRESSO.ID_INGRESSO
+    INNER JOIN		TB_LOCAL_EVENTO					LOCAL					ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
+    INNER JOIN 		TB_TIPOS_INGRESSO 	 			TIPO					ON TIPO.ID_TIPO_INGRESSO = PDINGRESSO.ID_TIPO_INGRESSO
+    INNER JOIN 		TB_FORMA_PAGAMENTO   			FORMA_PAGAMENTO			ON FORMA_PAGAMENTO.ID_FORMA_PAGAMENTO = PEDIDO.ID_FORMA_PAGAMENTO
+    INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+    WHERE ID_PEDIDO = ?
+    ORDER BY ID_PEDIDO
     `
 
-    const [resposta] = await con.query(comando)
+    const [resposta] = await con.query(comando,id)
 
     return resposta
 }
@@ -196,7 +184,7 @@ export async function AdicionarQtdItens(adicionar,id){
 }
 
 
-export async function TransferirIngresso (email , pedidoIngresso){
+export async function TransferirIngresso (email ,ClienteAntigo, pedidoIngresso){
 
     const comando1 = 
     
@@ -213,15 +201,20 @@ export async function TransferirIngresso (email , pedidoIngresso){
 
     const comando = 
     `
-        UPDATE TB_PEDIDO_INGRESSO SET ID_CLIENTE = ? WHERE ID_PEDIDO_INGRESSO = ?
+        UPDATE TB_PEDIDO P
+        JOIN TB_PEDIDO_INGRESSO PDI ON PDI.ID_PEDIDO_INGRESSO = P.ID_PEDIDO_INGRESSO
+        JOIN TB_CADASTRO_CLIENTE CLI ON CLI.ID_CLIENTE = PDI.ID_CLIENTE
+        SET PDI.ID_CLIENTE = ?
+        WHERE CLI.ID_CLIENTE = ? AND P.ID_PEDIDO = ?
     `
 
     const [resposta] = await con.query(comando,
          [
             resposta1[0].Cliente,
+            ClienteAntigo,
             pedidoIngresso
          ])
 
-         
+    
     return resposta
 }
