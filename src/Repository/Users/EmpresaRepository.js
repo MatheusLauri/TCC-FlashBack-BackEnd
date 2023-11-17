@@ -6,8 +6,8 @@ import { con } from "../connection.js";
 export async function InserirEmpresa (empresa) {
 
     const comando = 
-        `   INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_SENHA_EMPRESA)
-        VALUE (?, ?, ?, ?)`
+        `   INSERT INTO TB_CADASTRO_EMPRESA (DS_CNPJ, NM_RAZAO_SOCIAL, DS_EMAIL_EMPRESA, DS_SENHA_EMPRESA, DT_CADASTRO)
+        VALUE (?, ?, ?, ?, NOW())`
 
     const [resposta] = await con.query (comando, 
         [
@@ -16,6 +16,7 @@ export async function InserirEmpresa (empresa) {
             empresa.NM_RAZAO_SOCIAL,
             empresa.DS_EMAIL_EMPRESA,
             empresa.DS_SENHA_EMPRESA,
+            empresa.DataCadastro
 
         ]);
 
@@ -74,8 +75,8 @@ export async function ListIngresso(id, evento ){
         INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
         INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS		ON HORARIOS.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
 
-        WHERE INGRESSO.ID_EMPRESA = 1
-        AND (NM_EVENTO LIKE '%%' OR NM_CATEGORIA_INGRESSO LIKE '%%')
+        WHERE INGRESSO.ID_EMPRESA = ?
+        AND (NM_EVENTO LIKE ? OR NM_CATEGORIA_INGRESSO LIKE ?)
         AND DT_INGRESSO = (SELECT MIN(DT_INGRESSO) FROM TB_DATAS_INGRESSO WHERE ID_INGRESSO = INGRESSO.ID_INGRESSO) 
         AND DS_HORARIO = (SELECT MIN(DS_HORARIO) FROM TB_HORARIOS_DATAS_INGRESSO WHERE ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO)
 
