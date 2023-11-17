@@ -11,7 +11,6 @@ export async function InserirEmpresa (empresa) {
 
     const [resposta] = await con.query (comando, 
         [
-
             empresa.DS_CNPJ,
             empresa.NM_RAZAO_SOCIAL,
             empresa.DS_EMAIL_EMPRESA,
