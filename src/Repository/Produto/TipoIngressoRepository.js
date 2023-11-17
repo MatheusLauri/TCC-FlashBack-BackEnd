@@ -39,6 +39,18 @@ export async function listarTipos (id) {
 }
 
 
+export async function listarTiposPorIdTipo (id) {
+
+    const comando = 
+    `  SELECT * FROM   
+                TB_TIPOS_INGRESSO
+                WHERE ID_TIPO_INGRESSO = ? `
+    
+    const [resposta] = await con.query(comando, [id])
+
+    return resposta;
+}
+
 
 export async function alterarTipoIngresso (id, tipo) {
 

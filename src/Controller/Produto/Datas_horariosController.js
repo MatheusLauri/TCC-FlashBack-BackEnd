@@ -10,11 +10,21 @@ endpoints.post('/data', async (req, resp) => {
 
     try {
 
-        const inserirData = req.body
-        
-        const DataInserida = await InserirData(inserirData)
+        const inserirDate = req.body
 
+        if(!inserirDate.Ingresso)
+            throw new Error('Insira um id de Ingresso!')
+
+        if(!inserirDate.Data)
+            throw new Error('Campo de data vazio insira ao menos uma data!')
+
+        const resp2 = await BuscarData_Compra(inserirDate.Ingresso)
+
+        if(resp2.length > 0)
+            throw new Error('Essa data já existe!')
         
+        const DataInserida = await InserirData(inserirDate)
+
         resp.send(DataInserida)
         
     } catch (err) {
