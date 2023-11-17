@@ -1,5 +1,6 @@
 
 import { con } from "../connection.js";
+import { DeletarData } from "./Datas_horariosRepository.js";
 
 
 
@@ -202,7 +203,10 @@ export async function removerIngresso(id){
              WHERE  ID_INGRESSO = ?
     `
 
-    const comando4 = 
+    const comando4 = await DeletarData(id)
+   
+
+    const comando5 = 
     ` DELETE FROM   TB_INGRESSO
             WHERE   ID_INGRESSO = ?`
 
@@ -210,8 +214,9 @@ export async function removerIngresso(id){
     const [resposta2] = await con.query(comando2, [id])
     const [resposta3] = await con.query(comando3, [id])
     const [resposta4] = await con.query(comando4, [id])
+    const [resposta5] = await con.query(comando5, [id])
 
-    return resposta4.affectedRows
+    return resposta5.affectedRows
 
 }
 

@@ -1,6 +1,7 @@
 
 
-import { alterarTipoIngresso, inserirTipoIngresso, listarTipos, removerTipoIngresso } from "../../Repository/Produto/TipoIngressoRepository.js";
+import axios from "axios";
+import { alterarTipoIngresso, inserirTipoIngresso, listarTipos, listarTiposPorIdTipo, removerTipoIngresso } from "../../Repository/Produto/TipoIngressoRepository.js";
 
 import { Router } from "express";
 
@@ -23,6 +24,23 @@ endpoints.get('/tipoIngresso/:id', async (req, resp) => {
     }
 })
 
+
+endpoints.get('/tipoIngressoId/:id', async (req, resp) => {
+
+    try {
+        const {id} = req.params
+        const tipos = await listarTiposPorIdTipo(id)
+
+        resp.send(tipos)
+        
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })     
+    }
+})
+
+
 endpoints.post('/tipoIngresso', async (req, resp) => {
 
     try {
@@ -31,16 +49,19 @@ endpoints.post('/tipoIngresso', async (req, resp) => {
 
 
         if(!inserirTipo.Ingresso)
-            throw new Error('Id ingresso Obrigatorio')
+            throw new Error('Id ingresso Obrigatório')
         
         if(!inserirTipo.Tipo)
-            throw new Error('Tipo Ingresso Obrigatorio')
+            throw new Error('Nome tipo Ingresso Obrigatório')
 
         if(!inserirTipo.Quantidade)
-            throw new Error('Quantidade tipo ingresso Obrigatorio');
+            throw new Error('Quantidade Obrigatória');
 
-        if(inserirTipo.Preco === undefined)
-            throw new Error('Preco tipo ingresso Obrigatorio')
+        if(!inserirTipo.Preco)
+            throw new Error('Preco Obrigatório')
+
+        if(inserirTipo.Preco < 0)
+            throw new Error('O preço não pode ser menor que 0!')
 
         const tipoinserido = await inserirTipoIngresso(inserirTipo)
 
