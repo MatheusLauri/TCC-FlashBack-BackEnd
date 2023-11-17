@@ -34,14 +34,13 @@ export async function InserirPedido(pedido){
     const comando = 
     `
     INSERT INTO tb_pedido (ID_PEDIDO_INGRESSO, ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
-           VALUES (?, ?, now(), ?)
+           VALUES (?, ?, now(), true)
     `
 
     const [resposta] = await con.query(comando, 
     [
         pedido.PedidoIngresso,
-        pedido.FormaPagamento,
-        pedido.Situacao
+        pedido.FormaPagamento
     ])
 
     pedido.id = resposta.insertId
