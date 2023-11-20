@@ -15,7 +15,6 @@ export async function InserirEmpresa (empresa) {
             empresa.NM_RAZAO_SOCIAL,
             empresa.DS_EMAIL_EMPRESA,
             empresa.DS_SENHA_EMPRESA,
-            empresa.DataCadastro
 
         ]);
 
