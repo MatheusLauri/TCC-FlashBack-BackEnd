@@ -278,7 +278,7 @@ export async function BuscarNomeIngresso(nome){
         INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
         INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS		ON HORARIOS.ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO
         
-        WHERE   (NM_EVENTO LIKE '%%'  OR  NM_CATEGORIA_INGRESSO LIKE '%%') 
+        WHERE NM_EVENTO LIKE ?
         AND DT_INGRESSO = (SELECT MIN(DT_INGRESSO) FROM TB_DATAS_INGRESSO WHERE ID_INGRESSO = INGRESSO.ID_INGRESSO) 
         AND DS_HORARIO= (SELECT MIN(DS_HORARIO) FROM TB_HORARIOS_DATAS_INGRESSO WHERE ID_DATA_INGRESSO = DATAS.ID_DATA_INGRESSO)
         
@@ -289,7 +289,7 @@ export async function BuscarNomeIngresso(nome){
         `
 
 
-    const [linhas] = await con.query(comando, [ `%${nome}%`, `%${nome}%` ])
+    const [linhas] = await con.query(comando, [`%${nome}%`])
 
     return linhas
 }
