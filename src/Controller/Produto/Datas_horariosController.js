@@ -1,5 +1,5 @@
 
-import { BuscarData_Compra, BuscarData_CompraId, BuscarHorario_Compra, DeletarData, DeletarHorario, InserirData, InserirHorario } from "../../Repository/Produto/Datas_horariosRepository.js";
+import { BuscarData_Compra, BuscarData_CompraId, BuscarData_CompraPorData, BuscarHorario_Compra, DeletarData, DeletarHorario, InserirData, InserirHorario } from "../../Repository/Produto/Datas_horariosRepository.js";
 
 import { Router } from "express";
 const endpoints  = Router()
@@ -19,8 +19,11 @@ endpoints.post('/data', async (req, resp) => {
             throw new Error('Campo de data vazio insira ao menos uma data!')
 
 
+        const verificarDtExiste = await BuscarData_CompraPorData(inserirDate.Ingresso,inserirDate.Data)
             
-        
+        if(verificarDtExiste.length != 0)
+            throw new Error('Data já existe para este ingresso, adicione uma data diferente!')
+
         const DataInserida = await InserirData(inserirDate)
 
         resp.send(DataInserida)

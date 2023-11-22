@@ -67,6 +67,29 @@ export async function BuscarData_Compra (idIngresso) {
 }
 
 
+
+export async function BuscarData_CompraPorData (idIngresso, data) {
+
+    const comando = 
+    `
+    SELECT 	ID_DATA_INGRESSO,
+            DATE(DT_INGRESSO) AS DT_INGRESSO
+
+        FROM 			TB_INGRESSO						INGRESSO
+        INNER JOIN		TB_DATAS_INGRESSO				DATAS			ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+
+        WHERE INGRESSO.ID_INGRESSO = ?
+        AND  DT_INGRESSO = ?
+    `
+
+    const [resposta] = await con.query (comando, [idIngresso, data])
+
+    return resposta;
+
+}
+
+
+
 export async function BuscarData_CompraId (idData) {
 
     const comando = 
