@@ -41,18 +41,7 @@ endpoints.post('/pedido', async (req, resp) => {
 
     try {
         const NovoPedido = req.body
-
-        // if(!NovoPedido.PedidoIngresso)
-        //     throw new Error("PedidoIngresso obrigatorio")
-
         
-        // if(!NovoPedido.FormaPagamento)
-        //     throw new Error("FormaPagamento obrigatorio")
-
-        
-        // if(!NovoPedido.Situacao)
-        //     throw new Error("Situacao obrigatorio")
-
         const Pedido = await InserirPedido(NovoPedido)
 
         resp.send(Pedido)
@@ -101,9 +90,6 @@ endpoints.delete('/pedido/:id', async (req,resp) =>{
 
         const deletar = await DeletarPedido(id)
 
-      //  if(deletar == 0)
-            //throw new Error('ingresso não pode ser deletado');
-
         resp.status(204).send()
 
     } catch (err) {
@@ -120,9 +106,6 @@ endpoints.delete('/pedidoIngresso/:id', async (req,resp) => {
         const {id} = req.params
 
         const deletar = await DeletarPedidoIngresso(id)
-
-      //  if(deletar == 0)
-          //  throw new Error('ingresso não pode ser deletado');
 
         resp.status(204).send()
     } catch (err) {
@@ -157,9 +140,8 @@ endpoints.put('/transferencia', async (req,resp) =>{
         
         const {email, ClienteAntigo, pedidoIngresso} = req.query
         
-     //   if(!email)
-           // throw new Error("Email obrigatorio")
-
+        if(!email)
+            throw new Error("Email obrigatorio")
 
         const transferencia = await TransferirIngresso(email , ClienteAntigo, pedidoIngresso)
 
