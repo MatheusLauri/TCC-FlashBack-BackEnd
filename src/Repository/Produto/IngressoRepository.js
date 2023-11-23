@@ -73,7 +73,7 @@ export async function ListarIngressos(){
 export async function ListarIngressosDestaque(){
 
     const comando = `
-    SELECT  	INGRESSO.ID_INGRESSO,
+    SELECT  INGRESSO.ID_INGRESSO,
             NM_CATEGORIA_INGRESSO,
             NM_EVENTO, 
             MIN(DT_INGRESSO) AS DT_COMECO,
@@ -191,32 +191,43 @@ export async function alterarIngresso(id, ingresso){
 export async function removerIngresso(id){
 
     const comando = 
-    ` DELETE FROM   TB_PEDIDO
-            WHERE   ID_PEDIDO_INGRESSO = ?`
+    ` DELETE TB_PEDIDO, TB_PEDIDO_INGRESSO
+    FROM TB_PEDIDO
+    INNER JOIN TB_PEDIDO_INGRESSO ON TB_PEDIDO.ID_PEDIDO_INGRESSO = TB_PEDIDO_INGRESSO.ID_PEDIDO_INGRESSO
+    WHERE TB_PEDIDO_INGRESSO.ID_INGRESSO = ?`
 
     const comando2 = 
     ` DELETE FROM   TB_PEDIDO_INGRESSO
-            WHERE   ID_TIPO_INGRESSO = ?`
+            WHERE   ID_INGRESSO = ?`
 
     const comando3 = 
     ` DELETE FROM   TB_TIPOS_INGRESSO 
              WHERE  ID_INGRESSO = ?
     `
 
-    const comando4 = await DeletarData(id)
+    const comando4 = 
+    ` DELETE FROM TB_HORARIOS_DATAS_INGRESSO
+        WHERE ID_DATA_INGRESSO IN (SELECT ID_DATA_INGRESSO FROM TB_DATAS_INGRESSO WHERE ID_INGRESSO = ?)
+    `
    
-
     const comando5 = 
+    `DELETE FROM TB_DATAS_INGRESSO
+        WHERE ID_INGRESSO = ?
+    `
+
+    const comando6 = 
     ` DELETE FROM   TB_INGRESSO
-            WHERE   ID_INGRESSO = ?`
+            WHERE   ID_INGRESSO = ?
+    `
 
     const [resposta] = await con.query(comando, [id])
     const [resposta2] = await con.query(comando2, [id])
     const [resposta3] = await con.query(comando3, [id])
     const [resposta4] = await con.query(comando4, [id])
     const [resposta5] = await con.query(comando5, [id])
+    const [resposta6] = await con.query(comando6, [id])
 
-    return resposta5.affectedRows
+    return resposta6.affectedRows
 
 }
 
