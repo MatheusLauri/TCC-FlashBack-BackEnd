@@ -28,12 +28,15 @@ endpoints.post('/cliente', async (req, resp) => {
         
         const InserirNovoCliente = req.body
         
-       /* if(!InserirNovoCliente.NomeUsuario)
+        if(!InserirNovoCliente.NomeUsuario)
             throw new Error('Usuario Obrigatório!')
+
+        if(!InserirNovoCliente.CPF)
+            throw new Error('Cpf Obrigatorio')
 
         if(!InserirNovoCliente.Email)
             throw new Error('E-mail Obrigatório!')
-        */
+        
         if(!InserirNovoCliente.Senha)
             throw new Error('Senha Obrigatória!')
 
@@ -95,10 +98,6 @@ endpoints.put('/cliente/alterarInfos/:id', async (req, resp) => {
         const {id} = req.params
 
         const cliente = req.body
-
-        if(isNaN(id))
-            throw new Error('Id obrigatório')
-        
 
         const alterar = await alterarDadosCliente(id, cliente)
 

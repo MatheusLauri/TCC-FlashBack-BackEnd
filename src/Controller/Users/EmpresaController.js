@@ -16,6 +16,19 @@ endpoints.post('/empresa', async (req, resp) => {
 
         const empresaInserida = await InserirEmpresa(InserirNovaEmpresa)
 
+    
+        if(!empresaInserida.NM_RAZAO_SOCIAL)
+            throw new Error ("Razão social Obrigatorio")
+
+        if(!empresaInserida.DS_CNPJ)
+            throw new Error ("CNPJ Obrigatorio")
+
+        if(!empresaInserida.DS_EMAIL_EMPRESA)
+            throw new Error ("Email Obrigatorio")
+
+        if(!empresaInserida.DS_SENHA_EMPRESA)
+            throw new Error ("Senha Obrigatoria")
+
         if(empresaInserida.length > 0)
             throw new Error('empresa já inserida');
 
@@ -106,7 +119,6 @@ endpoints.post('/formulario', async (req,resp) => {
         const razao = url.data.fantasia
         const email = url.data.email
 
-    
         const resposta = await InserirFormulario(cnpj,razao, email, senha)
 
         resp.send(resposta)
