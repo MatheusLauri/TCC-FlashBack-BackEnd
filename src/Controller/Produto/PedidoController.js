@@ -1,6 +1,6 @@
 
 
-import { AdicionarQtdItens, DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso, ListarTudo, TransferirIngresso } from "../../Repository/Produto/PedidoRepository.js";
+import { AdicionarQtdItens, DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso, ListarTipoIngressoPor_IdPedido, ListarTudo, TransferirIngresso } from "../../Repository/Produto/PedidoRepository.js";
 
 import { Router } from "express";
 
@@ -81,6 +81,26 @@ endpoints.get('/pedido', async (req, resp) =>{
         })  
     }
 })
+
+
+
+endpoints.get('/pedidoTipoIngresso/:id_Cliente/:id_Pedido', async (req, resp) =>{
+    try {
+        
+        const {id_Cliente, id_Pedido} = req.params
+
+        const listagem = await ListarTipoIngressoPor_IdPedido(id_Cliente, id_Pedido)
+
+        
+        resp.send(listagem)
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+})
+
 
 endpoints.get('/pedidoIngresso', async (req,resp) => {
     try {

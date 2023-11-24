@@ -6,12 +6,13 @@ export async function InserirPedidoIngresso(pedidoIngresso){
 
     const comando = `
     
-        INSERT INTO TB_PEDIDO_INGRESSO(ID_CLIENTE, ID_CATEGORIA_INGRESSO, ID_LOCAL_EVENTO, ID_INGRESSO, ID_DATA_INGRESSO, ID_HORARIO_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?) 
+        INSERT INTO TB_PEDIDO_INGRESSO(ID_PEDIDO, ID_CLIENTE, ID_CATEGORIA_INGRESSO, ID_LOCAL_EVENTO, ID_INGRESSO, ID_DATA_INGRESSO, ID_HORARIO_INGRESSO, ID_TIPO_INGRESSO, QTD_ITENS)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) 
     `
 
     const [resposta] = await con.query(comando, 
-        [
+        [   
+            pedidoIngresso.Pedido,
             pedidoIngresso.Cliente,
             pedidoIngresso.Categoria, 
             pedidoIngresso.Local,
@@ -33,13 +34,12 @@ export async function InserirPedido(pedido){
 
     const comando = 
     `
-    INSERT INTO tb_pedido (ID_PEDIDO_INGRESSO, ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
-           VALUES (?, ?, now(), true)
+    INSERT INTO tb_pedido (ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
+           VALUES (?, now(), true)
     `
 
     const [resposta] = await con.query(comando, 
     [
-        pedido.PedidoIngresso,
         pedido.FormaPagamento
     ])
 
@@ -54,33 +54,68 @@ export async function InserirPedido(pedido){
 export async function ListarPedido(id){
         const comando = `
     
-        SELECT  	
-        INGRESSO.IMAGEM_INGRESSO,
-        INGRESSO.NM_EVENTO,
-        LOCAL.DS_CEP,
-        LOCAL.DS_LOGRADOURO,
-        LOCAL.DS_BAIRRO,
-        LOCAL.DS_LOCALIDADE,
-        LOCAL.DS_UF,
-        LOCAL.DS_NUM,
-        DATAS.DT_INGRESSO,
-        PEDIDO.BT_SITUACAO
-        
+        SELECT  INGRESSO.IMAGEM_INGRESSO,
+                PEDIDO.ID_PEDIDO,
+                TIPO.ID_TIPO_INGRESSO,
+                INGRESSO.NM_EVENTO,
+                LOCAL.DS_CEP,
+                LOCAL.DS_LOGRADOURO,
+                LOCAL.DS_BAIRRO,
+                LOCAL.DS_LOCALIDADE,
+                LOCAL.DS_UF,
+                LOCAL.DS_NUM,
+                DATAS.DT_INGRESSO,
+                DT_PEDIDO,
+                PEDIDO.BT_SITUACAO  
+                
     FROM 			TB_PEDIDO						PEDIDO
-    INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON PDINGRESSO.ID_PEDIDO_INGRESSO = PEDIDO.ID_PEDIDO_INGRESSO
+    INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON PDINGRESSO.ID_PEDIDO = PEDIDO.ID_PEDIDO
     INNER JOIN 		TB_CADASTRO_CLIENTE 	 		CLIENTE					ON CLIENTE.ID_CLIENTE = PDINGRESSO.ID_CLIENTE
     INNER JOIN 		TB_INGRESSO 	 				INGRESSO				ON INGRESSO.ID_INGRESSO = PDINGRESSO.ID_INGRESSO
-    INNER JOIN		TB_LOCAL_EVENTO					LOCAL					ON LOCAL.ID_LOCAL_EVENTO = INGRESSO.ID_LOCAL_EVENTO
+    INNER JOIN		TB_LOCAL_EVENTO					LOCAL					ON LOCAL.ID_LOCAL_EVENTO = PDINGRESSO.ID_LOCAL_EVENTO
     INNER JOIN 		TB_TIPOS_INGRESSO 	 			TIPO					ON TIPO.ID_TIPO_INGRESSO = PDINGRESSO.ID_TIPO_INGRESSO
     INNER JOIN 		TB_FORMA_PAGAMENTO   			FORMA_PAGAMENTO			ON FORMA_PAGAMENTO.ID_FORMA_PAGAMENTO = PEDIDO.ID_FORMA_PAGAMENTO
-    INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON DATAS.ID_INGRESSO = INGRESSO.ID_INGRESSO
+    INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON DATAS.ID_DATA_INGRESSO = PDINGRESSO.ID_DATA_INGRESSO
     WHERE PDINGRESSO.ID_CLIENTE = ?
-    ORDER BY PEDIDO.DT_PEDIDO DESC;
+    ORDER BY PEDIDO.DT_PEDIDO DESC
     `
 
     const [resposta] = await con.query(comando,id)
 
     return resposta
+}
+
+
+
+export async function ListarTipoIngressoPor_IdPedido(id_cliente, Id_pedido){
+    const comando = `
+
+    SELECT  TIPO.ID_TIPO_INGRESSO,
+            DATAS.ID_DATA_INGRESSO,
+            TIPO.NM_TIPO_INGRESSO,
+            TIPO.VL_PRECO_TIPO,
+            PDINGRESSO.QTD_ITENS,
+            DATAS.DT_INGRESSO,
+            HORARIOS.DS_HORARIO
+    
+    
+        FROM 			TB_PEDIDO						PEDIDO
+        INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON 		PDINGRESSO.ID_PEDIDO = PEDIDO.ID_PEDIDO
+        INNER JOIN 		TB_CADASTRO_CLIENTE 	 		CLIENTE					ON 		CLIENTE.ID_CLIENTE = PDINGRESSO.ID_CLIENTE
+        INNER JOIN 		TB_INGRESSO 	 				INGRESSO				ON 		INGRESSO.ID_INGRESSO = PDINGRESSO.ID_INGRESSO
+        INNER JOIN		TB_LOCAL_EVENTO					LOCAL					ON		LOCAL.ID_LOCAL_EVENTO = PDINGRESSO.ID_LOCAL_EVENTO
+        INNER JOIN 		TB_TIPOS_INGRESSO 	 			TIPO					ON 		TIPO.ID_TIPO_INGRESSO = PDINGRESSO.ID_TIPO_INGRESSO
+        INNER JOIN		TB_DATAS_INGRESSO				DATAS					ON 		DATAS.ID_DATA_INGRESSO = PDINGRESSO.ID_DATA_INGRESSO
+        INNER JOIN		TB_HORARIOS_DATAS_INGRESSO		HORARIOS				ON 		PDINGRESSO.ID_HORARIO_INGRESSO = HORARIOS.ID_HORARIO_INGRESSO
+
+        WHERE PDINGRESSO.ID_CLIENTE = ?
+        AND PEDIDO.ID_PEDIDO = ?
+        ORDER BY TIPO.ID_TIPO_INGRESSO
+`
+
+const [resposta] = await con.query(comando, [id_cliente, Id_pedido])
+
+return resposta
 }
 
 
@@ -129,14 +164,24 @@ export async function ListarPedidoIngresso(){
 }
 
 
+
 export async function DeletarPedido(id){
-    const comando = 
+    
+    const comando1 = 
+    `
+
+        DELETE FROM TB_PEDIDO_INGRESSO 
+                    WHERE ID_PEDIDO = ?
+
+    `
+    const comando2 = 
     `
         DELETE FROM TB_PEDIDO 
                     WHERE ID_PEDIDO = ?
     `
 
-    const [resposta] = await con.query(comando,[id])
+    const [resposta] = await con.query(comando1,[id])
+    const [resposta2] = await con.query(comando2,[id])
 
     return resposta.affectedRows
 }
