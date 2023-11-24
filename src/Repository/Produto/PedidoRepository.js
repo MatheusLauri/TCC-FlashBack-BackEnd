@@ -34,7 +34,7 @@ export async function InserirPedido(pedido){
 
     const comando = 
     `
-    INSERT INTO tb_pedido (ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
+    INSERT INTO TB_PEDIDO (ID_FORMA_PAGAMENTO, DT_PEDIDO, BT_SITUACAO) 
            VALUES (?, now(), true)
     `
 
