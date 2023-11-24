@@ -10,15 +10,15 @@ endpoints.post('/Cartao', async (req,resp) => {
 
         const inserir = req.body
 
-        // if(!inserir.Numero)
-        //     throw new Error("Numero do cartão Obrigatorio")
+         if(!inserir.Numero)
+             throw new Error("Numero do cartão Obrigatorio")
 
             
-        // if(!inserir.Validade)
-        //     throw new Error("Validade do cartão Obrigatorio")
+         if(!inserir.Validade)
+            throw new Error("Validade do cartão Obrigatorio")
 
-        // if(!inserir.Cvv)
-        //     throw new Error("Cvv do cartão Obrigatorio")
+         if(!inserir.Cvv)
+           throw new Error("Cvv do cartão Obrigatorio")
 
         const CartaoInserido = await inserirCartao(inserir)
 
@@ -36,9 +36,6 @@ endpoints.post('/Pagamento', async (req,resp) => {
     try {
         
         const pag = req.body
-
-        // if(!pag.FormaDePag)
-        //     throw new Error("Forma de pagamento Obrigatorio")
 
         const PagamentoInserido = await FormaPagamento(pag)
 

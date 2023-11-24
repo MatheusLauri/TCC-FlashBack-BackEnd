@@ -15,7 +15,7 @@ endpoints.post('/categoria', async (req, resp) => {
         const inserirCategoria = req.body
 
         if (!inserirCategoria.Categoria)
-            throw new Error('Categoria obrigatoria!');  
+            throw new Error('Categoria obrigatoria!')  
         
         const categoriainserida = await inserirCategoriaIngresso(inserirCategoria)
 
@@ -36,7 +36,6 @@ endpoints.post('/categoria', async (req, resp) => {
 endpoints.get('/categoria', async (req, resp) => {
 
     try {
-        // n tem validação
         const categorias = await listarCategorias()
 
         resp.send(categorias)
@@ -61,11 +60,6 @@ endpoints.put('/categoria/:id', async (req, resp) => {
 
         if(!categoria.Categoria)
             throw new Error('Nome categoria obrigatoria!');
-
-
-        if(isNaN(id))   
-            throw new Error('Id tem que ser numero'); 
-
 
         const categoriaAlterada = await alterarCategoria(id, categoria)
 

@@ -28,12 +28,6 @@ endpoints.post('/ingresso', async (req, resp) => {
         if(!inserir.Descricao)
             throw new Error('Descrição obrigatória!')
      
-        // if(!inserir.DataComeco)
-        //    throw new Error('Data de início obrigatória!')
-
-        // if(!inserir.DataFim)
-        //    throw new Error('Data de fim obrigatória!')
-
 
         const ingressoInserido = await inserirIngresso(inserir)
 
@@ -147,16 +141,7 @@ endpoints.put('/ingresso/:id', async (req, resp) => {
 
         if(!ingresso.Descricao)
             throw new Error('Descrição obrigatória!')
-     
-        // if(!ingresso.DataComeco)
-        //    throw new Error('Data de início obrigatória!')
-
-        // if(!ingresso.DataFim)
-        //    throw new Error('Data de fim obrigatória!')
-
-        if(isNaN(id))
-            throw new Error('Id obrigatório')
-        
+      
 
         const alterar = await alterarIngresso(id, ingresso)
 
