@@ -96,8 +96,12 @@ export async function ListarTipoIngressoPor_IdPedido(id_cliente, Id_pedido){
             TIPO.VL_PRECO_TIPO,
             PDINGRESSO.QTD_ITENS,
             DATAS.DT_INGRESSO,
-            HORARIOS.DS_HORARIO
-    
+            HORARIOS.DS_HORARIO,
+            LOCAL.DS_LOGRADOURO,
+            LOCAL.DS_BAIRRO,
+            DS_LOCALIDADE,
+            LOCAL.DS_UF,
+            LOCAL.DS_NUM    
     
         FROM 			TB_PEDIDO						PEDIDO
         INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON 		PDINGRESSO.ID_PEDIDO = PEDIDO.ID_PEDIDO

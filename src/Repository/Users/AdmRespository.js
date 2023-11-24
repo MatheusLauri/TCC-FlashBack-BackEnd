@@ -78,12 +78,12 @@ export async function TodasCompras(){
     `
    
     SELECT 
-        P.*, 
-        PI.*,
-        FP.*
+    P.*, 
+    PI.*,
+    FP.*
     FROM 
     TB_PEDIDO P
-    INNER JOIN TB_PEDIDO_INGRESSO PI ON P.ID_PEDIDO_INGRESSO = PI.ID_PEDIDO_INGRESSO
+    INNER JOIN TB_PEDIDO_INGRESSO PI ON P.ID_PEDIDO = PI.ID_PEDIDO
     INNER JOIN TB_FORMA_PAGAMENTO FP ON P.ID_FORMA_PAGAMENTO = FP.ID_FORMA_PAGAMENTO
     `
 
