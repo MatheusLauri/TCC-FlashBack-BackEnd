@@ -1,6 +1,6 @@
 
 
-import { AdicionarQtdItens, DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso, ListarTipoIngressoPor_IdPedido, ListarTudo, TransferirIngresso } from "../../Repository/Produto/PedidoRepository.js";
+import { AdicionarQtdItens, DeletarPedido, DeletarPedidoIngresso, InserirPedido, InserirPedidoIngresso, ListarPedido, ListarPedidoIngresso, ListarPedidoPorEmpresa, ListarTipoIngressoPor_IdPedido, ListarTudo, TransferirIngresso } from "../../Repository/Produto/PedidoRepository.js";
 
 import { Router } from "express";
 
@@ -81,6 +81,27 @@ endpoints.get('/pedidoTipoIngresso/:id_Cliente/:id_Pedido', async (req, resp) =>
         const listagem = await ListarTipoIngressoPor_IdPedido(id_Cliente, id_Pedido)
 
         
+        resp.send(listagem)
+
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })  
+    }
+})
+
+
+
+endpoints.get('/pedido/empresa/:id', async (req, resp) =>{
+    try {
+        
+        const {id} = req.params
+
+        const listagem = await ListarPedidoPorEmpresa(id)
+
+        if(listagem.length === 0)
+            throw new Error('Nenhum pedido encontrado!')
+
         resp.send(listagem)
 
     } catch (err) {
