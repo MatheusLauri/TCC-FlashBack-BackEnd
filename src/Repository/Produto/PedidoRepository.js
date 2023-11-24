@@ -218,7 +218,7 @@ export async function DeletarPedidoIngresso(id){
 }
 
 
-export async function AdicionarQtdItens(adicionar,id){ 
+export async function AdicionarQtdItens(adicionar, id){ 
 
 
     const comando = 
@@ -281,7 +281,7 @@ export async function ListarTudo(){
     SELECT  	*
             
 	FROM 			TB_PEDIDO						PEDIDO
-	INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON PDINGRESSO.ID_PEDIDO_INGRESSO = PEDIDO.ID_PEDIDO_INGRESSO
+	INNER JOIN 		TB_PEDIDO_INGRESSO 	 		    PDINGRESSO				ON PDINGRESSO.ID_PEDIDO = PEDIDO.ID_PEDIDO
 	INNER JOIN 		TB_CADASTRO_CLIENTE 	 		CLIENTE					ON CLIENTE.ID_CLIENTE = PDINGRESSO.ID_CLIENTE
     INNER JOIN 		TB_INGRESSO 	 				INGRESSO				ON INGRESSO.ID_INGRESSO = PDINGRESSO.ID_INGRESSO
     INNER JOIN 		TB_CADASTRO_EMPRESA				EMPRESA					ON EMPRESA.ID_EMPRESA = INGRESSO.ID_EMPRESA
