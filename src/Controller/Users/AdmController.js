@@ -114,10 +114,10 @@ endpoints.get('/CompraData', async (req,resp) => {
 })
 
 
-endpoints.get('/CompraPorCategoria', async (req,resp) => {
+endpoints.get('/CompraPorCategoria/:categoria', async (req,resp) => {
     try {
         
-        const {categoria} = req.query
+        const {categoria} = req.params
 
         const cat = await compraPorCategoria(categoria)
 
